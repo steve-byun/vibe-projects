@@ -26,9 +26,9 @@
 
 | 프로젝트 | Vercel URL | Git 자동배포 | Root Directory |
 |---------|------------|-------------|----------------|
-| BMI 계산기 | https://bmi-calculator-topaz-five.vercel.app | ✅ 연결됨 | `projects/bmi-calculator` |
-| 팁 계산기 | https://tip-calculator-nu-flax.vercel.app | ✅ 연결됨 | `projects/tip-calculator` |
-| 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | ✅ 연결됨 | `projects/currency-calculator` |
+| BMI 계산기 | https://bmi-calculator-topaz-five.vercel.app | ✅ 연결됨 | `revenue-project-factory/projects/bmi-calculator` |
+| 팁 계산기 | https://tip-calculator-nu-flax.vercel.app | ✅ 연결됨 | `revenue-project-factory/projects/tip-calculator` |
+| 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | ✅ 연결됨 | `revenue-project-factory/projects/currency-calculator` |
 
 ---
 
