@@ -27,8 +27,9 @@
 
 **사용자 정보**:
 - AdSense 클라이언트 ID: `ca-pub-4976487856728705`
-- 배포 플랫폼: Netlify
-- 기존 사이트: https://playful-llama-64ad1f.netlify.app
+- 배포 플랫폼: **Vercel** (Git 자동 배포)
+- GitHub: https://github.com/steve-byun/revenue-project-factory
+- 현재 상태: [CURRENT_STATUS.md](./CURRENT_STATUS.md) 참고
 
 ---
 
@@ -79,29 +80,35 @@ npx serve .
 
 브라우저에서 http://localhost:3000 확인
 
-### Step 6: Netlify 배포
+### Step 6: Vercel 자동 배포 (Git Push)
 
-**방법 A: 수동 배포 (가장 확실)**
-1. https://app.netlify.com 접속
-2. "Add new site" → "Deploy manually"
-3. 프로젝트 폴더 드래그 앤 드롭
-4. URL 받기
+**GitHub + Vercel 자동 배포 설정 완료됨!**
 
-**방법 B: CLI 배포 (시도해볼 수 있음)**
 ```bash
+# 변경사항 커밋 & 푸시
 cd revenue-project-factory
-node scripts/deploy.js [프로젝트명] netlify
+git add .
+git commit -m "Add [프로젝트명]"
+git push
 ```
 
-단, CLI에 버그가 있을 수 있으므로 실패하면 방법 A 사용
+Vercel이 자동으로 배포합니다!
+
+**새 프로젝트 추가 시 Vercel 설정 필요:**
+1. https://vercel.com/new 접속
+2. `steve-byun/revenue-project-factory` 선택
+3. Root Directory: `projects/[프로젝트명]` 입력
+4. Deploy 클릭
+5. Settings → Git → GitHub 연결 확인
 
 ### Step 7: 배포 확인
-```bash
-# 웹에서 확인
-curl https://[사이트URL] | grep "ca-pub-4976487856728705"
-```
 
-AdSense 코드가 있으면 성공!
+배포된 URL에서 확인:
+- BMI: https://bmi-calculator-topaz-five.vercel.app
+- 팁: https://tip-calculator-nu-flax.vercel.app
+- 환율: https://currency-calculator-dun-mu.vercel.app
+
+AdSense 코드가 페이지 소스에 있으면 성공!
 
 ---
 
@@ -238,31 +245,33 @@ const ADSENSE_CONFIG = {
 
 ## 🚀 배포 프로세스
 
-### Netlify 수동 배포 (권장)
+### Vercel 자동 배포 (현재 사용 중)
 
-**단계**:
-1. 프로젝트 폴더 준비
-   ```
-   revenue-project-factory/projects/[프로젝트명]/
-   ```
+**Git Push로 자동 배포:**
+```bash
+cd revenue-project-factory
+git add .
+git commit -m "Update [프로젝트명]"
+git push
+```
 
-2. Netlify 접속
-   ```
-   https://app.netlify.com
-   ```
+Vercel이 자동으로 해당 프로젝트를 재배포합니다!
 
-3. 배포 방법 선택:
-   - **신규 사이트**: "Add new site" → "Deploy manually"
-   - **기존 사이트 업데이트**: 사이트 페이지 → "Deploys" → 드래그 앤 드롭
+### 새 프로젝트 Vercel에 추가하기
 
-4. 폴더 업로드
-   - 프로젝트 폴더 전체를 드래그 앤 드롭
-   - 또는 "browse to upload"로 폴더 선택
-
-5. 배포 완료 확인
-   - URL 받기: `https://[랜덤-이름].netlify.app`
-   - 사이트 작동 확인
-   - AdSense 코드 확인 (페이지 소스 보기)
+1. **프로젝트 생성** (Claude에게 요청)
+2. **Vercel Import**:
+   - https://vercel.com/new 접속
+   - `steve-byun/revenue-project-factory` 선택
+   - Root Directory: `projects/[프로젝트명]` 입력
+   - Deploy 클릭
+3. **Git 연결**:
+   - Settings → Git → Connect Git Repository
+   - `steve-byun/revenue-project-factory` 선택
+4. **Root Directory 설정**:
+   - Settings → Build and Deployment
+   - Root Directory: `projects/[프로젝트명]`
+   - Save
 
 ### 배포 후 체크리스트
 - [ ] 사이트가 정상적으로 로드됨
@@ -392,10 +401,12 @@ head -20 revenue-project-factory/projects/[프로젝트명]/index.html
 grep "ca-pub-4976487856728705" revenue-project-factory/projects/[프로젝트명]/index.html
 ```
 
-### 문제 2: Netlify CLI 오류
+### 문제 2: Vercel 배포 실패
 
-**해결**: 수동 배포 사용
-- https://app.netlify.com에서 드래그 앤 드롭
+**해결**:
+- Vercel 대시보드에서 에러 로그 확인
+- Root Directory 설정 확인
+- Git 연결 상태 확인
 
 ### 문제 3: 캐시 문제
 
@@ -410,10 +421,10 @@ grep "ca-pub-4976487856728705" revenue-project-factory/projects/[프로젝트명
 
 - [프로젝트 README](../README.md)
 - [템플릿 가이드](./TEMPLATE_GUIDE.md)
-- [배포 가이드](./DEPLOYMENT_GUIDE.md)
+- [현재 상태](./CURRENT_STATUS.md)
 
 ---
 
-**마지막 업데이트**: 2026-01-26
-**버전**: 1.0
+**마지막 업데이트**: 2026-01-27
+**버전**: 2.0 (Vercel 자동 배포 전환)
 **작성자**: Claude Code
