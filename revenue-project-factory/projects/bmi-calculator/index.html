@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="무료 BMI 계산기 - 체질량지수 계산, 비만도 측정, 표준체중 확인">
+    <meta name="keywords" content="BMI 계산기, 체질량지수, 비만도 측정, 표준체중, 건강 체크">
+    <title>무료 BMI 계산기 | 체질량지수 비만도 측정</title>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
+         crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚖️ BMI 계산기</h1>
+            <p class="subtitle">체질량지수로 건강 상태 확인하기</p>
+        </header>
+
+        <!-- 상단 광고 -->
+        <div class="ad-container" id="top-ad">
+            <div class="ad-placeholder">광고 영역 (AdSense 코드 삽입)</div>
+        </div>
+
+        <div class="calculator-wrapper">
+            <!-- 입력 영역 -->
+            <div class="input-section">
+                <h2>정보 입력</h2>
+
+                <div class="input-group">
+                    <label for="height">키 (cm)</label>
+                    <input type="number" id="height" value="170" min="50" max="250" step="0.1">
+                    <span class="helper-text">예: 170.5</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="weight">몸무게 (kg)</label>
+                    <input type="number" id="weight" value="65" min="20" max="300" step="0.1">
+                    <span class="helper-text">예: 65.5</span>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateBMI()">계산하기</button>
+            </div>
+
+            <!-- 결과 영역 -->
+            <div class="result-section" id="resultSection">
+                <h2>계산 결과</h2>
+
+                <div class="bmi-display">
+                    <div class="bmi-value" id="bmiValue">0.0</div>
+                    <div class="bmi-status" id="bmiStatus">-</div>
+                </div>
+
+                <div class="bmi-chart" id="bmiChart">
+                    <div class="bmi-bar underweight">
+                        <span>저체중</span>
+                        <span class="range">&lt;18.5</span>
+                    </div>
+                    <div class="bmi-bar normal">
+                        <span>정상</span>
+                        <span class="range">18.5-24.9</span>
+                    </div>
+                    <div class="bmi-bar overweight">
+                        <span>과체중</span>
+                        <span class="range">25-29.9</span>
+                    </div>
+                    <div class="bmi-bar obese">
+                        <span>비만</span>
+                        <span class="range">30+</span>
+                    </div>
+                    <div class="indicator" id="indicator"></div>
+                </div>
+
+                <div class="result-details">
+                    <div class="detail-item">
+                        <div class="detail-label">표준 체중</div>
+                        <div class="detail-value" id="standardWeight">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">표준 체중과의 차이</div>
+                        <div class="detail-value" id="weightDiff">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">적정 체중 범위</div>
+                        <div class="detail-value" id="healthyRange">-</div>
+                    </div>
+                </div>
+
+                <div class="advice-section" id="adviceSection">
+                    <h3>건강 조언</h3>
+                    <p id="adviceText"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 설명 섹션 -->
+        <div class="info-section">
+            <h2>BMI(체질량지수)란?</h2>
+            <p>BMI(Body Mass Index)는 체중과 키를 이용하여 지방의 양을 추정하는 비만도 측정 지수입니다.</p>
+
+            <div class="info-cards">
+                <div class="info-card underweight-card">
+                    <h3>🔵 저체중 (BMI &lt; 18.5)</h3>
+                    <p>체중이 정상보다 낮습니다. 영양 섭취를 늘리고 근력 운동을 권장합니다.</p>
+                </div>
+                <div class="info-card normal-card">
+                    <h3>🟢 정상 (BMI 18.5-24.9)</h3>
+                    <p>이상적인 체중입니다. 현재의 건강한 생활 습관을 유지하세요.</p>
+                </div>
+                <div class="info-card overweight-card">
+                    <h3>🟡 과체중 (BMI 25-29.9)</h3>
+                    <p>체중이 다소 높습니다. 규칙적인 운동과 식단 조절을 권장합니다.</p>
+                </div>
+                <div class="info-card obese-card">
+                    <h3>🔴 비만 (BMI 30 이상)</h3>
+                    <p>건강에 주의가 필요합니다. 전문가와 상담하여 체중 관리 계획을 세우세요.</p>
+                </div>
+            </div>
+
+            <div class="formula">
+                <h3>계산 공식</h3>
+                <p>BMI = 체중(kg) ÷ (키(m) × 키(m))</p>
+                <p class="example">예: 체중 65kg, 키 170cm → 65 ÷ (1.7 × 1.7) = 22.5</p>
+            </div>
+        </div>
+
+        <!-- 하단 광고 -->
+        <div class="ad-container" id="bottom-ad">
+            <div class="ad-placeholder">광고 영역 (AdSense 코드 삽입)</div>
+        </div>
+
+        <footer>
+            <p>본 계산기는 참고용이며, 정확한 건강 진단은 전문의와 상담하세요.</p>
+            <p>&copy; 2026 BMI 계산기. Made with Claude Code.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="무료 팁 계산기 - 팁 금액 계산, N분의 1 계산, 편리한 팁 계산">
+    <meta name="keywords" content="팁 계산기, 팁 금액, 더치페이, N분의 1, 팁 퍼센트">
+    <title>무료 팁 계산기 | 간편한 팁 금액 계산</title>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
+         crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💵 팁 계산기</h1>
+            <p class="subtitle">빠르고 정확한 팁 금액 계산</p>
+        </header>
+
+        <!-- 상단 광고 -->
+        <div class="ad-container" id="top-ad">
+            <div class="ad-placeholder">광고 영역 (AdSense 코드 삽입)</div>
+        </div>
+
+        <div class="calculator-wrapper">
+            <!-- 입력 영역 -->
+            <div class="input-section">
+                <h2>정보 입력</h2>
+
+                <div class="input-group">
+                    <label for="billAmount">계산서 금액 (원)</label>
+                    <input type="text" id="billAmount" value="50,000" placeholder="예: 50,000">
+                    <span class="helper-text">콤마(,)는 자동으로 표시됩니다</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="tipPercent">팁 퍼센트 (%)</label>
+                    <input type="number" id="tipPercent" value="10" min="0" max="100" step="1">
+                    <div class="tip-presets">
+                        <button class="preset-btn" onclick="setTipPercent(10)">10%</button>
+                        <button class="preset-btn" onclick="setTipPercent(15)">15%</button>
+                        <button class="preset-btn" onclick="setTipPercent(20)">20%</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="peopleCount">인원 수 (명)</label>
+                    <input type="number" id="peopleCount" value="1" min="1" max="100" step="1">
+                    <span class="helper-text">1인당 금액을 계산합니다</span>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateTip()">계산하기</button>
+            </div>
+
+            <!-- 결과 영역 -->
+            <div class="result-section" id="resultSection">
+                <h2>계산 결과</h2>
+
+                <div class="result-summary">
+                    <div class="result-item highlight">
+                        <div class="result-label">팁 금액</div>
+                        <div class="result-value" id="tipAmount">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">총 금액</div>
+                        <div class="result-value" id="totalAmount">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">1인당 금액</div>
+                        <div class="result-value" id="perPersonAmount">-</div>
+                    </div>
+                </div>
+
+                <!-- 상세 분할 -->
+                <div class="split-details" id="splitDetails">
+                    <h3>1인당 상세 내역</h3>
+                    <div class="split-row">
+                        <span class="split-label">계산서 금액</span>
+                        <span class="split-value" id="perPersonBill">-</span>
+                    </div>
+                    <div class="split-row">
+                        <span class="split-label">팁</span>
+                        <span class="split-value" id="perPersonTip">-</span>
+                    </div>
+                    <div class="split-row total">
+                        <span class="split-label">합계</span>
+                        <span class="split-value" id="perPersonTotal">-</span>
+                    </div>
+                </div>
+
+                <!-- 차트 영역 -->
+                <div class="chart-section">
+                    <h3>금액 구성</h3>
+                    <div class="chart" id="chart">
+                        <div class="chart-bar bill-bar" id="billBar">
+                            <span id="billPercent">0%</span>
+                        </div>
+                        <div class="chart-bar tip-bar" id="tipBar">
+                            <span id="tipPercent">0%</span>
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color bill"></div>
+                            <span>계산서 금액</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color tip"></div>
+                            <span>팁</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 설명 섹션 -->
+        <div class="info-section">
+            <h2>팁 계산기 사용법</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>💰 기본 팁 계산</h3>
+                    <p>계산서 금액을 입력하고 팁 퍼센트를 선택하면 자동으로 팁 금액이 계산됩니다.</p>
+                    <p><strong>일반적인 팁 비율:</strong> 10% (보통), 15% (좋음), 20% (훌륭함)</p>
+                </div>
+                <div class="info-card">
+                    <h3>👥 더치페이 (N분의 1)</h3>
+                    <p>인원 수를 입력하면 1인당 내야 할 금액이 자동으로 계산됩니다.</p>
+                    <p>팁을 포함한 총 금액을 인원수로 나눈 금액이 표시됩니다.</p>
+                </div>
+                <div class="info-card">
+                    <h3>⚡ 빠른 계산</h3>
+                    <p>10%, 15%, 20% 버튼을 클릭하면 바로 해당 비율로 계산됩니다.</p>
+                    <p>입력값 변경 시 자동으로 재계산되어 편리합니다.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🌍 팁 문화</h3>
+                    <p>미국, 캐나다 등에서는 15-20%의 팁이 일반적입니다.</p>
+                    <p>한국에서는 팁 문화가 일반적이지 않지만, 해외 여행 시 유용하게 사용할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 광고 -->
+        <div class="ad-container" id="bottom-ad">
+            <div class="ad-placeholder">광고 영역 (AdSense 코드 삽입)</div>
+        </div>
+
+        <footer>
+            <p>본 계산기는 참고용이며, 실제 팁 금액은 서비스 품질에 따라 조절하실 수 있습니다.</p>
+            <p>&copy; 2026 팁 계산기. Made with Claude Code.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

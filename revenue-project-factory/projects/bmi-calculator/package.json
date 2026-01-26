@@ -1,0 +1,16 @@
+{
+  "name": "bmi-calculator",
+  "version": "1.0.0",
+  "description": "bmi-calculator - Revenue project",
+  "scripts": {
+    "start": "npx serve .",
+    "deploy": "echo \"배포 스크립트를 설정하세요\""
+  },
+  "keywords": [
+    "web",
+    "utility",
+    "adsense"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
