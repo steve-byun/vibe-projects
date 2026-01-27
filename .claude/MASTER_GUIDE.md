@@ -4,25 +4,25 @@
 
 ---
 
-## 세션 시작/종료 규칙
+## 세션 시작/종료 명령어
 
-### "시작 준비하자" (또는 유사한 표현)
-```bash
-cd c:\Steve\01_Vibe_Projects
-git pull origin main
-```
-- 최신 데이터를 GitHub에서 가져옴
-- CURRENT_STATUS.md를 읽고 현재 상태 파악
+### 시작: `/start` 또는 `ㄱㄱ`
+사용자가 이 명령어를 입력하면 Claude가 자동으로:
+1. `git pull origin main` - 최신 데이터 가져오기
+2. `.claude/` 폴더의 모든 md 파일 읽기:
+   - MASTER_GUIDE.md (이 파일)
+   - CURRENT_STATUS.md (현재 상태)
+   - TEMPLATE_GUIDE.md (템플릿 가이드)
+   - HOW_TO_USE.md (사용자 가이드)
+3. 현재 상태 요약 출력
 
-### "오늘은 여기까지만 하자" (또는 유사한 표현)
-```bash
-cd c:\Steve\01_Vibe_Projects
-git add -A
-git commit -m "작업 내용 요약"
-git push
-```
-- 모든 변경사항을 GitHub에 업로드
-- CURRENT_STATUS.md 업데이트 (필요시)
+### 종료: `/end` 또는 `ㅈㅈ`
+사용자가 이 명령어를 입력하면 Claude가 자동으로:
+1. 오늘 작업 내용으로 CURRENT_STATUS.md 업데이트
+2. `git add -A` - 모든 변경사항 스테이징
+3. `git commit -m "작업 내용 요약"` - 커밋
+4. `git push` - GitHub에 업로드
+5. 오늘 작업 요약 출력
 
 ---
 
