@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 크로스체커 | GPT vs Gemini 비교</title>
+    <meta name="description" content="GPT와 Gemini에 동시에 질문하고 답변을 비교 분석하는 도구">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI 크로스체커</h1>
+            <p class="subtitle">GPT와 Gemini 답변을 비교하고 크로스체킹</p>
+        </header>
+
+        <!-- API 키 설정 -->
+        <div class="settings-section" id="settingsSection">
+            <h2>API 키 설정</h2>
+            <p class="settings-desc">API 키는 브라우저에만 저장되며 서버로 전송되지 않습니다.</p>
+            <div class="api-inputs">
+                <div class="input-group">
+                    <label for="openaiKey">OpenAI API Key</label>
+                    <input type="password" id="openaiKey" placeholder="sk-...">
+                    <a href="https://platform.openai.com/api-keys" target="_blank" class="help-link">키 발급받기</a>
+                </div>
+                <div class="input-group">
+                    <label for="geminiKey">Google AI API Key</label>
+                    <input type="password" id="geminiKey" placeholder="AI...">
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="help-link">키 발급받기</a>
+                </div>
+            </div>
+            <button class="save-btn" onclick="saveApiKeys()">키 저장</button>
+            <button class="toggle-btn" onclick="toggleSettings()">설정 닫기</button>
+        </div>
+
+        <button class="settings-toggle" id="settingsToggle" onclick="toggleSettings()">API 설정</button>
+
+        <!-- 질문 입력 -->
+        <div class="question-section">
+            <h2>질문하기</h2>
+            <textarea id="questionInput" placeholder="GPT와 Gemini에게 동시에 물어볼 질문을 입력하세요..."></textarea>
+            <button class="ask-btn" onclick="askBothAIs()" id="askBtn">동시에 질문하기</button>
+        </div>
+
+        <!-- 1차 결과 -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>1차 답변</h2>
+            <div class="results-grid">
+                <div class="result-card gpt">
+                    <div class="card-header">
+                        <span class="ai-badge gpt-badge">GPT-4</span>
+                        <span class="status" id="gptStatus">대기중</span>
+                    </div>
+                    <div class="card-content" id="gptResult">
+                        <div class="loading">응답 대기중...</div>
+                    </div>
+                </div>
+                <div class="result-card gemini">
+                    <div class="card-header">
+                        <span class="ai-badge gemini-badge">Gemini</span>
+                        <span class="status" id="geminiStatus">대기중</span>
+                    </div>
+                    <div class="card-content" id="geminiResult">
+                        <div class="loading">응답 대기중...</div>
+                    </div>
+                </div>
+            </div>
+            <button class="cross-check-btn" onclick="crossCheck()" id="crossCheckBtn" disabled>크로스체킹 시작</button>
+        </div>
+
+        <!-- 크로스체킹 결과 -->
+        <div class="cross-check-section" id="crossCheckSection" style="display: none;">
+            <h2>크로스체킹 결과</h2>
+            <div class="results-grid">
+                <div class="result-card gpt">
+                    <div class="card-header">
+                        <span class="ai-badge gpt-badge">GPT의 Gemini 검토</span>
+                    </div>
+                    <div class="card-content" id="gptReview">
+                        <div class="loading">검토중...</div>
+                    </div>
+                </div>
+                <div class="result-card gemini">
+                    <div class="card-header">
+                        <span class="ai-badge gemini-badge">Gemini의 GPT 검토</span>
+                    </div>
+                    <div class="card-content" id="geminiReview">
+                        <div class="loading">검토중...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 최종 비교 -->
+        <div class="final-section" id="finalSection" style="display: none;">
+            <h2>최종 비교</h2>
+            <div class="final-content">
+                <div class="common-section">
+                    <h3>공통 의견</h3>
+                    <div id="commonOpinion">분석중...</div>
+                </div>
+                <div class="diff-section">
+                    <div class="diff-column gpt">
+                        <h3>GPT 고유 의견</h3>
+                        <div id="gptUnique">분석중...</div>
+                    </div>
+                    <div class="diff-column gemini">
+                        <h3>Gemini 고유 의견</h3>
+                        <div id="geminiUnique">분석중...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>API 키는 로컬에만 저장됩니다. 새로고침해도 유지됩니다.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

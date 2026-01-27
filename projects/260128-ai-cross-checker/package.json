@@ -1,0 +1,11 @@
+{
+  "name": "ai-cross-checker",
+  "version": "1.0.0",
+  "description": "GPT와 Gemini 답변을 비교하고 크로스체킹하는 도구",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": ["ai", "gpt", "gemini", "comparison", "cross-check"],
+  "author": "steve-byun",
+  "license": "MIT"
+}
