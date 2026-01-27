@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퍼센트 계산기 | 비율 계산</title>
+    <meta name="description" content="무료 퍼센트 계산기 - 비율 계산, 증감률 계산, 퍼센트 변환을 쉽게 계산하세요.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
+         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 퍼센트 계산기</h1>
+            <p class="subtitle">비율 계산, 증감률, 퍼센트 변환</p>
+        </header>
+
+        <div class="ad-container">
+            <div class="ad-placeholder">광고 영역 (AdSense 승인 후 표시)</div>
+        </div>
+
+        <div class="calculator-wrapper">
+            <!-- 계산기 1: A의 B%는? -->
+            <div class="calc-section">
+                <h2>🔢 A의 B%는 얼마?</h2>
+                <p class="calc-desc">예: 500의 20%는?</p>
+                <div class="input-row">
+                    <input type="number" id="calc1-value" placeholder="숫자 (A)">
+                    <span class="operator">의</span>
+                    <input type="number" id="calc1-percent" placeholder="퍼센트 (B)">
+                    <span class="operator">%</span>
+                </div>
+                <button class="calculate-btn" onclick="calculate1()">계산하기</button>
+                <div class="result" id="result1">결과: -</div>
+            </div>
+
+            <!-- 계산기 2: A는 B의 몇 %? -->
+            <div class="calc-section">
+                <h2>📈 A는 B의 몇 %?</h2>
+                <p class="calc-desc">예: 25는 100의 몇 %?</p>
+                <div class="input-row">
+                    <input type="number" id="calc2-part" placeholder="부분 (A)">
+                    <span class="operator">는</span>
+                    <input type="number" id="calc2-whole" placeholder="전체 (B)">
+                    <span class="operator">의</span>
+                </div>
+                <button class="calculate-btn" onclick="calculate2()">계산하기</button>
+                <div class="result" id="result2">결과: -</div>
+            </div>
+
+            <!-- 계산기 3: 증감률 계산 -->
+            <div class="calc-section">
+                <h2>📉 증감률 계산</h2>
+                <p class="calc-desc">예: 100에서 120으로 변했을 때 증감률</p>
+                <div class="input-row">
+                    <input type="number" id="calc3-before" placeholder="이전 값">
+                    <span class="operator">→</span>
+                    <input type="number" id="calc3-after" placeholder="이후 값">
+                </div>
+                <button class="calculate-btn" onclick="calculate3()">계산하기</button>
+                <div class="result" id="result3">결과: -</div>
+            </div>
+
+            <!-- 계산기 4: B%를 적용하면 A가 되는 원래 값 -->
+            <div class="calc-section">
+                <h2>🔄 원래 값 역산</h2>
+                <p class="calc-desc">예: 20% 할인 후 80원이면 원래 가격은?</p>
+                <div class="input-row">
+                    <input type="number" id="calc4-result" placeholder="결과 값 (A)">
+                    <span class="operator">=</span>
+                    <input type="number" id="calc4-percent" placeholder="퍼센트 (B)">
+                    <span class="operator">% 적용</span>
+                </div>
+                <button class="calculate-btn" onclick="calculate4()">계산하기</button>
+                <div class="result" id="result4">결과: -</div>
+            </div>
+        </div>
+
+        <div class="ad-container">
+            <div class="ad-placeholder">광고 영역 (AdSense 승인 후 표시)</div>
+        </div>
+
+        <div class="info-section">
+            <h2>퍼센트 계산 공식</h2>
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <h3>A의 B%</h3>
+                    <p class="formula">A × (B ÷ 100)</p>
+                    <p class="example">500의 20% = 500 × 0.2 = 100</p>
+                </div>
+                <div class="formula-card">
+                    <h3>A는 B의 몇 %</h3>
+                    <p class="formula">(A ÷ B) × 100</p>
+                    <p class="example">25는 100의 (25÷100)×100 = 25%</p>
+                </div>
+                <div class="formula-card">
+                    <h3>증감률</h3>
+                    <p class="formula">((이후-이전) ÷ 이전) × 100</p>
+                    <p class="example">100→120: ((120-100)÷100)×100 = 20%</p>
+                </div>
+                <div class="formula-card">
+                    <h3>원래 값 역산</h3>
+                    <p class="formula">결과 ÷ (퍼센트 ÷ 100)</p>
+                    <p class="example">80% 적용 후 80 → 80÷0.8 = 100</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 퍼센트 계산기. 무료로 사용하세요.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

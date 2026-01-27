@@ -1,0 +1,11 @@
+{
+  "name": "percent-calculator",
+  "version": "1.0.0",
+  "description": "퍼센트 계산기 - 비율 계산, 증감률 계산",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": ["percent", "calculator", "ratio", "adsense"],
+  "author": "steve-byun",
+  "license": "MIT"
+}
