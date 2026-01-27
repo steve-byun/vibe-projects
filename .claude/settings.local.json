@@ -5,7 +5,7 @@
       "Edit",
       "Write",
       "Read",
-      "WebFetch:domain:*.vercel.app"
+      "WebFetch(domain:vercel.app)"
     ]
   }
 }
