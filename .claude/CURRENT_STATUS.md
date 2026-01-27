@@ -29,6 +29,7 @@
 | BMI 계산기 | https://bmi-calculator-topaz-five.vercel.app | ✅ 연결됨 | `projects/260127-bmi-calculator` |
 | 팁 계산기 | https://tip-calculator-nu-flax.vercel.app | ✅ 연결됨 | `projects/260127-tip-calculator` |
 | 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | ✅ 연결됨 | `projects/260127-currency-calculator` |
+| 나이 계산기 | https://vibe-projects-two.vercel.app | ✅ 연결됨 | `projects/260127-age-calculator` |
 
 ---
 
@@ -54,6 +55,7 @@
 - [x] 팁 계산기 - 팁 금액 계산, N분의 1 계산
 - [x] 환율 계산기 - 6개 통화 지원 (KRW, USD, JPY, EUR, CNY, GBP)
 - [x] 대출 계산기 - 원리금균등/원금균등/만기일시상환
+- [x] 나이 계산기 - 만 나이/한국 나이/띠/별자리 계산
 
 ---
 
@@ -127,6 +129,7 @@ git push
 │   ├── 260127-tip-calculator/        # 팁 계산기
 │   ├── 260127-currency-calculator/   # 환율 계산기
 │   ├── 260127-loan-calculator/       # 대출 계산기
+│   ├── 260127-age-calculator/        # 나이 계산기
 │   └── 260127-demo-text-tools/       # 텍스트 도구 (Netlify)
 └── scripts/                          # 자동화 스크립트
     ├── create-project.js             # 프로젝트 생성
@@ -148,7 +151,6 @@ git push
 
 ### 아이디어 목록
 - [ ] 단위 변환기 (길이, 무게, 온도)
-- [ ] 나이 계산기 (한국 나이/만 나이)
 - [ ] D-day 계산기
 - [ ] 퍼센트 계산기
 - [ ] 할인가 계산기
