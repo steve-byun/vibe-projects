@@ -5,6 +5,7 @@
       "Edit",
       "Write"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "acceptEdits"
   }
 }

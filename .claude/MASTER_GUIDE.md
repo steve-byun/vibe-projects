@@ -9,205 +9,28 @@
 ### 시작: `/start` 또는 `ㄱㄱ`
 사용자가 이 명령어를 입력하면 Claude가 자동으로:
 1. `git pull origin main` - 최신 데이터 가져오기
-2. `.claude/` 폴더의 모든 md 파일 읽기:
-   - MASTER_GUIDE.md (이 파일)
-   - CURRENT_STATUS.md (현재 상태)
-   - TEMPLATE_GUIDE.md (템플릿 가이드)
+2. `.claude/MASTER_GUIDE.md` 읽기
 3. 현재 상태 요약 출력
 
 ### 종료: `/end` 또는 `ㅈㅈ`
 사용자가 이 명령어를 입력하면 Claude가 자동으로:
-1. 오늘 작업 내용으로 CURRENT_STATUS.md 업데이트
-2. `git add -A` - 모든 변경사항 스테이징
-3. `git commit -m "작업 내용 요약"` - 커밋
-4. `git push` - GitHub에 업로드
-5. 오늘 작업 요약 출력
+1. 오늘 작업 내용으로 이 파일의 TODO/상태 업데이트
+2. `git add -A && git commit -m "작업 내용 요약" && git push`
+3. 오늘 작업 요약 출력
 
 ---
 
-## 프로젝트 개요
+## 계정 정보
 
-**목적**: 수익형 웹 프로젝트를 빠르게 생성하고 배포하는 자동화 시스템
-
-**핵심 기능**:
-- 템플릿 기반 프로젝트 생성
-- Google AdSense 자동 통합
-- Vercel 자동 배포 (Git Push)
-- SEO 최적화 구조
-
-**사용자 정보**:
-- AdSense 클라이언트 ID: `ca-pub-4976487856728705`
-- 배포 플랫폼: **Vercel** (Git 자동 배포)
-- GitHub: https://github.com/steve-byun/vibe-projects
-- 현재 상태: [CURRENT_STATUS.md](./CURRENT_STATUS.md) 참고
+| 서비스 | 정보 |
+|--------|------|
+| **AdSense** | `ca-pub-4976487856728705` (승인 대기 중) |
+| **GitHub** | steve-byun / [vibe-projects](https://github.com/steve-byun/vibe-projects) |
+| **Vercel** | GitHub 연동 (팀: steves-projects-3576c0ae) |
 
 ---
 
-## 프로젝트 구조
-
-```
-01_Vibe_Projects/
-├── .claude/                         # Claude 가이드 문서
-│   ├── MASTER_GUIDE.md              # 전체 워크플로우 (이 파일)
-│   ├── CURRENT_STATUS.md            # 현재 상태
-│   └── TEMPLATE_GUIDE.md            # 템플릿 생성 가이드
-├── templates/                        # 프로젝트 템플릿
-│   ├── calculator/                   # 계산기 템플릿
-│   └── utility-webapp/               # 유틸리티 웹앱 템플릿
-├── projects/                         # 생성된 프로젝트들 (YYMMDD-name 형식)
-│   ├── 260127-bmi-calculator/
-│   ├── 260127-tip-calculator/
-│   ├── 260127-currency-calculator/
-│   ├── 260127-loan-calculator/
-│   ├── 260127-age-calculator/
-│   └── 260127-demo-text-tools/
-└── scripts/                          # 자동화 스크립트
-    ├── create-project.js
-    └── deploy.js
-```
-
-**폴더명 규칙**: `YYMMDD-project-name` (예: 260127-bmi-calculator)
-- 날짜순 정렬 가능
-- kebab-case 사용 (URL 친화적)
-
----
-
-## 전체 워크플로우
-
-사용자가 "XXX를 만들어줘"라고 요청하면:
-
-### Step 1: 프로젝트 생성
-```bash
-# 새 프로젝트 폴더 생성 (날짜 포함)
-# 예: projects/260128-age-calculator/
-```
-
-### Step 2: 템플릿 복사 및 커스터마이징
-- HTML: 콘텐츠, 제목, 설명 수정
-- CSS: 색상, 레이아웃 변경
-- JS: 기능 추가/수정
-
-### Step 3: AdSense 코드 확인
-**중요**: 모든 프로젝트에 다음 코드가 `<head>` 안에 있어야 함:
-
-```html
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
-     crossorigin="anonymous"></script>
-```
-
-### Step 4: Git Push
-```bash
-cd c:\Steve\01_Vibe_Projects
-git add -A
-git commit -m "Add YYMMDD-project-name"
-git push
-```
-
-### Step 5: Vercel CLI로 배포 (새 프로젝트)
-**중요**: 새 프로젝트는 Vercel에 등록이 필요함. 사용자에게 다음 안내:
-1. https://vercel.com/new 접속
-2. `steve-byun/vibe-projects` → Import
-3. Root Directory: `projects/YYMMDD-project-name` 입력
-4. Project Name: 프로젝트명 (예: `age-calculator`)
-5. Deploy 클릭
-
-### Step 6: URL 확인 (Claude가 자동으로)
-```bash
-vercel project ls
-```
-이 명령어로 배포된 URL 확인 후 CURRENT_STATUS.md 업데이트
-
----
-
-## 자주 사용하는 명령어
-
-### Git 작업
-```bash
-# 최신 데이터 가져오기
-git pull origin main
-
-# 변경사항 확인
-git status
-
-# 모든 변경사항 커밋 & 푸시
-git add -A
-git commit -m "메시지"
-git push
-```
-
-### Vercel CLI (배포 관련)
-```bash
-# 로그인 상태 확인
-vercel whoami
-
-# 모든 프로젝트 & URL 목록 확인
-vercel project ls
-
-# 특정 프로젝트 정보
-vercel inspect [deployment-url]
-```
-
-**Claude 배포 워크플로우**:
-1. 프로젝트 생성 완료
-2. Git add/commit/push
-3. 사용자에게 Vercel Import 안내 (새 프로젝트일 경우)
-4. `vercel project ls`로 URL 확인
-5. CURRENT_STATUS.md 업데이트
-6. Git push
-
-### 프로젝트 확인
-```bash
-# 프로젝트 목록 보기
-ls projects/
-
-# AdSense 코드 확인
-grep "ca-pub-4976487856728705" projects/YYMMDD-xxx/index.html
-```
-
-### 로컬 테스트
-```bash
-cd projects/YYMMDD-xxx
-npx serve .
-```
-
----
-
-## AdSense 통합
-
-### 설정 정보
-- **클라이언트 ID**: `ca-pub-4976487856728705`
-- **광고 위치**: 상단, 하단 (필요시 사이드바)
-
-### 체크리스트
-- [ ] `<head>`에 AdSense 스크립트 있음
-- [ ] 클라이언트 ID가 정확함
-- [ ] 광고 영역이 2개 이상 있음
-
----
-
-## 배포 프로세스
-
-### 기존 프로젝트 업데이트 (자동)
-Git Push만 하면 자동 배포:
-```bash
-git add -A
-git commit -m "Update YYMMDD-xxx"
-git push
-```
-
-### 새 프로젝트 추가
-1. 프로젝트 생성 후 Git Push
-2. 사용자에게 Vercel Import 안내:
-   - https://vercel.com/new → Import
-   - Root Directory: `projects/YYMMDD-xxx`
-   - Project Name: 의미있는 이름 (예: `age-calculator`)
-3. 배포 완료 후 Claude가 `vercel project ls`로 URL 확인
-4. CURRENT_STATUS.md 업데이트 후 Git Push
-
----
-
-## 배포된 프로젝트 목록
+## 배포된 프로젝트
 
 | 프로젝트 | URL | Root Directory |
 |---------|-----|----------------|
@@ -216,24 +39,108 @@ git push
 | 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | `projects/260127-currency-calculator` |
 | 나이 계산기 | https://vibe-projects-two.vercel.app | `projects/260127-age-calculator` |
 
-**URL 확인 명령어**: `vercel project ls`
+**URL 확인**: `vercel project ls`
 
 ---
 
-## 문제 해결
+## 프로젝트 구조
 
-### Vercel 자동 배포 안 됨
-1. Settings → Git 확인
-2. Root Directory 확인
-3. 새 커밋 푸시해서 테스트
-
-### AdSense 코드가 없음
-```bash
-grep "ca-pub-4976487856728705" projects/YYMMDD-xxx/index.html
 ```
-없으면 `<head>`에 추가
+01_Vibe_Projects/
+├── .claude/
+│   └── MASTER_GUIDE.md      # 이 파일
+├── templates/                # 프로젝트 템플릿
+├── projects/                 # 생성된 프로젝트들 (YYMMDD-name)
+│   ├── 260127-bmi-calculator/
+│   ├── 260127-tip-calculator/
+│   ├── 260127-currency-calculator/
+│   ├── 260127-loan-calculator/
+│   ├── 260127-age-calculator/
+│   └── 260127-demo-text-tools/
+└── scripts/                  # 자동화 스크립트
+```
+
+**폴더명 규칙**: `YYMMDD-project-name` (예: 260127-bmi-calculator)
+
+---
+
+## 워크플로우
+
+### 새 프로젝트 만들기
+1. `projects/YYMMDD-xxx/` 폴더 생성
+2. 템플릿 복사 또는 새로 작성
+3. AdSense 코드 확인 (`<head>` 안에 있어야 함)
+4. Git push
+5. Vercel에서 Import (새 프로젝트일 경우)
+6. 이 파일의 배포 목록 업데이트
+
+### AdSense 코드 (필수)
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
+     crossorigin="anonymous"></script>
+```
+
+### 자주 쓰는 명령어
+```bash
+# Git
+git pull origin main
+git add -A && git commit -m "메시지" && git push
+
+# Vercel
+vercel whoami
+vercel project ls
+```
+
+---
+
+## 새 PC에서 시작하기
+
+```bash
+# 1. 클론
+git clone https://github.com/steve-byun/vibe-projects.git 01_Vibe_Projects
+cd 01_Vibe_Projects
+
+# 2. Vercel CLI
+npm install -g vercel
+vercel login
+```
+
+---
+
+## TODO
+
+### 우선순위 높음
+- [ ] AdSense 승인 대기 (2-3일 소요)
+- [ ] 2-3개 프로젝트 더 만들기
+
+### 우선순위 중간
+- [ ] Google Search Console 등록
+- [ ] sitemap.xml 생성
+
+### 아이디어
+- [ ] 단위 변환기
+- [ ] D-day 계산기
+- [ ] 퍼센트 계산기
+- [ ] 할인가 계산기
+
+---
+
+## 주의사항
+
+1. 커밋 전 AdSense 코드 확인
+2. Vercel은 steve-byun GitHub 계정으로 로그인
+3. demo-text-tools는 아직 Netlify에 있음
+
+---
+
+## 유용한 링크
+
+- [GitHub 레포](https://github.com/steve-byun/vibe-projects)
+- [Vercel 대시보드](https://vercel.com/dashboard)
+- [AdSense](https://www.google.com/adsense)
+- [Search Console](https://search.google.com/search-console)
 
 ---
 
 **마지막 업데이트**: 2026-01-27
-**버전**: 3.2 (불필요한 가이드 파일 정리)
+**버전**: 4.0 (파일 통합 완료)
