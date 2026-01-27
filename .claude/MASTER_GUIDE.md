@@ -40,6 +40,7 @@
 | 나이 계산기 | https://vibe-projects-two.vercel.app | `projects/260127-age-calculator` |
 | 할인가 계산기 | https://260127-discount-calculator.vercel.app | `projects/260127-discount-calculator` |
 | D-day 계산기 | https://260127-dday-calculator.vercel.app | `projects/260127-dday-calculator` |
+| 퍼센트 계산기 | https://260127-percent-calculator.vercel.app | `projects/260127-percent-calculator` |
 
 **URL 확인**: `vercel project ls`
 
@@ -124,7 +125,7 @@ vercel login
 ### 아이디어
 - [ ] 단위 변환기
 - [x] D-day 계산기 ✅ 완료
-- [ ] 퍼센트 계산기
+- [x] 퍼센트 계산기 ✅ 완료
 - [x] 할인가 계산기 ✅ 완료
 
 ---
