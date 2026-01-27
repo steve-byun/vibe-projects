@@ -13,7 +13,6 @@
    - MASTER_GUIDE.md (이 파일)
    - CURRENT_STATUS.md (현재 상태)
    - TEMPLATE_GUIDE.md (템플릿 가이드)
-   - HOW_TO_USE.md (사용자 가이드)
 3. 현재 상태 요약 출력
 
 ### 종료: `/end` 또는 `ㅈㅈ`
@@ -51,8 +50,7 @@
 ├── .claude/                         # Claude 가이드 문서
 │   ├── MASTER_GUIDE.md              # 전체 워크플로우 (이 파일)
 │   ├── CURRENT_STATUS.md            # 현재 상태
-│   ├── TEMPLATE_GUIDE.md            # 템플릿 생성 가이드
-│   └── HOW_TO_USE.md                # 사용자 가이드
+│   └── TEMPLATE_GUIDE.md            # 템플릿 생성 가이드
 ├── templates/                        # 프로젝트 템플릿
 │   ├── calculator/                   # 계산기 템플릿
 │   └── utility-webapp/               # 유틸리티 웹앱 템플릿
@@ -238,4 +236,4 @@ grep "ca-pub-4976487856728705" projects/YYMMDD-xxx/index.html
 ---
 
 **마지막 업데이트**: 2026-01-27
-**버전**: 3.1 (Vercel CLI 배포 자동화)
+**버전**: 3.2 (불필요한 가이드 파일 정리)

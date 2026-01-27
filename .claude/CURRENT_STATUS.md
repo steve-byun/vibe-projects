@@ -49,6 +49,8 @@
 - [x] .claude 폴더 통합 (2개 → 1개)
 - [x] GitHub 레포지토리 이름 변경 (vibe-projects)
 - [x] 세션 명령어 설정 (`/start`, `/end`, `ㄱㄱ`, `ㅈㅈ`)
+- [x] 불필요한 가이드 파일 정리 (HOW_TO_USE.md, README.md 삭제)
+- [x] Claude Code 자동 승인 설정 (Edit, Write 권한)
 
 ### 3. 프로젝트 생성
 - [x] BMI 계산기 - 키/몸무게로 BMI 계산, 건강 상태 표시
@@ -119,8 +121,7 @@ git push
 ├── .claude/                         # Claude 가이드 문서
 │   ├── MASTER_GUIDE.md              # 전체 워크플로우
 │   ├── CURRENT_STATUS.md            # 현재 상태 (이 파일)
-│   ├── TEMPLATE_GUIDE.md            # 템플릿 생성 가이드
-│   └── HOW_TO_USE.md                # 사용자 가이드
+│   └── TEMPLATE_GUIDE.md            # 템플릿 생성 가이드
 ├── templates/                        # 프로젝트 템플릿
 │   ├── calculator/                   # 계산기 템플릿
 │   └── utility-webapp/               # 유틸리티 웹앱 템플릿
