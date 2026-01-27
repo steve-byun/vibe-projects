@@ -42,7 +42,14 @@
 - [x] Root Directory 설정 완료
 - [x] 자동 배포 테스트 완료
 
-### 2. 프로젝트 생성
+### 2. 폴더 구조 개편 (2026-01-27)
+- [x] revenue-project-factory 중첩 폴더 제거
+- [x] 프로젝트 폴더명에 날짜 추가 (YYMMDD-name 형식)
+- [x] .claude 폴더 통합 (2개 → 1개)
+- [x] GitHub 레포지토리 이름 변경 (vibe-projects)
+- [x] 세션 명령어 설정 (`/start`, `/end`, `ㄱㄱ`, `ㅈㅈ`)
+
+### 3. 프로젝트 생성
 - [x] BMI 계산기 - 키/몸무게로 BMI 계산, 건강 상태 표시
 - [x] 팁 계산기 - 팁 금액 계산, N분의 1 계산
 - [x] 환율 계산기 - 6개 통화 지원 (KRW, USD, JPY, EUR, CNY, GBP)
