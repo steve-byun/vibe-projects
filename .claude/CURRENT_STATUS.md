@@ -13,7 +13,7 @@
 
 ### GitHub
 - **계정**: steve-byun
-- **레포지토리**: https://github.com/steve-byun/revenue-project-factory
+- **레포지토리**: https://github.com/steve-byun/vibe-projects
 - **브랜치**: main
 
 ### Vercel (배포 플랫폼)
@@ -78,7 +78,7 @@ Vercel이 자동으로 변경된 프로젝트만 재배포합니다!
 
 ### 1단계: 레포지토리 클론
 ```bash
-git clone https://github.com/steve-byun/revenue-project-factory.git 01_Vibe_Projects
+git clone https://github.com/steve-byun/vibe-projects.git 01_Vibe_Projects
 cd 01_Vibe_Projects
 ```
 
@@ -158,7 +158,7 @@ git push
 
 ## 유용한 링크
 
-- **GitHub 레포**: https://github.com/steve-byun/revenue-project-factory
+- **GitHub 레포**: https://github.com/steve-byun/vibe-projects
 - **Vercel 대시보드**: https://vercel.com/dashboard
 - **AdSense**: https://www.google.com/adsense
 - **Google Search Console**: https://search.google.com/search-console
