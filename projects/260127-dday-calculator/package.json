@@ -1,0 +1,16 @@
+{
+  "name": "dday-calculator",
+  "version": "1.0.0",
+  "description": "D-day 계산기 - 남은 날짜 계산",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "dday",
+    "calculator",
+    "countdown",
+    "adsense"
+  ],
+  "author": "steve-byun",
+  "license": "MIT"
+}

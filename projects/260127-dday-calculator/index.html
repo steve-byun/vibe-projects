@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="무료 D-day 계산기 - 기념일, 시험일, 이벤트까지 남은 날짜 계산">
+    <meta name="keywords" content="D-day 계산기, 디데이, 남은 날짜, 기념일 계산, 날짜 계산">
+    <title>무료 D-day 계산기 | 남은 날짜 계산</title>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
+         crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 D-day 계산기</h1>
+            <p class="subtitle">특별한 날까지 남은 시간을 확인하세요</p>
+        </header>
+
+        <!-- 상단 광고 -->
+        <div class="ad-container">
+            <div class="ad-placeholder">광고 영역 (AdSense 승인 후 표시)</div>
+        </div>
+
+        <div class="calculator-wrapper">
+            <div class="input-section">
+                <h2>날짜 설정</h2>
+
+                <div class="input-group">
+                    <label for="eventName">이벤트 이름</label>
+                    <input type="text" id="eventName" placeholder="예: 수능, 결혼기념일, 여행" value="목표일">
+                </div>
+
+                <div class="input-group">
+                    <label for="targetDate">목표 날짜</label>
+                    <input type="date" id="targetDate">
+                </div>
+
+                <div class="quick-dates">
+                    <span class="quick-label">빠른 설정:</span>
+                    <button class="quick-btn" data-days="7">1주일</button>
+                    <button class="quick-btn" data-days="30">1개월</button>
+                    <button class="quick-btn" data-days="100">100일</button>
+                    <button class="quick-btn" data-days="365">1년</button>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateDday()">계산하기</button>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <h2 id="eventTitle">목표일</h2>
+
+                <div class="dday-display">
+                    <div class="dday-badge" id="ddayBadge">D-0</div>
+                    <div class="target-date" id="targetDateDisplay">-</div>
+                </div>
+
+                <div class="time-details">
+                    <div class="time-item">
+                        <div class="time-value" id="totalDays">0</div>
+                        <div class="time-label">일</div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-value" id="totalWeeks">0</div>
+                        <div class="time-label">주</div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-value" id="totalMonths">0</div>
+                        <div class="time-label">개월</div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-value" id="totalHours">0</div>
+                        <div class="time-label">시간</div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">오늘이 D-day입니다!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 저장된 D-day 목록 -->
+        <div class="saved-section" id="savedSection">
+            <h2>저장된 D-day</h2>
+            <div class="saved-list" id="savedList">
+                <p class="empty-message">저장된 D-day가 없습니다</p>
+            </div>
+        </div>
+
+        <!-- 설명 섹션 -->
+        <div class="info-section">
+            <h2>D-day 활용법</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>📚 시험/수능</h3>
+                    <p>목표 시험일까지 남은 기간을 확인하고 학습 계획을 세우세요.</p>
+                </div>
+                <div class="info-card">
+                    <h3>💑 기념일</h3>
+                    <p>연인, 결혼기념일 등 소중한 날을 잊지 않도록 관리하세요.</p>
+                </div>
+                <div class="info-card">
+                    <h3>✈️ 여행</h3>
+                    <p>설레는 여행까지 남은 날을 카운트다운하세요.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🎯 목표</h3>
+                    <p>프로젝트 마감일, 다이어트 목표일 등을 설정하고 동기부여하세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 광고 -->
+        <div class="ad-container">
+            <div class="ad-placeholder">광고 영역 (AdSense 승인 후 표시)</div>
+        </div>
+
+        <footer>
+            <p>특별한 날을 기다리며 하루하루를 소중히!</p>
+            <p>&copy; 2026 D-day 계산기. Made with Claude Code.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
