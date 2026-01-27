@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 400px;
+    min-height: 300px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #00d9ff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 탭 상태 */
+.tab-status {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.status-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #666;
+}
+
+.indicator.active {
+    background: #4ade80;
+}
+
+.indicator.inactive {
+    background: #f87171;
+}
+
+.status-text {
+    margin-left: auto;
+    color: #888;
+    font-size: 0.75rem;
+}
+
+/* AI 선택 */
+.ai-select {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-label input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* 질문 입력 */
+.question-section {
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 0.95rem;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #00d9ff;
+}
+
+.send-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #00d9ff, #a855f7);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.send-btn:hover {
+    opacity: 0.9;
+}
+
+.send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 진행 상태 */
+.progress-section {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.progress-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 0.85rem;
+}
+
+.progress-status {
+    color: #888;
+}
+
+.progress-status.sending {
+    color: #fbbf24;
+}
+
+.progress-status.waiting {
+    color: #60a5fa;
+}
+
+.progress-status.done {
+    color: #4ade80;
+}
+
+.progress-status.error {
+    color: #f87171;
+}
+
+/* 결과 */
+.results-section {
+    margin-bottom: 15px;
+}
+
+.results-section h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.result-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #00d9ff;
+}
+
+.result-content {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    max-height: 150px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: #ccc;
+}
+
+/* 도움말 */
+.help-section {
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.help-section p {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.help-section a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #00d9ff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.help-section a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
