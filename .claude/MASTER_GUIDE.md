@@ -39,6 +39,7 @@
 | 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | `projects/260127-currency-calculator` |
 | 나이 계산기 | https://vibe-projects-two.vercel.app | `projects/260127-age-calculator` |
 | 할인가 계산기 | https://260127-discount-calculator.vercel.app | `projects/260127-discount-calculator` |
+| D-day 계산기 | https://260127-dday-calculator.vercel.app | `projects/260127-dday-calculator` |
 
 **URL 확인**: `vercel project ls`
 
@@ -58,6 +59,7 @@
 │   ├── 260127-loan-calculator/
 │   ├── 260127-age-calculator/
 │   ├── 260127-discount-calculator/
+│   ├── 260127-dday-calculator/
 │   └── 260127-demo-text-tools/
 └── scripts/                  # 자동화 스크립트
 ```
@@ -121,7 +123,7 @@ vercel login
 
 ### 아이디어
 - [ ] 단위 변환기
-- [ ] D-day 계산기
+- [x] D-day 계산기 ✅ 완료
 - [ ] 퍼센트 계산기
 - [x] 할인가 계산기 ✅ 완료
 
