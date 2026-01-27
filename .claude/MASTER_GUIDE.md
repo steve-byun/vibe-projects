@@ -42,6 +42,7 @@
 | D-day 계산기 | https://260127-dday-calculator.vercel.app | `projects/260127-dday-calculator` |
 | 퍼센트 계산기 | https://260127-percent-calculator.vercel.app | `projects/260127-percent-calculator` |
 | AI 크로스체커 | https://260128-ai-cross-checker.vercel.app | `projects/260128-ai-cross-checker` |
+| AI 크로스체커 (확장) | Chrome 확장 프로그램 (개발중) | `projects/260128-ai-cross-checker-extension` |
 
 **URL 확인**: `vercel project ls`
 
@@ -148,5 +149,5 @@ vercel login
 
 ---
 
-**마지막 업데이트**: 2026-01-27
+**마지막 업데이트**: 2026-01-28
 **버전**: 4.0 (파일 통합 완료)
