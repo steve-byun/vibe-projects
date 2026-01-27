@@ -61,6 +61,7 @@
 │   ├── 260127-tip-calculator/
 │   ├── 260127-currency-calculator/
 │   ├── 260127-loan-calculator/
+│   ├── 260127-age-calculator/
 │   └── 260127-demo-text-tools/
 └── scripts/                          # 자동화 스크립트
     ├── create-project.js
@@ -97,7 +98,7 @@
      crossorigin="anonymous"></script>
 ```
 
-### Step 4: Git Push (자동 배포)
+### Step 4: Git Push
 ```bash
 cd c:\Steve\01_Vibe_Projects
 git add -A
@@ -105,12 +106,19 @@ git commit -m "Add YYMMDD-project-name"
 git push
 ```
 
-### Step 5: Vercel에서 새 프로젝트 설정 (수동)
+### Step 5: Vercel CLI로 배포 (새 프로젝트)
+**중요**: 새 프로젝트는 Vercel에 등록이 필요함. 사용자에게 다음 안내:
 1. https://vercel.com/new 접속
-2. `steve-byun/vibe-projects` 선택
+2. `steve-byun/vibe-projects` → Import
 3. Root Directory: `projects/YYMMDD-project-name` 입력
-4. Deploy 클릭
-5. Settings → Git → 연결 확인
+4. Project Name: 프로젝트명 (예: `age-calculator`)
+5. Deploy 클릭
+
+### Step 6: URL 확인 (Claude가 자동으로)
+```bash
+vercel project ls
+```
+이 명령어로 배포된 URL 확인 후 CURRENT_STATUS.md 업데이트
 
 ---
 
@@ -129,6 +137,26 @@ git add -A
 git commit -m "메시지"
 git push
 ```
+
+### Vercel CLI (배포 관련)
+```bash
+# 로그인 상태 확인
+vercel whoami
+
+# 모든 프로젝트 & URL 목록 확인
+vercel project ls
+
+# 특정 프로젝트 정보
+vercel inspect [deployment-url]
+```
+
+**Claude 배포 워크플로우**:
+1. 프로젝트 생성 완료
+2. Git add/commit/push
+3. 사용자에게 Vercel Import 안내 (새 프로젝트일 경우)
+4. `vercel project ls`로 URL 확인
+5. CURRENT_STATUS.md 업데이트
+6. Git push
 
 ### 프로젝트 확인
 ```bash
@@ -162,7 +190,7 @@ npx serve .
 
 ## 배포 프로세스
 
-### 기존 프로젝트 업데이트
+### 기존 프로젝트 업데이트 (자동)
 Git Push만 하면 자동 배포:
 ```bash
 git add -A
@@ -172,10 +200,12 @@ git push
 
 ### 새 프로젝트 추가
 1. 프로젝트 생성 후 Git Push
-2. Vercel에서 Import:
-   - https://vercel.com/new
+2. 사용자에게 Vercel Import 안내:
+   - https://vercel.com/new → Import
    - Root Directory: `projects/YYMMDD-xxx`
-3. Settings에서 Git 연결 확인
+   - Project Name: 의미있는 이름 (예: `age-calculator`)
+3. 배포 완료 후 Claude가 `vercel project ls`로 URL 확인
+4. CURRENT_STATUS.md 업데이트 후 Git Push
 
 ---
 
@@ -186,6 +216,9 @@ git push
 | BMI 계산기 | https://bmi-calculator-topaz-five.vercel.app | `projects/260127-bmi-calculator` |
 | 팁 계산기 | https://tip-calculator-nu-flax.vercel.app | `projects/260127-tip-calculator` |
 | 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | `projects/260127-currency-calculator` |
+| 나이 계산기 | https://vibe-projects-two.vercel.app | `projects/260127-age-calculator` |
+
+**URL 확인 명령어**: `vercel project ls`
 
 ---
 
@@ -205,4 +238,4 @@ grep "ca-pub-4976487856728705" projects/YYMMDD-xxx/index.html
 ---
 
 **마지막 업데이트**: 2026-01-27
-**버전**: 3.0 (폴더 구조 개편)
+**버전**: 3.1 (Vercel CLI 배포 자동화)
