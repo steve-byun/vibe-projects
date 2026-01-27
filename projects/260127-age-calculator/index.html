@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="무료 온라인 나이 계산기 - 만 나이, 한국 나이 계산, 띠(12지신) 확인">
+    <meta name="keywords" content="나이 계산기, 만 나이, 한국 나이, 띠 계산, 12지신, 생년월일 계산">
+    <title>나이 계산기 - 만 나이 & 한국 나이 & 띠 계산</title>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
+         crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>나이 계산기</h1>
+            <p class="subtitle">만 나이 / 한국 나이 / 띠 계산</p>
+        </header>
+
+        <!-- 상단 광고 -->
+        <div class="ad-container" id="top-ad">
+            <div class="ad-placeholder">광고 영역</div>
+        </div>
+
+        <!-- 계산기 -->
+        <div class="calculator">
+            <div class="input-section">
+                <label for="birthdate">생년월일을 입력하세요</label>
+                <input type="date" id="birthdate" max="">
+                <button onclick="calculateAge()" class="btn-calculate">나이 계산하기</button>
+            </div>
+
+            <div class="result-section" id="result" style="display: none;">
+                <div class="result-card">
+                    <div class="result-item">
+                        <span class="label">만 나이</span>
+                        <span class="value" id="international-age">-</span>
+                        <span class="unit">세</span>
+                    </div>
+                    <p class="note">* 2023년부터 법적으로 사용되는 나이</p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-item">
+                        <span class="label">한국 나이</span>
+                        <span class="value" id="korean-age">-</span>
+                        <span class="unit">세</span>
+                    </div>
+                    <p class="note">* 태어난 해를 1살로 계산</p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-item">
+                        <span class="label">연 나이</span>
+                        <span class="value" id="year-age">-</span>
+                        <span class="unit">세</span>
+                    </div>
+                    <p class="note">* 올해 연도 - 태어난 연도</p>
+                </div>
+
+                <div class="result-card zodiac-card">
+                    <div class="result-item">
+                        <span class="label">띠</span>
+                        <span class="zodiac-emoji" id="zodiac-emoji">-</span>
+                        <span class="value zodiac-name" id="zodiac-name">-</span>
+                    </div>
+                </div>
+
+                <div class="result-card detail-card">
+                    <h3>상세 정보</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">태어난 지</span>
+                            <span class="detail-value" id="days-lived">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">다음 생일까지</span>
+                            <span class="detail-value" id="days-to-birthday">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">태어난 요일</span>
+                            <span class="detail-value" id="birth-day">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">별자리</span>
+                            <span class="detail-value" id="zodiac-sign">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 광고 -->
+        <div class="ad-container" id="bottom-ad">
+            <div class="ad-placeholder">광고 영역</div>
+        </div>
+
+        <footer>
+            <p>모든 계산은 브라우저에서 로컬로 수행됩니다.</p>
+            <p>&copy; 2026 Age Calculator. Made with Claude Code.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
