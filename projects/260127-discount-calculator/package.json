@@ -1,0 +1,16 @@
+{
+  "name": "discount-calculator",
+  "version": "1.0.0",
+  "description": "할인가 계산기 - 할인율 및 세일 가격 계산",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "discount",
+    "calculator",
+    "sale",
+    "adsense"
+  ],
+  "author": "steve-byun",
+  "license": "MIT"
+}
