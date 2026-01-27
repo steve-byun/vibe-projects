@@ -41,6 +41,7 @@
 | 할인가 계산기 | https://260127-discount-calculator.vercel.app | `projects/260127-discount-calculator` |
 | D-day 계산기 | https://260127-dday-calculator.vercel.app | `projects/260127-dday-calculator` |
 | 퍼센트 계산기 | https://260127-percent-calculator.vercel.app | `projects/260127-percent-calculator` |
+| AI 크로스체커 | https://260128-ai-cross-checker.vercel.app | `projects/260128-ai-cross-checker` |
 
 **URL 확인**: `vercel project ls`
 
