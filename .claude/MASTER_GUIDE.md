@@ -1,69 +1,94 @@
-# 🤖 Claude Code - Revenue Project Factory 마스터 가이드
+# Claude Code - Vibe Projects 마스터 가이드
 
 이 파일은 Claude가 수익형 프로젝트를 자동으로 생성하고 배포하기 위한 완전한 가이드입니다.
 
 ---
 
-## 📋 목차
+## 세션 시작/종료 규칙
 
-1. [프로젝트 개요](#프로젝트-개요)
-2. [전체 워크플로우](#전체-워크플로우)
-3. [템플릿 구조](#템플릿-구조)
-4. [AdSense 통합](#adsense-통합)
-5. [배포 프로세스](#배포-프로세스)
-6. [자주 사용하는 명령어](#자주-사용하는-명령어)
+### "시작 준비하자" (또는 유사한 표현)
+```bash
+cd c:\Steve\01_Vibe_Projects
+git pull origin main
+```
+- 최신 데이터를 GitHub에서 가져옴
+- CURRENT_STATUS.md를 읽고 현재 상태 파악
+
+### "오늘은 여기까지만 하자" (또는 유사한 표현)
+```bash
+cd c:\Steve\01_Vibe_Projects
+git add -A
+git commit -m "작업 내용 요약"
+git push
+```
+- 모든 변경사항을 GitHub에 업로드
+- CURRENT_STATUS.md 업데이트 (필요시)
 
 ---
 
-## 🎯 프로젝트 개요
+## 프로젝트 개요
 
 **목적**: 수익형 웹 프로젝트를 빠르게 생성하고 배포하는 자동화 시스템
 
 **핵심 기능**:
 - 템플릿 기반 프로젝트 생성
 - Google AdSense 자동 통합
-- Netlify/Vercel 원클릭 배포
+- Vercel 자동 배포 (Git Push)
 - SEO 최적화 구조
 
 **사용자 정보**:
 - AdSense 클라이언트 ID: `ca-pub-4976487856728705`
 - 배포 플랫폼: **Vercel** (Git 자동 배포)
-- GitHub: https://github.com/steve-byun/revenue-project-factory
+- GitHub: https://github.com/steve-byun/vibe-projects
 - 현재 상태: [CURRENT_STATUS.md](./CURRENT_STATUS.md) 참고
 
 ---
 
-## 🔄 전체 워크플로우
+## 프로젝트 구조
+
+```
+01_Vibe_Projects/
+├── .claude/                         # Claude 가이드 문서
+│   ├── MASTER_GUIDE.md              # 전체 워크플로우 (이 파일)
+│   ├── CURRENT_STATUS.md            # 현재 상태
+│   ├── TEMPLATE_GUIDE.md            # 템플릿 생성 가이드
+│   └── HOW_TO_USE.md                # 사용자 가이드
+├── templates/                        # 프로젝트 템플릿
+│   ├── calculator/                   # 계산기 템플릿
+│   └── utility-webapp/               # 유틸리티 웹앱 템플릿
+├── projects/                         # 생성된 프로젝트들 (YYMMDD-name 형식)
+│   ├── 260127-bmi-calculator/
+│   ├── 260127-tip-calculator/
+│   ├── 260127-currency-calculator/
+│   ├── 260127-loan-calculator/
+│   └── 260127-demo-text-tools/
+└── scripts/                          # 자동화 스크립트
+    ├── create-project.js
+    └── deploy.js
+```
+
+**폴더명 규칙**: `YYMMDD-project-name` (예: 260127-bmi-calculator)
+- 날짜순 정렬 가능
+- kebab-case 사용 (URL 친화적)
+
+---
+
+## 전체 워크플로우
 
 사용자가 "XXX를 만들어줘"라고 요청하면:
 
-### Step 1: 템플릿 확인
+### Step 1: 프로젝트 생성
 ```bash
-# 기존 템플릿 확인
-ls revenue-project-factory/templates/
+# 새 프로젝트 폴더 생성 (날짜 포함)
+# 예: projects/260128-age-calculator/
 ```
 
-**기존 템플릿**:
-- `utility-webapp`: 텍스트 도구 모음 (6가지 도구)
-- (추가 예정) `calculator`: 계산기 템플릿
-- (추가 예정) `converter`: 변환 도구 템플릿
-
-### Step 2: 프로젝트 생성
-```bash
-cd revenue-project-factory
-node scripts/create-project.js [프로젝트명] [템플릿명]
-
-# 예시
-node scripts/create-project.js bmi-calculator calculator
-```
-
-### Step 3: 프로젝트 커스터마이징
-사용자 요청에 따라:
+### Step 2: 템플릿 복사 및 커스터마이징
 - HTML: 콘텐츠, 제목, 설명 수정
 - CSS: 색상, 레이아웃 변경
 - JS: 기능 추가/수정
 
-### Step 4: AdSense 코드 확인
+### Step 3: AdSense 코드 확인
 **중요**: 모든 프로젝트에 다음 코드가 `<head>` 안에 있어야 함:
 
 ```html
@@ -72,359 +97,112 @@ node scripts/create-project.js bmi-calculator calculator
      crossorigin="anonymous"></script>
 ```
 
-### Step 5: 로컬 테스트
+### Step 4: Git Push (자동 배포)
 ```bash
-cd projects/[프로젝트명]
-npx serve .
-```
-
-브라우저에서 http://localhost:3000 확인
-
-### Step 6: Vercel 자동 배포 (Git Push)
-
-**GitHub + Vercel 자동 배포 설정 완료됨!**
-
-```bash
-# 변경사항 커밋 & 푸시
-cd revenue-project-factory
-git add .
-git commit -m "Add [프로젝트명]"
+cd c:\Steve\01_Vibe_Projects
+git add -A
+git commit -m "Add YYMMDD-project-name"
 git push
 ```
 
-Vercel이 자동으로 배포합니다!
-
-**새 프로젝트 추가 시 Vercel 설정 필요:**
+### Step 5: Vercel에서 새 프로젝트 설정 (수동)
 1. https://vercel.com/new 접속
-2. `steve-byun/revenue-project-factory` 선택
-3. Root Directory: `projects/[프로젝트명]` 입력
+2. `steve-byun/vibe-projects` 선택
+3. Root Directory: `projects/YYMMDD-project-name` 입력
 4. Deploy 클릭
-5. Settings → Git → GitHub 연결 확인
-
-### Step 7: 배포 확인
-
-배포된 URL에서 확인:
-- BMI: https://bmi-calculator-topaz-five.vercel.app
-- 팁: https://tip-calculator-nu-flax.vercel.app
-- 환율: https://currency-calculator-dun-mu.vercel.app
-
-AdSense 코드가 페이지 소스에 있으면 성공!
+5. Settings → Git → 연결 확인
 
 ---
 
-## 📦 템플릿 구조
+## 자주 사용하는 명령어
 
-### 필수 파일 구조
-```
-templates/[템플릿명]/
-├── index.html           # 메인 HTML (AdSense 코드 포함)
-├── style.css            # 스타일시트
-├── script.js            # JavaScript 로직
-└── adsense-config.js    # AdSense 설정
-```
+### Git 작업
+```bash
+# 최신 데이터 가져오기
+git pull origin main
 
-### index.html 템플릿
+# 변경사항 확인
+git status
 
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="[SEO 설명]">
-    <meta name="keywords" content="[키워드1, 키워드2, 키워드3]">
-    <title>[프로젝트 제목]</title>
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4976487856728705"
-         crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>[프로젝트 제목]</h1>
-            <p class="subtitle">[부제목]</p>
-        </header>
-
-        <!-- 상단 광고 -->
-        <div class="ad-container" id="top-ad">
-            <div class="ad-placeholder">광고 영역</div>
-        </div>
-
-        <!-- 메인 콘텐츠 -->
-        <main>
-            <!-- 여기에 기능 추가 -->
-        </main>
-
-        <!-- 하단 광고 -->
-        <div class="ad-container" id="bottom-ad">
-            <div class="ad-placeholder">광고 영역</div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 [프로젝트명]. Made with Claude Code.</p>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+# 모든 변경사항 커밋 & 푸시
+git add -A
+git commit -m "메시지"
+git push
 ```
 
-### style.css 기본 구조
+### 프로젝트 확인
+```bash
+# 프로젝트 목록 보기
+ls projects/
 
-```css
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+# AdSense 코드 확인
+grep "ca-pub-4976487856728705" projects/YYMMDD-xxx/index.html
+```
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* 광고 영역 */
-.ad-container {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-}
-
-/* 반응형 */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-}
+### 로컬 테스트
+```bash
+cd projects/YYMMDD-xxx
+npx serve .
 ```
 
 ---
 
-## 🎨 AdSense 통합
+## AdSense 통합
 
 ### 설정 정보
 - **클라이언트 ID**: `ca-pub-4976487856728705`
-- **테스트 모드**: 기본적으로 `true` (배포 시 수동으로 `false`)
 - **광고 위치**: 상단, 하단 (필요시 사이드바)
 
-### adsense-config.js 표준
-
-```javascript
-const ADSENSE_CONFIG = {
-    clientId: 'ca-pub-4976487856728705',
-    slots: {
-        topBanner: '1234567890',
-        bottomBanner: '0987654321',
-    },
-    settings: {
-        enableAutoAds: true,
-        testMode: true  // 배포 후 false로 변경
-    }
-};
-```
-
-### 중요 체크리스트
+### 체크리스트
 - [ ] `<head>`에 AdSense 스크립트 있음
 - [ ] 클라이언트 ID가 정확함
 - [ ] 광고 영역이 2개 이상 있음
-- [ ] 테스트 모드 확인
 
 ---
 
-## 🚀 배포 프로세스
+## 배포 프로세스
 
-### Vercel 자동 배포 (현재 사용 중)
-
-**Git Push로 자동 배포:**
+### 기존 프로젝트 업데이트
+Git Push만 하면 자동 배포:
 ```bash
-cd revenue-project-factory
-git add .
-git commit -m "Update [프로젝트명]"
+git add -A
+git commit -m "Update YYMMDD-xxx"
 git push
 ```
 
-Vercel이 자동으로 해당 프로젝트를 재배포합니다!
-
-### 새 프로젝트 Vercel에 추가하기
-
-1. **프로젝트 생성** (Claude에게 요청)
-2. **Vercel Import**:
-   - https://vercel.com/new 접속
-   - `steve-byun/revenue-project-factory` 선택
-   - Root Directory: `projects/[프로젝트명]` 입력
-   - Deploy 클릭
-3. **Git 연결**:
-   - Settings → Git → Connect Git Repository
-   - `steve-byun/revenue-project-factory` 선택
-4. **Root Directory 설정**:
-   - Settings → Build and Deployment
-   - Root Directory: `projects/[프로젝트명]`
-   - Save
-
-### 배포 후 체크리스트
-- [ ] 사이트가 정상적으로 로드됨
-- [ ] 모든 기능이 작동함
-- [ ] AdSense 코드가 `<head>`에 있음
-- [ ] 모바일에서도 잘 보임
-- [ ] SEO meta 태그가 적절함
+### 새 프로젝트 추가
+1. 프로젝트 생성 후 Git Push
+2. Vercel에서 Import:
+   - https://vercel.com/new
+   - Root Directory: `projects/YYMMDD-xxx`
+3. Settings에서 Git 연결 확인
 
 ---
 
-## 🛠️ 자주 사용하는 명령어
+## 배포된 프로젝트 목록
 
-### 프로젝트 관리
+| 프로젝트 | URL | Root Directory |
+|---------|-----|----------------|
+| BMI 계산기 | https://bmi-calculator-topaz-five.vercel.app | `projects/260127-bmi-calculator` |
+| 팁 계산기 | https://tip-calculator-nu-flax.vercel.app | `projects/260127-tip-calculator` |
+| 환율 계산기 | https://currency-calculator-dun-mu.vercel.app | `projects/260127-currency-calculator` |
+
+---
+
+## 문제 해결
+
+### Vercel 자동 배포 안 됨
+1. Settings → Git 확인
+2. Root Directory 확인
+3. 새 커밋 푸시해서 테스트
+
+### AdSense 코드가 없음
 ```bash
-# 템플릿 목록 보기
-ls revenue-project-factory/templates/
-
-# 프로젝트 목록 보기
-ls revenue-project-factory/projects/
-
-# 새 프로젝트 생성
-cd revenue-project-factory
-node scripts/create-project.js [이름] [템플릿]
-
-# 프로젝트 로컬 실행
-cd projects/[프로젝트명]
-npx serve .
+grep "ca-pub-4976487856728705" projects/YYMMDD-xxx/index.html
 ```
-
-### 파일 확인
-```bash
-# HTML에 AdSense 코드 확인
-grep -n "ca-pub-4976487856728705" projects/[프로젝트명]/index.html
-
-# 파일 구조 확인
-ls -la projects/[프로젝트명]/
-```
-
-### 배포
-```bash
-# CLI 배포 시도 (실패할 수 있음)
-node scripts/deploy.js [프로젝트명] netlify
-
-# 실패 시: 수동 배포 안내
-```
-
----
-
-## 💡 사용자 요청 처리 패턴
-
-### 패턴 1: "XXX 만들어줘"
-
-**예시**: "BMI 계산기 만들어줘"
-
-**처리 순서**:
-1. 적절한 템플릿 선택 (calculator)
-2. 프로젝트 생성
-3. 기능 커스터마이징 (BMI 계산 로직)
-4. 로컬 테스트
-5. 배포 안내
-
-**응답 예시**:
-```
-BMI 계산기를 만들겠습니다!
-
-1. 프로젝트 생성 중...
-   [create-project.js 실행]
-
-2. BMI 계산 기능 추가 중...
-   [HTML/JS 수정]
-
-3. 로컬에서 테스트해보세요:
-   cd projects/bmi-calculator
-   npx serve .
-
-4. 배포는 Netlify에서 드래그 앤 드롭하세요!
-```
-
-### 패턴 2: "XXX를 참고해서 YYY 만들어줘"
-
-**예시**: "텍스트 도구를 참고해서 이미지 변환기 만들어줘"
-
-**처리 순서**:
-1. 참고 프로젝트 확인
-2. 유사한 템플릿 선택 또는 새로 생성
-3. 프로젝트 생성
-4. 차이점 커스터마이징
-5. 배포
-
-### 패턴 3: "배포해줘"
-
-**처리 순서**:
-1. 배포할 프로젝트 확인
-2. AdSense 코드 체크
-3. Netlify 수동 배포 안내
-4. 배포 URL 확인 요청
-
----
-
-## 🎯 성공 기준
-
-프로젝트가 성공적으로 완료되려면:
-
-- ✅ 프로젝트가 생성됨
-- ✅ 로컬에서 정상 작동
-- ✅ AdSense 코드가 포함됨
-- ✅ Netlify에 배포됨
-- ✅ 배포된 사이트에 AdSense 코드가 있음
-- ✅ 사용자가 URL을 확인함
-
----
-
-## 🚨 자주 발생하는 문제
-
-### 문제 1: AdSense 코드가 배포된 사이트에 없음
-
-**원인**:
-- 잘못된 폴더를 업로드함
-- 템플릿 폴더를 업로드함
-
-**해결**:
-```bash
-# 올바른 폴더 확인
-head -20 revenue-project-factory/projects/[프로젝트명]/index.html
-
-# AdSense 코드가 있는지 확인
-grep "ca-pub-4976487856728705" revenue-project-factory/projects/[프로젝트명]/index.html
-```
-
-### 문제 2: Vercel 배포 실패
-
-**해결**:
-- Vercel 대시보드에서 에러 로그 확인
-- Root Directory 설정 확인
-- Git 연결 상태 확인
-
-### 문제 3: 캐시 문제
-
-**해결**:
-- 강제 새로고침: `Ctrl + Shift + R`
-- 시크릿 모드로 확인
-- 페이지 소스 직접 확인
-
----
-
-## 📚 참고 자료
-
-- [프로젝트 README](../README.md)
-- [템플릿 가이드](./TEMPLATE_GUIDE.md)
-- [현재 상태](./CURRENT_STATUS.md)
+없으면 `<head>`에 추가
 
 ---
 
 **마지막 업데이트**: 2026-01-27
-**버전**: 2.0 (Vercel 자동 배포 전환)
-**작성자**: Claude Code
+**버전**: 3.0 (폴더 구조 개편)
