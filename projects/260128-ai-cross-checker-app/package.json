@@ -1,0 +1,31 @@
+{
+  "name": "ai-cross-checker",
+  "version": "1.0.0",
+  "description": "GPT와 Gemini에 동시에 질문하고 답변을 비교하는 Windows 앱",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "postinstall": "npx playwright install chromium"
+  },
+  "author": "steve-byun",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "playwright": "^1.41.0"
+  },
+  "build": {
+    "appId": "com.steve.ai-cross-checker",
+    "productName": "AI Cross Checker",
+    "win": {
+      "target": "portable"
+    },
+    "files": [
+      "**/*",
+      "!user-data/**"
+    ]
+  }
+}

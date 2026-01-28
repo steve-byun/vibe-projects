@@ -78,12 +78,21 @@ function findSendButton() {
 
 // 응답 확인
 function checkForResponse() {
-    // Gemini 응답 요소 찾기
-    const responses = document.querySelectorAll('.model-response-text, .response-content, .markdown-content');
+    // Gemini 응답 요소 찾기 (최신 UI 기준)
+    const responseSelectors = [
+        'model-response .markdown-main-panel',
+        'model-response message-content',
+        '.model-response-text',
+        '.response-content',
+        '.markdown-content',
+        '[data-message-id] .markdown'
+    ];
 
-    // message-content 클래스도 확인
-    const messageContents = document.querySelectorAll('[data-message-id] .markdown');
-    const allResponses = responses.length > 0 ? responses : messageContents;
+    let allResponses = [];
+    for (const selector of responseSelectors) {
+        allResponses = document.querySelectorAll(selector);
+        if (allResponses.length > 0) break;
+    }
 
     if (allResponses.length === 0) {
         return { done: false };
@@ -92,10 +101,11 @@ function checkForResponse() {
     const lastResponse = allResponses[allResponses.length - 1];
     const currentText = lastResponse.textContent || '';
 
-    // 로딩 인디케이터 확인
-    const isLoading = document.querySelector('.loading-indicator')
-        || document.querySelector('[class*="loading"]')
-        || document.querySelector('.thinking-indicator');
+    // 로딩 중인지 확인 (더 구체적인 셀렉터 사용)
+    const isLoading = document.querySelector('model-response .loading')
+        || document.querySelector('model-response mat-progress-spinner')
+        || document.querySelector('.response-container .loading-dots')
+        || document.querySelector('mat-spinner');
 
     if (isLoading) {
         return { done: false };

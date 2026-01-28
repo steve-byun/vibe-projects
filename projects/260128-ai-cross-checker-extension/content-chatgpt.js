@@ -79,11 +79,20 @@ function checkForResponse() {
     const lastResponse = responses[responses.length - 1];
     const currentText = lastResponse.textContent || '';
 
-    // 응답이 생성 중인지 확인 (스트리밍 중)
-    const isStreaming = document.querySelector('.result-streaming')
-        || document.querySelector('[class*="streaming"]');
+    // 스트리밍 중인지 확인 (마지막 응답 요소 내부에서만 확인)
+    const isStreaming = lastResponse.querySelector('.result-streaming')
+        || lastResponse.closest('div[data-testid="conversation-turn"]')?.querySelector('.result-streaming')
+        || document.querySelector('button[aria-label="Stop generating"]');
 
     if (isStreaming) {
+        return { done: false };
+    }
+
+    // 전송 버튼이 다시 활성화되었는지 확인
+    const sendButton = document.querySelector('[data-testid="send-button"]');
+    const isStillGenerating = sendButton && sendButton.disabled;
+
+    if (isStillGenerating) {
         return { done: false };
     }
 

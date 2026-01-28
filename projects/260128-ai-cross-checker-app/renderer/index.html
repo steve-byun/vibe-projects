@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cross Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Cross Checker</h1>
+            <p class="subtitle">GPT와 Gemini에 동시에 질문하고 답변 비교</p>
+        </header>
+
+        <!-- 연결 상태 -->
+        <section class="status-section">
+            <div class="status-card" id="gptStatus">
+                <div class="status-header">
+                    <span class="indicator inactive"></span>
+                    <span class="ai-name">ChatGPT</span>
+                </div>
+                <span class="status-text">연결 안됨</span>
+                <button class="btn-small" id="openGptBtn">열기</button>
+            </div>
+            <div class="status-card" id="geminiStatus">
+                <div class="status-header">
+                    <span class="indicator inactive"></span>
+                    <span class="ai-name">Gemini</span>
+                </div>
+                <span class="status-text">연결 안됨</span>
+                <button class="btn-small" id="openGeminiBtn">열기</button>
+            </div>
+        </section>
+
+        <!-- 질문 입력 -->
+        <section class="input-section">
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="useGpt" checked>
+                    ChatGPT 사용
+                </label>
+                <label>
+                    <input type="checkbox" id="useGemini" checked>
+                    Gemini 사용
+                </label>
+            </div>
+            <textarea id="questionInput" placeholder="질문을 입력하세요... (Ctrl+Enter로 전송)"></textarea>
+            <button id="sendBtn" class="btn-primary">질문 보내기</button>
+        </section>
+
+        <!-- 진행 상태 -->
+        <section class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-item" id="gptProgress">
+                <span class="ai-label">ChatGPT:</span>
+                <span class="progress-status">-</span>
+            </div>
+            <div class="progress-item" id="geminiProgress">
+                <span class="ai-label">Gemini:</span>
+                <span class="progress-status">-</span>
+            </div>
+        </section>
+
+        <!-- 결과 -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <h2>결과</h2>
+            <div class="result-card" id="gptResult" style="display: none;">
+                <h3>ChatGPT</h3>
+                <div class="result-content"></div>
+            </div>
+            <div class="result-card" id="geminiResult" style="display: none;">
+                <h3>Gemini</h3>
+                <div class="result-content"></div>
+            </div>
+        </section>
+
+        <!-- 초기화 로딩 -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>브라우저 초기화 중...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

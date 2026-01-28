@@ -43,6 +43,7 @@
 | 퍼센트 계산기 | https://260127-percent-calculator.vercel.app | `projects/260127-percent-calculator` |
 | AI 크로스체커 | https://260128-ai-cross-checker.vercel.app | `projects/260128-ai-cross-checker` |
 | AI 크로스체커 (확장) | Chrome 확장 프로그램 (개발중) | `projects/260128-ai-cross-checker-extension` |
+| AI 크로스체커 (앱) | Electron 앱 (개발중) | `projects/260128-ai-cross-checker-app` |
 
 **URL 확인**: `vercel project ls`
 
@@ -123,6 +124,10 @@ vercel login
 ### 우선순위 중간
 - [ ] Google Search Console 등록
 - [ ] sitemap.xml 생성
+
+### 진행 중
+- [ ] AI 크로스체커 Chrome 확장 - background worker 방식 (팝업 닫힘 문제 해결 시도)
+- [ ] AI 크로스체커 Electron 앱 - Playwright 브라우저 제어 (기존 브라우저 연결 불가 문제)
 
 ### 아이디어
 - [ ] 단위 변환기
