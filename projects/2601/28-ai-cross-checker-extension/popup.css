@@ -5,8 +5,7 @@
 }
 
 body {
-    width: 400px;
-    min-height: 300px;
+    width: 280px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #1a1a2e;
     color: #fff;
@@ -17,211 +16,106 @@ body {
 }
 
 h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
     background: linear-gradient(135deg, #00d9ff, #a855f7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* 탭 상태 */
-.tab-status {
+.subtitle {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* 모드 선택 버튼 */
+.mode-buttons {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     margin-bottom: 15px;
 }
 
-.status-item {
-    flex: 1;
+.mode-btn {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    font-size: 0.85rem;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #666;
-}
-
-.indicator.active {
-    background: #4ade80;
-}
-
-.indicator.inactive {
-    background: #f87171;
-}
-
-.status-text {
-    margin-left: auto;
-    color: #888;
-    font-size: 0.75rem;
-}
-
-/* AI 선택 */
-.ai-select {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.checkbox-label input {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-/* 질문 입력 */
-.question-section {
-    margin-bottom: 15px;
-}
-
-textarea {
-    width: 100%;
-    height: 80px;
-    padding: 12px;
+    padding: 15px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
     color: #fff;
-    font-size: 0.95rem;
-    resize: vertical;
-    margin-bottom: 10px;
-}
-
-textarea:focus {
-    outline: none;
-    border-color: #00d9ff;
-}
-
-.send-btn {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #00d9ff, #a855f7);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
 }
 
-.send-btn:hover {
-    opacity: 0.9;
+.mode-btn:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
 }
 
-.send-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.mode-btn.sidepanel:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
 }
 
-/* 진행 상태 */
-.progress-section {
-    margin-bottom: 15px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+.mode-btn.fullpage:hover {
+    border-color: #a855f7;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
 }
 
-.progress-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
-    font-size: 0.85rem;
+.mode-btn .icon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
 }
 
-.progress-status {
-    color: #888;
-}
-
-.progress-status.sending {
-    color: #fbbf24;
-}
-
-.progress-status.waiting {
-    color: #60a5fa;
-}
-
-.progress-status.done {
-    color: #4ade80;
-}
-
-.progress-status.error {
-    color: #f87171;
-}
-
-/* 결과 */
-.results-section {
-    margin-bottom: 15px;
-}
-
-.results-section h2 {
-    font-size: 1rem;
-    margin-bottom: 10px;
-}
-
-.result-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 10px;
-}
-
-.result-card h3 {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+.mode-btn.sidepanel .icon {
     color: #00d9ff;
 }
 
-.result-content {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    max-height: 150px;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    color: #ccc;
+.mode-btn.fullpage .icon {
+    color: #a855f7;
 }
 
-/* 도움말 */
-.help-section {
+.mode-btn .label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.mode-btn .desc {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* 기억하기 옵션 */
+.remember-option {
     text-align: center;
-    padding-top: 10px;
+    padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.help-section p {
+.remember-option label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-size: 0.8rem;
     color: #888;
-    margin-bottom: 8px;
+    cursor: pointer;
 }
 
-.help-section a {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 5px 10px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #00d9ff;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.8rem;
+.remember-option input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: #00d9ff;
 }
 
-.help-section a:hover {
-    background: rgba(255, 255, 255, 0.2);
+.remember-option label:hover {
+    color: #aaa;
 }

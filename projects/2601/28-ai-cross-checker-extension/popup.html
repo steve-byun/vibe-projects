@@ -9,69 +9,26 @@
 <body>
     <div class="container">
         <h1>AI Cross Checker</h1>
+        <p class="subtitle">GPT & Gemini 크로스체크</p>
 
-        <!-- 탭 상태 표시 -->
-        <div class="tab-status">
-            <div class="status-item" id="gptStatus">
-                <span class="indicator"></span>
-                <span class="label">ChatGPT</span>
-                <span class="status-text">확인중...</span>
-            </div>
-            <div class="status-item" id="geminiStatus">
-                <span class="indicator"></span>
-                <span class="label">Gemini</span>
-                <span class="status-text">확인중...</span>
-            </div>
+        <div class="mode-buttons">
+            <button id="sidePanelBtn" class="mode-btn sidepanel">
+                <span class="icon">◧</span>
+                <span class="label">사이드 패널</span>
+                <span class="desc">브라우저 옆에서 열기</span>
+            </button>
+            <button id="fullPageBtn" class="mode-btn fullpage">
+                <span class="icon">☐</span>
+                <span class="label">전체 페이지</span>
+                <span class="desc">새 탭에서 열기</span>
+            </button>
         </div>
 
-        <!-- AI 선택 -->
-        <div class="ai-select">
-            <label class="checkbox-label">
-                <input type="checkbox" id="useGpt" checked>
-                <span>ChatGPT 사용</span>
+        <div class="remember-option">
+            <label>
+                <input type="checkbox" id="rememberChoice">
+                <span>이 선택 기억하기</span>
             </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="useGemini" checked>
-                <span>Gemini 사용</span>
-            </label>
-        </div>
-
-        <!-- 질문 입력 -->
-        <div class="question-section">
-            <textarea id="questionInput" placeholder="질문을 입력하세요..."></textarea>
-            <button id="sendBtn" class="send-btn">질문 보내기</button>
-        </div>
-
-        <!-- 진행 상태 -->
-        <div class="progress-section" id="progressSection" style="display: none;">
-            <div class="progress-item" id="gptProgress">
-                <span class="ai-name">ChatGPT:</span>
-                <span class="progress-status">대기중</span>
-            </div>
-            <div class="progress-item" id="geminiProgress">
-                <span class="ai-name">Gemini:</span>
-                <span class="progress-status">대기중</span>
-            </div>
-        </div>
-
-        <!-- 결과 영역 -->
-        <div class="results-section" id="resultsSection" style="display: none;">
-            <h2>결과</h2>
-            <div class="result-card" id="gptResult">
-                <h3>ChatGPT</h3>
-                <div class="result-content"></div>
-            </div>
-            <div class="result-card" id="geminiResult">
-                <h3>Gemini</h3>
-                <div class="result-content"></div>
-            </div>
-        </div>
-
-        <!-- 안내 메시지 -->
-        <div class="help-section">
-            <p>ChatGPT와 Gemini 탭을 열어두세요.</p>
-            <a href="https://chatgpt.com" target="_blank">ChatGPT 열기</a>
-            <a href="https://gemini.google.com" target="_blank">Gemini 열기</a>
         </div>
     </div>
 

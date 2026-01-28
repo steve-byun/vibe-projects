@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cross Checker</title>
+    <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-row">
+                <h1>AI Cross Checker</h1>
+                <button id="fullPageBtn" class="fullpage-btn" title="전체 페이지로 열기">☐</button>
+            </div>
+            <p class="subtitle">GPT & Gemini 크로스체크</p>
+        </header>
+
+        <!-- 탭 상태 및 모델 선택 -->
+        <div class="tab-status">
+            <div class="status-card" id="gptStatus">
+                <div class="status-header">
+                    <span class="indicator"></span>
+                    <span class="label">ChatGPT</span>
+                    <span class="status-text">확인중...</span>
+                </div>
+                <select id="gptModel" class="model-select">
+                    <option value="auto">Auto (기본)</option>
+                    <option value="4o">4o (빠름)</option>
+                    <option value="o1">o1 (추론)</option>
+                </select>
+            </div>
+            <div class="status-card" id="geminiStatus">
+                <div class="status-header">
+                    <span class="indicator"></span>
+                    <span class="label">Gemini</span>
+                    <span class="status-text">확인중...</span>
+                </div>
+                <select id="geminiModel" class="model-select">
+                    <option value="flash">Flash (빠름)</option>
+                    <option value="flash-thinking">Flash Thinking</option>
+                    <option value="pro">Pro (정확)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 옵션 -->
+        <div class="options-section">
+            <label class="option-item">
+                <input type="checkbox" id="newChatOption">
+                <span>매 질문마다 새 채팅 시작</span>
+            </label>
+        </div>
+
+        <!-- 질문 입력 -->
+        <div class="question-section">
+            <textarea id="questionInput" placeholder="질문을 입력하세요... (Ctrl+Enter로 전송)"></textarea>
+            <button id="sendBtn" class="send-btn">크로스체크 시작</button>
+        </div>
+
+        <!-- 진행 상태 (Phase 기반) -->
+        <div class="phase-section" id="phaseSection" style="display: none;">
+            <div class="phase-title">진행 상태</div>
+            <div class="phase-list">
+                <div class="phase-item" id="phase1">
+                    <span class="phase-icon">○</span>
+                    <span class="phase-text">1단계: GPT/Gemini에 질문</span>
+                </div>
+                <div class="phase-item" id="phase2">
+                    <span class="phase-icon">○</span>
+                    <span class="phase-text">2단계: 크로스체크</span>
+                </div>
+                <div class="phase-item" id="phase3">
+                    <span class="phase-icon">○</span>
+                    <span class="phase-text">3단계: 최종 분석 (Gemini)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 최종 결과 영역 -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>크로스체크 결과</h2>
+            <div class="final-result" id="finalResult"></div>
+            <button id="copyBtn" class="copy-btn">결과 복사</button>
+        </div>
+
+        <!-- 에러 표시 -->
+        <div class="error-section" id="errorSection" style="display: none;">
+            <div class="error-message"></div>
+            <button id="retryBtn" class="retry-btn">다시 시도</button>
+        </div>
+
+        <!-- 안내 메시지 -->
+        <div class="help-section">
+            <p>ChatGPT와 Gemini 탭을 열어두세요</p>
+            <div class="help-links">
+                <a href="https://chatgpt.com" target="_blank">ChatGPT 열기</a>
+                <a href="https://gemini.google.com" target="_blank">Gemini 열기</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="sidepanel.js"></script>
+</body>
+</html>

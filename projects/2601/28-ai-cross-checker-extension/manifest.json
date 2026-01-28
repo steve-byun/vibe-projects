@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
   "name": "AI Cross Checker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "GPT와 Gemini에 동시에 질문하고 답변을 비교하는 확장 프로그램",
   "permissions": [
     "activeTab",
     "tabs",
     "scripting",
-    "storage"
+    "storage",
+    "sidePanel"
   ],
   "host_permissions": [
     "https://chatgpt.com/*",
@@ -15,7 +16,11 @@
     "https://gemini.google.com/*"
   ],
   "action": {
+    "default_title": "AI Cross Checker 열기",
     "default_popup": "popup.html"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
   },
   "content_scripts": [
     {

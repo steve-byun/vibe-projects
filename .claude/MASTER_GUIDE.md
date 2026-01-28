@@ -4,21 +4,24 @@
 
 ---
 
-## 세션 시작/종료 명령어
+## 세션 명령어
 
-### 시작: `작업준비해줘`
-사용자가 이 명령어를 입력하면 Claude가 자동으로:
-1. `git pull origin main` - 최신 데이터 가져오기
-2. `.claude/MASTER_GUIDE.md` 읽기
-3. 현재 상태 요약 출력
+### `작업준비` 또는 `작업준비해줘`
+1. `.claude/MASTER_GUIDE.md` 읽기
+2. 현재 상태 요약 출력
 
 **응용**: `작업준비 해주고 ~~를 실행시켜줘` 형태로 사용 가능
 
-### 종료: `작업종료해줘` 또는 `작업종료`
-사용자가 이 명령어를 입력하면 Claude가 자동으로:
+### `작업종료` 또는 `작업종료해줘`
 1. 오늘 작업 내용으로 이 파일의 TODO/상태 업데이트
-2. `git add -A && git commit -m "작업 내용 요약" && git push`
-3. 오늘 작업 요약 출력
+2. `scripts/session-end.ps1` 실행 (현재 탭 닫기 → 신규 탭 열기)
+3. 신규 탭에서 자동으로 `작업준비` 실행 (MASTER_GUIDE.md 읽기)
+
+### `pull` 또는 `pull해줘`
+1. `git pull origin main` - 최신 데이터 가져오기
+
+### `push` 또는 `push해줘`
+1. `git add -A && git commit -m "작업 내용 요약" && git push` - 모든 변경사항 push
 
 ---
 
@@ -125,8 +128,10 @@ vercel login
 - [ ] sitemap.xml 생성
 
 ### 진행 중
-- [ ] AI 크로스체커 Chrome 확장 - background worker 방식 (팝업 닫힘 문제 해결 시도)
-- [ ] AI 크로스체커 Electron 앱 - Playwright 브라우저 제어 (기존 브라우저 연결 불가 문제)
+- [ ] AI 크로스체커 Chrome 확장 - 사이드 패널 방식 (테스트 필요)
+  - 크로스체크 로직: GPT/Gemini 상호 검토 후 Gemini가 최종 분석
+  - 모델 선택 드롭박스 (GPT: Auto/4o/o1, Gemini: Flash/Thinking/Pro)
+  - 새 채팅 옵션 체크박스
 
 ### 아이디어
 - [ ] 단위 변환기
@@ -140,6 +145,11 @@ vercel login
 - [x] 프로젝트 폴더 구조 개편 (YYMM/DD-name 형식)
 - [x] PinDirect 위젯 시스템 트레이 기능 추가
 - [x] PinDirect 위젯 시작 시 트레이로 바로 최소화
+- [x] 세션 명령어 체계 개편 (작업준비/작업종료/pull/push 분리)
+- [x] 작업종료 자동화 스크립트 추가 (session-end.ps1)
+- [x] AI 크로스체커 확장 사이드 패널로 변경
+- [x] AI 크로스체커 크로스체크 로직 구현
+- [x] AI 크로스체커 모델 선택/새채팅 옵션 추가
 - [ ] Vercel Root Directory 설정 변경 (대시보드에서 수동 필요)
 
 ---
@@ -162,4 +172,4 @@ vercel login
 ---
 
 **마지막 업데이트**: 2026-01-28
-**버전**: 4.1 (폴더 구조 개편: YYMM/DD-name)
+**버전**: 4.3 (작업종료 자동화 스크립트 추가)
