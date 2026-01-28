@@ -44,6 +44,7 @@
 | AI 크로스체커 | https://260128-ai-cross-checker.vercel.app | `projects/260128-ai-cross-checker` |
 | AI 크로스체커 (확장) | Chrome 확장 프로그램 (개발중) | `projects/260128-ai-cross-checker-extension` |
 | AI 크로스체커 (앱) | Electron 앱 (개발중) | `projects/260128-ai-cross-checker-app` |
+| PinDirect 위젯 | 데스크톱 위젯 (완료) | `projects/260128-pindirect-widget` |
 
 **URL 확인**: `vercel project ls`
 
