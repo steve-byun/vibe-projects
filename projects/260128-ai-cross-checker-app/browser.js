@@ -12,10 +12,11 @@ class BrowserController {
 
     // 브라우저 초기화 (로그인 상태 유지를 위해 persistent context 사용)
     async init() {
-        if (this.browser) return;
+        if (this.context) return;
 
         const userDataDir = path.join(__dirname, 'user-data');
 
+        console.log('[Browser] Launching persistent context...');
         this.context = await chromium.launchPersistentContext(userDataDir, {
             headless: false,
             viewport: { width: 1280, height: 800 },
@@ -24,12 +25,15 @@ class BrowserController {
                 '--no-sandbox'
             ]
         });
+        console.log('[Browser] Context launched successfully');
 
-        // 빈 페이지 닫기
-        const pages = this.context.pages();
-        if (pages.length > 0 && pages[0].url() === 'about:blank') {
-            await pages[0].close();
-        }
+        // 컨텍스트 닫힘 이벤트 감지
+        this.context.on('close', () => {
+            console.log('[Browser] Context closed');
+            this.context = null;
+            this.gptPage = null;
+            this.geminiPage = null;
+        });
     }
 
     // 브라우저 닫기
