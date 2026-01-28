@@ -138,6 +138,8 @@ vercel login
 ### 완료된 작업 (260128)
 - [x] Window Cleaner 윈도우 앱 제작
 - [x] 프로젝트 폴더 구조 개편 (YYMM/DD-name 형식)
+- [x] PinDirect 위젯 시스템 트레이 기능 추가
+- [x] PinDirect 위젯 시작 시 트레이로 바로 최소화
 - [ ] Vercel Root Directory 설정 변경 (대시보드에서 수동 필요)
 
 ---
