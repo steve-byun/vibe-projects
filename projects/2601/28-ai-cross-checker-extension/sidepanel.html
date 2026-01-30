@@ -26,8 +26,8 @@
                 </div>
                 <select id="gptModel" class="model-select">
                     <option value="auto">Auto (기본)</option>
-                    <option value="4o">4o (빠름)</option>
-                    <option value="o1">o1 (추론)</option>
+                    <option value="instant">Instant (빠름)</option>
+                    <option value="thinking">Thinking (추론)</option>
                 </select>
             </div>
             <div class="status-card" id="geminiStatus">
@@ -58,29 +58,67 @@
             <button id="sendBtn" class="send-btn">크로스체크 시작</button>
         </div>
 
-        <!-- 진행 상태 (Phase 기반) -->
+        <!-- 진행 상태 (GPT/Gemini 개별 표시) -->
         <div class="phase-section" id="phaseSection" style="display: none;">
-            <div class="phase-title">진행 상태</div>
-            <div class="phase-list">
-                <div class="phase-item" id="phase1">
-                    <span class="phase-icon">○</span>
-                    <span class="phase-text">1단계: GPT/Gemini에 질문</span>
+            <!-- GPT 진행 상태 -->
+            <div class="progress-row">
+                <div class="progress-label-row">
+                    <span class="progress-ai-icon gpt-icon">G</span>
+                    <span class="progress-ai-name">GPT</span>
+                    <span class="progress-status" id="gptProgressStatus">대기</span>
                 </div>
-                <div class="phase-item" id="phase2">
-                    <span class="phase-icon">○</span>
-                    <span class="phase-text">2단계: 크로스체크</span>
+                <div class="progress-bar">
+                    <div class="progress-fill gpt-fill" id="gptProgressFill"></div>
                 </div>
-                <div class="phase-item" id="phase3">
-                    <span class="phase-icon">○</span>
-                    <span class="phase-text">3단계: 최종 분석 (Gemini)</span>
+            </div>
+
+            <!-- Gemini 진행 상태 -->
+            <div class="progress-row">
+                <div class="progress-label-row">
+                    <span class="progress-ai-icon gemini-icon">✦</span>
+                    <span class="progress-ai-name">Gemini</span>
+                    <span class="progress-status" id="geminiProgressStatus">대기</span>
                 </div>
+                <div class="progress-bar">
+                    <div class="progress-fill gemini-fill" id="geminiProgressFill"></div>
+                </div>
+            </div>
+
+            <!-- 전체 단계 표시 -->
+            <div class="overall-phase" id="overallPhase">
+                <div class="phase-spinner"></div>
+                <span class="phase-label" id="phaseLabel">준비 중...</span>
             </div>
         </div>
 
         <!-- 최종 결과 영역 -->
         <div class="results-section" id="resultsSection" style="display: none;">
             <h2>크로스체크 결과</h2>
-            <div class="final-result" id="finalResult"></div>
+
+            <!-- 공통 의견 박스 -->
+            <div class="result-box result-common" id="resultCommon">
+                <div class="result-box-header">
+                    <span>동일 의견</span>
+                </div>
+                <div class="result-box-content" id="commonContent"></div>
+            </div>
+
+            <!-- GPT/Gemini 개별 의견 -->
+            <div class="result-split">
+                <div class="result-box result-gpt">
+                    <div class="result-box-header">
+                        <span>GPT</span>
+                    </div>
+                    <div class="result-box-content" id="gptContent"></div>
+                </div>
+                <div class="result-box result-gemini">
+                    <div class="result-box-header">
+                        <span>Gemini</span>
+                    </div>
+                    <div class="result-box-content" id="geminiContent"></div>
+                </div>
+            </div>
+
             <button id="copyBtn" class="copy-btn">결과 복사</button>
         </div>
 
