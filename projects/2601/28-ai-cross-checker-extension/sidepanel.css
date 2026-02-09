@@ -222,6 +222,98 @@ textarea::placeholder {
     cursor: not-allowed;
 }
 
+/* 사전 검사 경고 */
+.precheck-section {
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 12px;
+}
+
+.precheck-header {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fbbf24;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.precheck-header::before {
+    content: "⚠";
+}
+
+.precheck-items {
+    margin-bottom: 12px;
+}
+
+.precheck-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.precheck-item:last-child {
+    margin-bottom: 0;
+}
+
+.precheck-item.warning {
+    background: rgba(251, 191, 36, 0.1);
+    color: #fbbf24;
+}
+
+.precheck-item.error {
+    background: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+}
+
+.precheck-item.ok {
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+}
+
+.precheck-item .precheck-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.precheck-item .precheck-name {
+    font-weight: 600;
+    min-width: 55px;
+}
+
+.precheck-item .precheck-msg {
+    color: inherit;
+    opacity: 0.9;
+}
+
+.precheck-actions {
+    display: flex;
+}
+
+.cancel-check-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-check-btn:hover {
+    background: rgba(251, 191, 36, 0.25);
+}
+
 /* Phase 진행 상태 */
 .phase-section {
     margin-bottom: 20px;

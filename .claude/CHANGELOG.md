@@ -4,6 +4,28 @@
 
 ---
 
+### 260209-6
+- [x] AI 크로스체커 구조 단순화 + 사전 검사 + 응답 감지 강화
+  - 팝업 윈도우 로직 완전 제거 (setupBackgroundWindow, teardownBackgroundWindow, visibilityOverride, silentAudio 등)
+  - 사전 검사 시스템: 크로스체크 시작 전 탭 상태 확인 (최소화 감지 → 경고)
+  - 응답 감지 fallback: Stop 버튼 놓쳐도 텍스트 안정화로 완료 판단 (2초 안정 시)
+
+### 260209-5
+- [x] AI 크로스체커 Claude 응답 감지 버그 수정
+  - `button[aria-label="Stop"]` 일반적 셀렉터가 Claude UI 상시 존재 버튼 오감지 → 제거
+  - `injectCheckButtonStateClaude`, `injectClickSendClaude`에서 구체적 셀렉터만 유지
+  - `button[aria-label="Send"]` 일반적 셀렉터도 제거
+
+### 260209-4
+- [x] C:\share 폴더 전체 정리
+  - 삭제: Duplicates_Temp, Installers(2.8GB), youtube-url-summarizer, Claude Setup.exe
+  - 삭제: Personal/대용량첨부 zip(927MB), 추출/ffmpeg 중복(~400MB)
+  - 이동: Robot_Collision_Detection.pptx → Robot_Engineering/
+  - 이동: 2026-01-05/(인사발령) → Company_Admin/
+  - Thumbs.db 파일 정리
+  - SHARE_INDEX.md 생성 (전체 폴더 내용 문서화)
+  - 총 약 3.9GB 정리
+
 ### 260209-3
 - [x] 서바이버 게임 (탕탕특공대 클론) 프로젝트 생성
   - 에이전트 팀 (4명: architect, engine-dev, combat-dev, ui-dev) 활용

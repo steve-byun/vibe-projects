@@ -8,8 +8,8 @@
 
 | 항목 | 경로 |
 |------|------|
-| **학습 폴더** | `C:\Dev\Robotics_Learning` |
-| **참고 자료** | `C:\Dev\Robotics_Learning\ref` (HCR 로봇 OJT 원본) |
+| **학습 폴더** | `C:\share\Dev\Robotics_Learning` |
+| **참고 자료** | `C:\share\Dev\Robotics_Learning\ref` (HCR 로봇 OJT 원본) |
 | **시작일** | 2026-02-05 |
 | **목표** | 2-Link 로봇부터 시작해 로봇 매니퓰레이터 이론 완전 이해 |
 

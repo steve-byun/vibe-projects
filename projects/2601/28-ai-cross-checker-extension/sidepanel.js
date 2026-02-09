@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('copyBtn').addEventListener('click', copyResult);
     document.getElementById('fullPageBtn')?.addEventListener('click', openFullPage);
     document.getElementById('retryBtn').addEventListener('click', reset);
+    document.getElementById('cancelCheckBtn').addEventListener('click', cancelPrecheck);
 
     // 설정 변경 저장 및 즉시 모델 변경
     document.getElementById('gptModel').addEventListener('change', async (e) => {
@@ -339,7 +340,7 @@ function displayResult(text) {
     }
 }
 
-// 질문 보내기
+// 질문 보내기 (사전 검사 포함)
 async function sendQuestion() {
     const question = document.getElementById('questionInput').value.trim();
     if (!question) { alert('질문을 입력하세요.'); return; }
@@ -353,6 +354,61 @@ async function sendQuestion() {
         return;
     }
 
+    // 사전 검사
+    const status = await chrome.runtime.sendMessage({
+        action: 'checkTabStatus',
+        gptTabId,
+        geminiTabId,
+        claudeTabId
+    });
+
+    const hasIssues = Object.values(status).some(s => s.status === 'warning' || s.status === 'error');
+
+    if (hasIssues) {
+        showPrecheckWarning(status);
+        return;
+    }
+
+    // 문제 없으면 바로 진행
+    startCrossCheck();
+}
+
+// 사전 검사 경고 표시
+function showPrecheckWarning(status) {
+    const section = document.getElementById('precheckSection');
+    const items = document.getElementById('precheckItems');
+    items.innerHTML = '';
+
+    for (const [name, info] of Object.entries(status)) {
+        const statusClass = info.status === 'ok' ? 'ok' : info.status === 'warning' ? 'warning' : 'error';
+        const icon = info.status === 'ok' ? '✓' : info.status === 'warning' ? '⚠' : '✕';
+        const message = info.issues && info.issues.length > 0 ? info.issues.join(', ') : '정상';
+
+        const item = document.createElement('div');
+        item.className = `precheck-item ${statusClass}`;
+        item.innerHTML = `
+            <span class="precheck-icon">${icon}</span>
+            <span class="precheck-name">${name}</span>
+            <span class="precheck-msg">${message}</span>
+        `;
+        items.appendChild(item);
+    }
+
+    section.style.display = 'block';
+    document.getElementById('sendBtn').style.display = 'none';
+}
+
+// 사전 검사 취소 (확인 버튼)
+function cancelPrecheck() {
+    document.getElementById('precheckSection').style.display = 'none';
+    const sendBtn = document.getElementById('sendBtn');
+    sendBtn.style.display = '';
+    sendBtn.disabled = false;
+}
+
+// 실제 크로스체크 시작
+function startCrossCheck() {
+    const question = document.getElementById('questionInput').value.trim();
     const gptModel = document.getElementById('gptModel').value;
     const geminiModel = document.getElementById('geminiModel').value;
     const newChatOption = document.getElementById('newChatOption').checked;
@@ -363,6 +419,7 @@ async function sendQuestion() {
     document.getElementById('phaseSection').style.display = 'block';
     document.getElementById('resultsSection').style.display = 'none';
     document.getElementById('errorSection').style.display = 'none';
+    document.getElementById('precheckSection').style.display = 'none';
 
     updatePhaseUI({ phase: 'phase1', gptPhase: 'asking', geminiPhase: 'asking', claudePhase: 'asking' });
 

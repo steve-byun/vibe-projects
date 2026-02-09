@@ -78,7 +78,49 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             .catch(e => sendResponse({ success: false, error: e.message }));
         return true;
     }
+
+    if (request.action === 'checkTabStatus') {
+        checkTabStatus(request.gptTabId, request.geminiTabId, request.claudeTabId)
+            .then(status => sendResponse(status));
+        return true;
+    }
+
 });
+
+// 탭 상태 사전 검사
+async function checkTabStatus(gptTabId, geminiTabId, claudeTabId) {
+    const results = {};
+    const tabs = { GPT: gptTabId, Gemini: geminiTabId, Claude: claudeTabId };
+
+    for (const [name, tabId] of Object.entries(tabs)) {
+        if (!tabId) {
+            results[name] = { status: 'missing', issues: ['탭이 열려있지 않습니다'] };
+            continue;
+        }
+
+        try {
+            const tab = await chrome.tabs.get(tabId);
+            const win = await chrome.windows.get(tab.windowId);
+            const issues = [];
+
+            if (win.state === 'minimized') {
+                issues.push('윈도우가 최소화되어 있습니다');
+            }
+
+            results[name] = {
+                status: issues.length > 0 ? 'warning' : 'ok',
+                tabId,
+                windowState: win.state,
+                isActive: tab.active,
+                issues
+            };
+        } catch (e) {
+            results[name] = { status: 'error', issues: [`탭 접근 실패: ${e.message}`] };
+        }
+    }
+
+    return results;
+}
 
 // 메인 크로스체크 플로우 (v2: 3AI → Gemini 취합)
 async function handleSendQuestion(request) {
@@ -122,7 +164,7 @@ async function handleSendQuestion(request) {
 
         console.log('[Phase 1] 원본 질문 전송 (3 AI)...');
 
-        // 1. 세 곳에 텍스트 입력
+        // 1. 세 곳에 텍스트 입력 (오프스크린 윈도우 내에서 탭 활성화)
         console.log('[Phase 1] GPT 텍스트 입력...');
         await chrome.tabs.update(gptTabId, { active: true });
         await sleep(100);
@@ -130,12 +172,12 @@ async function handleSendQuestion(request) {
 
         console.log('[Phase 1] Gemini 텍스트 입력...');
         await chrome.tabs.update(geminiTabId, { active: true });
-        await sleep(1000);
+        await sleep(300);
         await inputText(geminiTabId, question, 'gemini');
 
         console.log('[Phase 1] Claude 텍스트 입력...');
         await chrome.tabs.update(claudeTabId, { active: true });
-        await sleep(1000);
+        await sleep(300);
         await inputText(claudeTabId, question, 'claude');
 
         // 2. 세 곳에 전송 버튼 클릭
@@ -146,12 +188,12 @@ async function handleSendQuestion(request) {
 
         console.log('[Phase 1] Gemini 전송...');
         await chrome.tabs.update(geminiTabId, { active: true });
-        await sleep(500);
+        await sleep(300);
         await clickSend(geminiTabId, 'gemini');
 
         console.log('[Phase 1] Claude 전송...');
         await chrome.tabs.update(claudeTabId, { active: true });
-        await sleep(500);
+        await sleep(300);
         await clickSend(claudeTabId, 'claude');
 
         // 3. 응답 대기 (3개 병렬)
@@ -405,14 +447,12 @@ async function sendMessage(tabId, message, type) {
     await clickSend(tabId, type);
 }
 
-// 메시지 전송 및 응답 대기 (탭 활성화 포함)
+// 메시지 전송 및 응답 대기 (오프스크린 윈도우 내 탭 활성화)
 async function sendAndWait(tabId, message, type) {
-    console.log(`[${type}] 메시지 전송 시작 (탭 활성화 + 대기)`);
+    console.log(`[${type}] 메시지 전송 시작`);
 
     await chrome.tabs.update(tabId, { active: true });
-    const waitTime = (type === 'gemini' || type === 'claude') ? 1000 : 100;
-    await sleep(waitTime);
-
+    await sleep(300);
     await sendMessage(tabId, message, type);
     const response = await waitForResponse(tabId, type);
     return response;
@@ -423,9 +463,7 @@ async function sendAndWaitWithTimeout(tabId, message, type, initialTimeout) {
     console.log(`[${type}] 메시지 전송 시작 (타임아웃 ${initialTimeout}ms)`);
 
     await chrome.tabs.update(tabId, { active: true });
-    const waitTime = (type === 'gemini' || type === 'claude') ? 1000 : 100;
-    await sleep(waitTime);
-
+    await sleep(300);
     await sendMessage(tabId, message, type);
     const response = await waitForResponseWithInitialTimeout(tabId, type, initialTimeout);
     return response;
@@ -444,6 +482,12 @@ async function waitForResponseWithInitialTimeout(tabId, type, initialTimeout) {
     let sawStopButton = false;
     const maxInitialChecks = Math.ceil(initialTimeout / checkInterval);
 
+    // 전송 전 기존 응답 텍스트 저장 (fallback용)
+    const initialText = await getResponseText(tabId, type);
+    let stableText = '';
+    let stableCount = 0;
+    const STABLE_THRESHOLD = 4;
+
     console.log(`[${type}] 응답 대기 시작 (초기 타임아웃: ${initialTimeout}ms)`);
 
     while (true) {
@@ -461,6 +505,7 @@ async function waitForResponseWithInitialTimeout(tabId, type, initialTimeout) {
 
             if (hasStopButton) {
                 sawStopButton = true;
+                stableCount = 0;
                 if (elapsedSec > 0 && elapsedSec % 10 === 0 && checkCount % (10000 / checkInterval) === 0) {
                     console.log(`[${type}] 응답 생성 중... (${elapsedSec}초)`);
                 }
@@ -468,23 +513,36 @@ async function waitForResponseWithInitialTimeout(tabId, type, initialTimeout) {
             }
 
             if (!hasStopButton && sawStopButton) {
-                console.log(`[${type}] 응답 완료! (${elapsedSec}초)`);
-
-                const textFuncMap = {
-                    'gpt': injectGetLastResponseGpt,
-                    'gemini': injectGetLastResponseGemini,
-                    'claude': injectGetLastResponseClaude
-                };
-                const textResult = await chrome.scripting.executeScript({
-                    target: { tabId },
-                    func: textFuncMap[type]
-                });
-                const text = textResult[0]?.result || '';
+                console.log(`[${type}] 응답 완료! (Stop 버튼 사라짐, ${elapsedSec}초)`);
+                const text = await getResponseText(tabId, type);
                 console.log(`[${type}] 응답 텍스트: ${text.length}자`);
                 return text;
             }
 
+            // Fallback: Stop 버튼 없이 새 응답 감지
+            if (!sawStopButton && elapsedSec >= 3) {
+                const currentText = await getResponseText(tabId, type);
+                if (currentText && currentText !== initialText && currentText.length > 0) {
+                    if (currentText === stableText) {
+                        stableCount++;
+                        if (stableCount >= STABLE_THRESHOLD) {
+                            console.log(`[${type}] 응답 완료! (텍스트 안정화 fallback, ${elapsedSec}초)`);
+                            return currentText;
+                        }
+                    } else {
+                        stableText = currentText;
+                        stableCount = 1;
+                    }
+                }
+            }
+
             if (!sawStopButton && checkCount >= maxInitialChecks) {
+                // 타임아웃 전에 텍스트 fallback 한번 더 체크
+                const currentText = await getResponseText(tabId, type);
+                if (currentText && currentText !== initialText && currentText.length > 30) {
+                    console.log(`[${type}] 응답 완료! (타임아웃 직전 텍스트 감지, ${elapsedSec}초)`);
+                    return currentText;
+                }
                 throw new Error(`전송 후 ${initialTimeout}ms 동안 응답 생성이 시작되지 않음 (Stop 버튼 미감지)`);
             }
 
@@ -495,7 +553,21 @@ async function waitForResponseWithInitialTimeout(tabId, type, initialTimeout) {
     }
 }
 
-// 응답 대기 (버튼 모양 기반)
+// 응답 텍스트 가져오기
+async function getResponseText(tabId, type) {
+    const textFuncMap = {
+        'gpt': injectGetLastResponseGpt,
+        'gemini': injectGetLastResponseGemini,
+        'claude': injectGetLastResponseClaude
+    };
+    const textResult = await chrome.scripting.executeScript({
+        target: { tabId },
+        func: textFuncMap[type]
+    });
+    return textResult[0]?.result || '';
+}
+
+// 응답 대기 (버튼 모양 기반 + 응답 텍스트 fallback)
 async function waitForResponse(tabId, type) {
     const funcMap = {
         'gpt': injectCheckButtonState,
@@ -506,6 +578,12 @@ async function waitForResponse(tabId, type) {
     let checkCount = 0;
     const checkInterval = 500;
     let sawStopButton = false;
+
+    // 전송 전 기존 응답 텍스트 저장 (fallback용)
+    const initialText = await getResponseText(tabId, type);
+    let stableText = '';
+    let stableCount = 0;
+    const STABLE_THRESHOLD = 4; // 2초 동안 텍스트가 안 변하면 완료로 판단
 
     console.log(`[${type}] 응답 대기 시작`);
 
@@ -528,6 +606,7 @@ async function waitForResponse(tabId, type) {
 
             if (hasStopButton) {
                 sawStopButton = true;
+                stableCount = 0; // 아직 생성 중이므로 리셋
                 if (elapsedSec > 0 && elapsedSec % 10 === 0 && checkCount % (10000 / checkInterval) === 0) {
                     console.log(`[${type}] 응답 생성 중... (${elapsedSec}초)`);
                 }
@@ -535,20 +614,29 @@ async function waitForResponse(tabId, type) {
             }
 
             if (!hasStopButton && sawStopButton) {
-                console.log(`[${type}] 응답 완료! (${elapsedSec}초)`);
-
-                const textFuncMap = {
-                    'gpt': injectGetLastResponseGpt,
-                    'gemini': injectGetLastResponseGemini,
-                    'claude': injectGetLastResponseClaude
-                };
-                const textResult = await chrome.scripting.executeScript({
-                    target: { tabId },
-                    func: textFuncMap[type]
-                });
-                const text = textResult[0]?.result || '';
+                console.log(`[${type}] 응답 완료! (Stop 버튼 사라짐, ${elapsedSec}초)`);
+                const text = await getResponseText(tabId, type);
                 console.log(`[${type}] 응답 텍스트: ${text.length}자`);
                 return text;
+            }
+
+            // Fallback: Stop 버튼을 한 번도 못 봤지만 새 응답이 있는 경우
+            // (빠른 응답이라 Stop 버튼이 폴링 사이에 나타났다 사라진 경우)
+            if (!sawStopButton && elapsedSec >= 3) {
+                const currentText = await getResponseText(tabId, type);
+                if (currentText && currentText !== initialText && currentText.length > 0) {
+                    if (currentText === stableText) {
+                        stableCount++;
+                        if (stableCount >= STABLE_THRESHOLD) {
+                            console.log(`[${type}] 응답 완료! (텍스트 안정화 fallback, ${elapsedSec}초)`);
+                            console.log(`[${type}] 응답 텍스트: ${currentText.length}자`);
+                            return currentText;
+                        }
+                    } else {
+                        stableText = currentText;
+                        stableCount = 1;
+                    }
+                }
             }
 
             if (!sawStopButton && elapsedSec > 0 && elapsedSec % 5 === 0 && checkCount % (5000 / checkInterval) === 0) {
@@ -584,29 +672,29 @@ function injectNewChatGpt() {
 
 function injectOpenGptModelDropdown() {
     try {
-        const allClickables = [...document.querySelectorAll('button, [role="button"], div[class*="menu"], span[class*="menu"], a, [aria-haspopup]')];
-        let modelSelector = allClickables.find(el => {
-            const text = el.textContent?.toLowerCase() || '';
-            return text.includes('chatgpt') && (
-                text.includes('auto') || text.includes('instant') || text.includes('thinking') ||
-                text.includes('5.') || text.includes('4o')
-            ) && text.length < 50;
-        });
-
-        if (!modelSelector) modelSelector = document.querySelector('[data-testid="model-switcher-dropdown-button"]');
+        // 모델 선택 드롭다운 찾기 (크기 체크 제거)
+        let modelSelector = document.querySelector('[data-testid="model-switcher-dropdown-button"]');
 
         if (!modelSelector) {
-            const allElements = [...document.querySelectorAll('*')];
-            modelSelector = allElements.find(el => {
+            const allClickables = [...document.querySelectorAll('button, [role="button"], div[class*="menu"], span[class*="menu"], a, [aria-haspopup]')];
+            modelSelector = allClickables.find(el => {
                 const text = el.textContent?.toLowerCase() || '';
-                const rect = el.getBoundingClientRect();
-                return rect.width > 0 && rect.height > 0 && text.includes('chatgpt') && text.includes('instant') &&
+                return text.includes('chatgpt') && (
+                    text.includes('auto') || text.includes('instant') || text.includes('thinking') ||
+                    text.includes('5.') || text.includes('4o')
+                ) && text.length < 50;
+            });
+        }
+
+        if (!modelSelector) {
+            modelSelector = [...document.querySelectorAll('*')].find(el => {
+                const text = el.textContent?.toLowerCase() || '';
+                return text.includes('chatgpt') && text.includes('instant') &&
                        text.length < 50 && el.childElementCount < 5;
             });
         }
 
         if (modelSelector) {
-            modelSelector.focus();
             modelSelector.click();
             modelSelector.dispatchEvent(new MouseEvent('click', { view: window, bubbles: true, cancelable: true }));
             modelSelector.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
@@ -622,10 +710,9 @@ function injectSelectGptModelOption(model) {
         const targetText = model.toLowerCase();
         const allElements = [...document.querySelectorAll('div, span, button, li, a, p')];
 
+        // 텍스트 매칭으로 모델 옵션 찾기 (크기 체크 제거)
         let modelOption = allElements.find(el => {
             const text = el.textContent?.trim().toLowerCase() || '';
-            const rect = el.getBoundingClientRect();
-            if (!(rect.width > 0 && rect.height > 0 && rect.top > 0)) return false;
             if (targetText === 'thinking') return text.startsWith('thinking') && text.length < 80;
             if (targetText === 'auto') return text.startsWith('auto') && text.length < 80;
             if (targetText === 'instant') return text.startsWith('instant') && text.length < 80;
@@ -635,8 +722,6 @@ function injectSelectGptModelOption(model) {
         if (!modelOption) {
             modelOption = allElements.find(el => {
                 const text = el.textContent?.toLowerCase() || '';
-                const rect = el.getBoundingClientRect();
-                if (!(rect.width > 0 && rect.height > 0 && rect.top > 0)) return false;
                 if (targetText === 'thinking') return (text.includes('thinking') || text.includes('오래 생각')) && text.length < 100;
                 if (targetText === 'auto') return (text.includes('auto') || text.includes('자동')) && text.length < 100;
                 if (targetText === 'instant') return (text.includes('instant') || text.includes('즉시')) && text.length < 100;
@@ -676,12 +761,7 @@ function injectSendToGpt(question) {
 
 function injectClickSendGpt() {
     try {
-        const isStopButton = (btn) => {
-            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-            const testId = (btn.getAttribute('data-testid') || '').toLowerCase();
-            return ariaLabel.includes('stop') || ariaLabel.includes('중지') || testId.includes('stop');
-        };
-
+        // Stop 버튼 확인 (DOM 존재만 체크)
         const stopButton = document.querySelector('button[aria-label="Stop generating"]')
             || document.querySelector('button[aria-label="Stop"]')
             || document.querySelector('button[aria-label="중지"]')
@@ -689,27 +769,32 @@ function injectClickSendGpt() {
 
         if (stopButton && !stopButton.disabled) return { error: '응답 생성 중', needsWait: true };
 
+        // Send 버튼 (셀렉터 기반, 크기 체크 제거)
         let sendButton = document.querySelector('button[data-testid="send-button"]')
             || document.querySelector('button[aria-label="Send prompt"]')
             || document.querySelector('button[aria-label="메시지 보내기"]')
             || document.querySelector('button[aria-label="Send message"]');
 
         if (!sendButton) {
+            // 폼 안의 SVG 포함 버튼 찾기 (크기/위치 체크 없이)
             sendButton = [...document.querySelectorAll('button')].find(btn => {
-                if (btn.disabled || isStopButton(btn)) return false;
-                const rect = btn.getBoundingClientRect();
-                return rect.bottom > window.innerHeight - 200 && btn.querySelector('svg') && rect.width < 80;
+                if (btn.disabled) return false;
+                const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
+                const testId = (btn.getAttribute('data-testid') || '').toLowerCase();
+                if (ariaLabel.includes('stop') || ariaLabel.includes('중지') || testId.includes('stop')) return false;
+                if (ariaLabel.includes('attach') || ariaLabel.includes('voice')) return false;
+                return btn.querySelector('svg') && btn.closest('form');
             });
         }
 
         if (sendButton && !sendButton.disabled) { sendButton.click(); return { success: true }; }
 
+        // Enter 키 fallback
         const inputArea = document.querySelector('#prompt-textarea')
             || document.querySelector('div[contenteditable="true"][id="prompt-textarea"]')
             || document.querySelector('[contenteditable="true"]');
 
         if (inputArea) {
-            inputArea.focus();
             inputArea.dispatchEvent(new KeyboardEvent('keydown', {
                 key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true
             }));
@@ -722,6 +807,7 @@ function injectClickSendGpt() {
 
 function injectCheckButtonState() {
     try {
+        // Stop 버튼: DOM 존재 여부만 확인 (오프스크린에서 getBoundingClientRect=0이므로 크기 체크 제거)
         const stopSelectors = [
             'button[aria-label="Stop generating"]', 'button[aria-label="Stop"]',
             'button[aria-label="중지"]', 'button[aria-label="생성 중지"]',
@@ -741,6 +827,7 @@ function injectCheckButtonState() {
         }
 
         const hasStopButton = !!stopButton || isThinking;
+        // Send 버튼: DOM 존재 여부만 확인
         const sendSelectors = [
             'button[data-testid="send-button"]', 'button[aria-label="Send prompt"]',
             'button[aria-label="프롬프트 보내기"]', 'button[aria-label="메시지 보내기"]',
@@ -816,6 +903,7 @@ function injectSelectGeminiModelOption(model) {
         const patterns = searchPatterns[model] || [];
         let modelOption;
 
+        // 메뉴 아이템에서 텍스트 매칭 (크기 체크 제거)
         for (const pattern of patterns) {
             modelOption = menuItems.find(el => {
                 const text = el.textContent?.toLowerCase() || '';
@@ -830,8 +918,6 @@ function injectSelectGeminiModelOption(model) {
             for (const pattern of patterns) {
                 modelOption = allClickables.find(el => {
                     const text = el.textContent?.toLowerCase() || '';
-                    const rect = el.getBoundingClientRect();
-                    if (!(rect.width > 0 && rect.height > 0 && rect.top >= 0)) return false;
                     if (model === 'flash') return text.includes(pattern) && !text.includes('thinking') && !text.includes('사고') && text.length < 100;
                     return text.includes(pattern) && text.length < 100;
                 });
@@ -867,12 +953,7 @@ function injectSendToGemini(question) {
 
 function injectClickSendGemini() {
     try {
-        const allButtons = [...document.querySelectorAll('button')];
-        const isStopButton = (btn) => {
-            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-            return ariaLabel.includes('stop') || ariaLabel.includes('중지');
-        };
-
+        // Send 버튼 (셀렉터 기반, 크기/위치 체크 제거)
         let sendButton = document.querySelector('button[aria-label="Send message"]')
             || document.querySelector('button[aria-label="메시지 보내기"]')
             || document.querySelector('button[aria-label="보내기"]')
@@ -884,27 +965,25 @@ function injectClickSendGemini() {
             || document.querySelector('button.send-button');
 
         if (!sendButton) {
-            sendButton = allButtons.filter(btn => {
-                const rect = btn.getBoundingClientRect();
-                return rect.width > 0 && rect.height > 0 && rect.bottom > window.innerHeight - 200 &&
-                       rect.right > window.innerWidth - 300 && btn.querySelector('svg');
-            }).filter(btn => {
+            // SVG 포함 버튼 중 stop/voice/attach가 아닌 버튼 (크기/위치 체크 없이)
+            sendButton = [...document.querySelectorAll('button')].find(btn => {
+                if (!btn.querySelector('svg')) return false;
                 const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-                if (isStopButton(btn)) return false;
+                if (ariaLabel.includes('stop') || ariaLabel.includes('중지')) return false;
                 if (ariaLabel.includes('voice') || ariaLabel.includes('음성') || ariaLabel.includes('mic')) return false;
                 if (ariaLabel.includes('attach') || ariaLabel.includes('첨부') || ariaLabel.includes('add')) return false;
                 return true;
-            }).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)[0];
+            });
         }
 
         if (sendButton) { sendButton.click(); return { success: true }; }
 
+        // Enter 키 fallback
         const inputArea = document.querySelector('.ql-editor[contenteditable="true"]')
             || document.querySelector('rich-textarea [contenteditable="true"]')
             || document.querySelector('[contenteditable="true"]');
 
         if (inputArea) {
-            inputArea.focus();
             inputArea.dispatchEvent(new KeyboardEvent('keydown', {
                 key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true
             }));
@@ -917,31 +996,26 @@ function injectClickSendGemini() {
 
 function injectCheckButtonStateGemini() {
     try {
+        // Stop 버튼: DOM 존재 + aria-label/텍스트만 확인 (크기 체크 제거)
         const allButtons = [...document.querySelectorAll('button')];
         const stopButton = allButtons.find(btn => {
             const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
             const btnText = (btn.textContent || '').toLowerCase();
-            const rect = btn.getBoundingClientRect();
-            if (!(rect.width > 0 && rect.height > 0)) return false;
             return ariaLabel.includes('stop') || ariaLabel.includes('중지') ||
                    btnText.includes('stop') || btnText.includes('중지') || btnText.includes('대답 생성 중지');
         });
         const hasStopButton = !!stopButton;
 
-        const sendButton = allButtons.find(btn => {
-            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-            if (ariaLabel.includes('stop') || ariaLabel.includes('중지')) return false;
-            if (ariaLabel.includes('voice') || ariaLabel.includes('음성') || ariaLabel.includes('mic')) return false;
-            const rect = btn.getBoundingClientRect();
-            return rect.width > 0 && rect.height > 0 && rect.bottom > window.innerHeight - 150 &&
-                   rect.width < 80 && btn.querySelector('svg');
-        });
-
+        // Send 버튼: aria-label 기반으로만 확인
         const sendByLabel = document.querySelector('button[aria-label="Send message"]')
             || document.querySelector('button[aria-label="메시지 보내기"]')
-            || document.querySelector('button[aria-label="보내기"]');
+            || document.querySelector('button[aria-label="보내기"]')
+            || document.querySelector('button[aria-label="Submit"]')
+            || document.querySelector('button[aria-label="제출"]')
+            || document.querySelector('button[aria-label="전송"]')
+            || document.querySelector('button[data-test-id="send-button"]');
 
-        const hasSendButton = !!(sendButton || sendByLabel);
+        const hasSendButton = !!sendByLabel;
         return { hasSendButton, hasStopButton };
     } catch (e) { return { hasSendButton: false, hasStopButton: false }; }
 }
@@ -999,38 +1073,36 @@ function injectSendToClaude(question) {
 
 function injectClickSendClaude() {
     try {
+        // Stop 버튼 확인 (구체적 aria-label만 - "Stop" 단독은 오감지 위험)
         const stopButton = document.querySelector('button[aria-label="Stop Response"]')
             || document.querySelector('button[aria-label="응답 중지"]')
-            || document.querySelector('button[aria-label="Stop"]');
+            || document.querySelector('button[aria-label="Stop response"]');
+        const isStreaming = !!document.querySelector('[data-is-streaming="true"]');
 
-        if (stopButton) {
-            const rect = stopButton.getBoundingClientRect();
-            if (rect.width > 0 && rect.height > 0) return { error: '응답 생성 중', needsWait: true };
-        }
+        if (stopButton || isStreaming) return { error: '응답 생성 중', needsWait: true };
 
+        // Send 버튼 (셀렉터 기반, 크기 체크 제거)
         let sendButton = document.querySelector('button[aria-label="Send Message"]')
             || document.querySelector('button[aria-label="메시지 보내기"]')
-            || document.querySelector('button[aria-label="Send message"]')
-            || document.querySelector('button[aria-label="Send"]');
+            || document.querySelector('button[aria-label="Send message"]');
 
         if (!sendButton) {
+            // SVG 포함 버튼 중 stop/voice/attach가 아닌 버튼 (크기 체크 없이)
             sendButton = [...document.querySelectorAll('button')].find(btn => {
                 if (btn.disabled) return false;
                 const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
                 if (ariaLabel.includes('stop') || ariaLabel.includes('attach') || ariaLabel.includes('voice')) return false;
-                const rect = btn.getBoundingClientRect();
-                return rect.width > 0 && rect.height > 0 && rect.bottom > window.innerHeight - 200 &&
-                       btn.querySelector('svg') && rect.width < 80;
+                return btn.querySelector('svg');
             });
         }
 
         if (sendButton && !sendButton.disabled) { sendButton.click(); return { success: true }; }
 
+        // Enter 키 fallback
         const inputArea = document.querySelector('div.ProseMirror[contenteditable="true"]')
             || document.querySelector('[contenteditable="true"]');
 
         if (inputArea) {
-            inputArea.focus();
             inputArea.dispatchEvent(new KeyboardEvent('keydown', {
                 key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true
             }));
@@ -1043,28 +1115,20 @@ function injectClickSendClaude() {
 
 function injectCheckButtonStateClaude() {
     try {
-        const allButtons = [...document.querySelectorAll('button')];
-        const stopButton = allButtons.find(btn => {
-            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-            const rect = btn.getBoundingClientRect();
-            if (!(rect.width > 0 && rect.height > 0)) return false;
-            return ariaLabel.includes('stop response') || ariaLabel.includes('응답 중지') || ariaLabel.includes('stop');
-        });
+        // Stop 버튼: 구체적인 aria-label만 사용 ("Stop" 단독은 너무 일반적 → 다른 버튼 오감지)
+        const stopButton = document.querySelector('button[aria-label="Stop Response"]')
+            || document.querySelector('button[aria-label="응답 중지"]')
+            || document.querySelector('button[aria-label="Stop response"]');
 
         const isStreaming = !!document.querySelector('[data-is-streaming="true"]');
         const hasStopButton = !!stopButton || isStreaming;
 
-        const sendButton = allButtons.find(btn => {
-            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-            if (ariaLabel.includes('stop') || ariaLabel.includes('voice') || ariaLabel.includes('attach')) return false;
-            const rect = btn.getBoundingClientRect();
-            return rect.width > 0 && rect.height > 0 && rect.bottom > window.innerHeight - 200 && btn.querySelector('svg');
-        });
-
+        // Send 버튼: 구체적인 aria-label만 사용
         const sendByLabel = document.querySelector('button[aria-label="Send Message"]')
-            || document.querySelector('button[aria-label="메시지 보내기"]');
+            || document.querySelector('button[aria-label="메시지 보내기"]')
+            || document.querySelector('button[aria-label="Send message"]');
 
-        const hasSendButton = !!(sendButton || sendByLabel);
+        const hasSendButton = !!sendByLabel;
         return { hasSendButton, hasStopButton };
     } catch (e) { return { hasSendButton: false, hasStopButton: false }; }
 }

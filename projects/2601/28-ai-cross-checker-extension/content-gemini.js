@@ -60,17 +60,16 @@ async function sendMessageToGemini(question) {
     isWaitingForResponse = true;
 }
 
-// 전송 버튼 찾기 (대체 방법)
+// 전송 버튼 찾기 (대체 방법 - 크기/위치 체크 없이 DOM만 확인)
 function findSendButton() {
     const buttons = document.querySelectorAll('button');
     for (const btn of buttons) {
-        // Gemini 전송 버튼은 보통 mat-icon을 포함
         if (btn.querySelector('mat-icon') || btn.querySelector('svg')) {
-            const rect = btn.getBoundingClientRect();
-            // 화면 하단 근처에 있는 버튼
-            if (rect.bottom > window.innerHeight - 200) {
-                return btn;
-            }
+            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
+            if (ariaLabel.includes('stop') || ariaLabel.includes('중지')) continue;
+            if (ariaLabel.includes('voice') || ariaLabel.includes('음성') || ariaLabel.includes('mic')) continue;
+            if (ariaLabel.includes('attach') || ariaLabel.includes('첨부')) continue;
+            return btn;
         }
     }
     return null;

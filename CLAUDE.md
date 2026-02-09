@@ -54,7 +54,7 @@
 ## 프로젝트 구조
 
 ```
-C:\Dev\
+C:\share\Dev\
 ├── CLAUDE.md                  # 이 파일 (프로젝트 지침 + 인덱스)
 ├── .claude/
 │   └── CHANGELOG.md           # 완료된 작업 히스토리

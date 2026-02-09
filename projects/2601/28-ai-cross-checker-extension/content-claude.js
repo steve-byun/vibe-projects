@@ -56,19 +56,15 @@ async function sendMessageToClaude(question) {
     isWaitingForResponse = true;
 }
 
-// 전송 버튼 찾기 (대체 방법)
+// 전송 버튼 찾기 (대체 방법 - 크기/위치 체크 없이 DOM만 확인)
 function findSendButton() {
     const buttons = document.querySelectorAll('button');
     for (const btn of buttons) {
         if (btn.querySelector('svg')) {
-            const rect = btn.getBoundingClientRect();
-            // 화면 하단 근처에 있는 버튼
-            if (rect.bottom > window.innerHeight - 200) {
-                const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
-                if (!ariaLabel.includes('attach') && !ariaLabel.includes('voice')) {
-                    return btn;
-                }
-            }
+            const ariaLabel = (btn.getAttribute('aria-label') || '').toLowerCase();
+            if (ariaLabel.includes('attach') || ariaLabel.includes('voice')) continue;
+            if (ariaLabel.includes('stop') || ariaLabel.includes('중지')) continue;
+            return btn;
         }
     }
     return null;
