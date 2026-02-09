@@ -1,0 +1,149 @@
+% length vector
+l1 = lengthVector(1);
+l2 = lengthVector(2);
+l3 = lengthVector(3);
+l4 = lengthVector(4);
+l5 = lengthVector(5);
+l6 = lengthVector(6);
+
+% mass vector
+m1 = massVector(1);
+m2 = massVector(2);
+m3 = massVector(3);
+m4 = massVector(4);
+m5 = massVector(5);
+m6 = massVector(6);
+
+% gravity has only one
+
+% inertia vector
+I1xx = inertiaTensor_1(1);
+I1xy = inertiaTensor_1(2);
+I1xz = inertiaTensor_1(3);
+I1yx = inertiaTensor_1(4);
+I1yy = inertiaTensor_1(5);
+I1yz = inertiaTensor_1(6);
+I1zx = inertiaTensor_1(7);
+I1zy = inertiaTensor_1(8);
+I1zz = inertiaTensor_1(9);
+
+I2xx = inertiaTensor_2(1);
+I2xy = inertiaTensor_2(2);
+I2xz = inertiaTensor_2(3);
+I2yx = inertiaTensor_2(4);
+I2yy = inertiaTensor_2(5);
+I2yz = inertiaTensor_2(6);
+I2zx = inertiaTensor_2(7);
+I2zy = inertiaTensor_2(8);
+I2zz = inertiaTensor_2(9);
+
+I3xx = inertiaTensor_3(1);
+I3xy = inertiaTensor_3(2);
+I3xz = inertiaTensor_3(3);
+I3yx = inertiaTensor_3(4);
+I3yy = inertiaTensor_3(5);
+I3yz = inertiaTensor_3(6);
+I3zx = inertiaTensor_3(7);
+I3zy = inertiaTensor_3(8);
+I3zz = inertiaTensor_3(9);
+
+I4xx = inertiaTensor_4(1);
+I4xy = inertiaTensor_4(2);
+I4xz = inertiaTensor_4(3);
+I4yx = inertiaTensor_4(4);
+I4yy = inertiaTensor_4(5);
+I4yz = inertiaTensor_4(6);
+I4zx = inertiaTensor_4(7);
+I4zy = inertiaTensor_4(8);
+I4zz = inertiaTensor_4(9);
+
+I5xx = inertiaTensor_5(1);
+I5xy = inertiaTensor_5(2);
+I5xz = inertiaTensor_5(3);
+I5yx = inertiaTensor_5(4);
+I5yy = inertiaTensor_5(5);
+I5yz = inertiaTensor_5(6);
+I5zx = inertiaTensor_5(7);
+I5zy = inertiaTensor_5(8);
+I5zz = inertiaTensor_5(9);
+
+I6xx = inertiaTensor_6(1);
+I6xy = inertiaTensor_6(2);
+I6xz = inertiaTensor_6(3);
+I6yx = inertiaTensor_6(4);
+I6yy = inertiaTensor_6(5);
+I6yz = inertiaTensor_6(6);
+I6zx = inertiaTensor_6(7);
+I6zy = inertiaTensor_6(8);
+I6zz = inertiaTensor_6(9);
+
+% center of mass vector
+r1cx = COMVector_1(1);
+r1cy = COMVector_1(2);
+r1cz = COMVector_1(3);
+
+r2cx = COMVector_2(1);
+r2cy = COMVector_2(2);
+r2cz = COMVector_2(3);
+
+r3cx = COMVector_3(1);
+r3cy = COMVector_3(2);
+r3cz = COMVector_3(3);
+
+r4cx = COMVector_4(1);
+r4cy = COMVector_4(2);
+r4cz = COMVector_4(3);
+
+r5cx = COMVector_5(1);
+r5cy = COMVector_5(2);
+r5cz = COMVector_5(3);
+
+r6cx = COMVector_6(1);
+r6cy = COMVector_6(2);
+r6cz = COMVector_6(3);
+
+% input angle vector
+q1 = angleVector(1);
+q2 = angleVector(2);
+q3 = angleVector(3);
+q4 = angleVector(4);
+q5 = angleVector(5);
+q6 = angleVector(6);
+
+% input angular velocity vector
+dq1 = angleVelocityVector(1);
+dq2 = angleVelocityVector(2);
+dq3 = angleVelocityVector(3);
+dq4 = angleVelocityVector(4);
+dq5 = angleVelocityVector(5);
+dq6 = angleVelocityVector(6);
+
+% input angular acceleration vector
+ddq1 = angularAccelerationVector(1);
+ddq2 = angularAccelerationVector(2);
+ddq3 = angularAccelerationVector(3);
+ddq4 = angularAccelerationVector(4);
+ddq5 = angularAccelerationVector(5);
+ddq6 = angularAccelerationVector(6);
+
+% sin vector
+s1 = sinVector(1);
+s2 = sinVector(2);
+s3 = sinVector(3);
+s4 = sinVector(4);
+s5 = sinVector(5);
+s6 = sinVector(6);
+
+% cos vector
+c1 = cosVector(1);
+c2 = cosVector(2);
+c3 = cosVector(3);
+c4 = cosVector(4);
+c5 = cosVector(5);
+c6 = cosVector(6);
+
+% tilt vector
+sx_axis = tiltVector(1);
+sy_axis = tiltVector(2);
+cx_axis = tiltVector(3);
+cy_axis = tiltVector(4);
