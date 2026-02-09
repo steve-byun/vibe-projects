@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Shorts Generator",
+  "version": "1.0.0",
+  "description": "Gemini로 스크립트 생성 후 자동으로 YouTube Shorts 영상 제작",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting",
+    "storage",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://gemini.google.com/*",
+    "http://localhost:5000/*",
+    "http://127.0.0.1:5000/*"
+  ],
+  "action": {
+    "default_title": "YouTube Shorts Generator"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["content-gemini.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

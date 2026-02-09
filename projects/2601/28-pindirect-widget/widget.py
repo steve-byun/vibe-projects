@@ -26,6 +26,14 @@ except ImportError:
     TRAY_AVAILABLE = False
     print("pystray 또는 pillow가 설치되지 않았습니다. 트레이 기능이 비활성화됩니다.")
 
+# 브라우저 쿠키 자동 읽기
+try:
+    import browser_cookie3
+    BROWSER_COOKIE_AVAILABLE = True
+except ImportError:
+    BROWSER_COOKIE_AVAILABLE = False
+    print("browser_cookie3가 설치되지 않았습니다. 브라우저 쿠키 자동 읽기가 비활성화됩니다.")
+
 
 class DataUsageWidget:
     def __init__(self):
@@ -77,6 +85,50 @@ class DataUsageWidget:
         """설정 파일 저장"""
         with open(self.config_path, "w", encoding="utf-8") as f:
             json.dump(self.config, f, indent=2, ensure_ascii=False)
+
+    def load_browser_cookies(self):
+        """브라우저에서 PinDirect 쿠키 자동 읽기"""
+        if not BROWSER_COOKIE_AVAILABLE:
+            print("browser_cookie3가 설치되지 않았습니다.")
+            return False
+
+        try:
+            domain = ".pindirectshop.com"
+            cookies_dict = {}
+
+            # Chrome 쿠키 시도
+            try:
+                cj = browser_cookie3.chrome(domain_name=domain)
+                for cookie in cj:
+                    if domain in cookie.domain or "pindirectshop.com" in cookie.domain:
+                        cookies_dict[cookie.name] = cookie.value
+            except Exception as e:
+                print(f"Chrome 쿠키 읽기 실패: {e}")
+
+            # Edge 쿠키 시도 (Chrome 실패 시)
+            if not cookies_dict:
+                try:
+                    cj = browser_cookie3.edge(domain_name=domain)
+                    for cookie in cj:
+                        if domain in cookie.domain or "pindirectshop.com" in cookie.domain:
+                            cookies_dict[cookie.name] = cookie.value
+                except Exception as e:
+                    print(f"Edge 쿠키 읽기 실패: {e}")
+
+            if cookies_dict:
+                # 쿠키 문자열로 변환
+                cookie_str = "; ".join([f"{k}={v}" for k, v in cookies_dict.items()])
+                self.config["cookies"] = cookie_str
+                self.save_config()
+                print(f"브라우저 쿠키 로드 성공: {len(cookies_dict)}개")
+                return True
+            else:
+                print("브라우저에서 쿠키를 찾을 수 없습니다.")
+                return False
+
+        except Exception as e:
+            print(f"브라우저 쿠키 로드 실패: {e}")
+            return False
 
     def setup_window(self):
         """윈도우 기본 설정"""
@@ -473,12 +525,21 @@ class DataUsageWidget:
                         self.percent_label.config(text="잠시만 기다려주세요")
                         self.root.update()
 
+                        # 1. refresh_token 시도
                         if self.refresh_token():
                             self.refresh_data(retry_on_auth_fail=False)
                             return
 
+                        # 2. 브라우저 쿠키 자동 로드 시도
+                        self.usage_label.config(text="브라우저 쿠키 확인 중...")
+                        self.root.update()
+
+                        if self.load_browser_cookies():
+                            self.refresh_data(retry_on_auth_fail=False)
+                            return
+
                     self.usage_label.config(text="인증 만료")
-                    self.percent_label.config(text="쿠키를 갱신하세요")
+                    self.percent_label.config(text="브라우저 로그인 필요")
                 else:
                     self.usage_label.config(text="연결 실패")
                     self.percent_label.config(text=f"상태: {response.status_code}")

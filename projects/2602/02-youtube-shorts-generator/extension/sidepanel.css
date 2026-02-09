@@ -1,0 +1,268 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+.container {
+  padding: 16px;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #ff4444;
+}
+
+h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.section {
+  background: #252525;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+/* 설정 */
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.setting-row label {
+  flex: 0 0 100px;
+  font-size: 12px;
+  color: #888;
+}
+
+.setting-row input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+}
+
+.btn-small {
+  padding: 8px 12px;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-small:hover {
+  background: #555;
+}
+
+/* 상태 배지 */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-checking {
+  background: #444;
+  color: #888;
+}
+
+.status-ok {
+  background: #1b4d1b;
+  color: #4ade80;
+}
+
+.status-error {
+  background: #4d1b1b;
+  color: #f87171;
+}
+
+/* 입력 */
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #ff4444;
+}
+
+.options {
+  margin-bottom: 12px;
+}
+
+.options label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.options select {
+  padding: 8px 12px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* 버튼 */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff4444 0%, #ff0000 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #444;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  background: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #444;
+}
+
+/* 진행 상태 */
+.progress-container {
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4444 0%, #ff8800 100%);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #aaa;
+  text-align: center;
+}
+
+.progress-log {
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 12px;
+  color: #666;
+  padding: 8px;
+  background: #1a1a1a;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.progress-log .log-item {
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+}
+
+.progress-log .log-item:last-child {
+  border-bottom: none;
+}
+
+.progress-log .log-success {
+  color: #4ade80;
+}
+
+.progress-log .log-error {
+  color: #f87171;
+}
+
+/* 결과 */
+.result-list {
+  margin-bottom: 12px;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: #333;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.result-item .title {
+  font-weight: 500;
+  color: #fff;
+}
+
+.result-item .duration {
+  font-size: 12px;
+  color: #888;
+}
+
+/* 에러 */
+.error-section {
+  background: #2d1f1f;
+  border: 1px solid #4d1b1b;
+}
+
+#errorMessage {
+  color: #f87171;
+  font-size: 13px;
+}

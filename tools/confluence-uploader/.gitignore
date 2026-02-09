@@ -1,0 +1,2 @@
+# API 토큰이 포함된 config 파일은 절대 커밋하지 않음
+config.json

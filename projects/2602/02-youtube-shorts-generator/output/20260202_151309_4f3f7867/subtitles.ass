@@ -1,0 +1,96 @@
+[Script Info]
+Title: YouTube Shorts Subtitles
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial Black,70,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4,2,5,50,50,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.11,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}우주 한복판에
+Dialogue: 0,0:00:01.11,0:00:02.22,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}사람의 손이나
+Dialogue: 0,0:00:02.22,0:00:03.81,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}유령을 닮은 거대한
+Dialogue: 0,0:00:03.81,0:00:05.25,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}형체가 떠다닌다면
+Dialogue: 0,0:00:05.25,0:00:06.52,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}믿으시겠습니까?
+Dialogue: 0,0:00:06.52,0:00:07.02,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}이것은
+Dialogue: 0,0:00:07.02,0:00:07.97,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'성운'이라
+Dialogue: 0,0:00:07.97,0:00:09.09,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}불리는 거대한
+Dialogue: 0,0:00:09.09,0:00:10.04,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}가스와 먼지
+Dialogue: 0,0:00:10.04,0:00:11.00,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}구름입니다.
+Dialogue: 0,0:00:11.00,0:00:12.43,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}수만 광년에 걸쳐
+Dialogue: 0,0:00:12.43,0:00:14.02,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}펼쳐진 이 구름들은
+Dialogue: 0,0:00:14.02,0:00:15.14,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}때로는 '신의
+Dialogue: 0,0:00:15.14,0:00:16.57,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}손'처럼 보이기도
+Dialogue: 0,0:00:16.57,0:00:17.68,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}하고, 때로는
+Dialogue: 0,0:00:17.68,0:00:18.48,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}무시무시한
+Dialogue: 0,0:00:18.48,0:00:19.43,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'해골'처럼
+Dialogue: 0,0:00:19.43,0:00:20.71,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}보이기도 하죠.
+Dialogue: 0,0:00:20.71,0:00:22.30,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}단순히 우연이 만든
+Dialogue: 0,0:00:22.30,0:00:23.57,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}형상이지만, 그
+Dialogue: 0,0:00:23.57,0:00:25.16,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}크기는 태양계 수천
+Dialogue: 0,0:00:25.16,0:00:26.60,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}개를 합친 것보다
+Dialogue: 0,0:00:26.60,0:00:27.23,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}큽니다.
+Dialogue: 0,0:00:27.23,0:00:28.98,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}그런데 더 소름 돋는
+Dialogue: 0,0:00:28.98,0:00:30.10,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}건, 우주에는
+Dialogue: 0,0:00:30.10,0:00:30.73,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'떠돌이
+Dialogue: 0,0:00:30.73,0:00:32.17,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}블랙홀'도 있다는
+Dialogue: 0,0:00:32.17,0:00:33.12,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}사실입니다.
+Dialogue: 0,0:00:33.12,0:00:34.39,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}어디에도 속하지
+Dialogue: 0,0:00:34.39,0:00:35.83,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}않고 은하 사이를
+Dialogue: 0,0:00:35.83,0:00:36.78,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}시속 수백만
+Dialogue: 0,0:00:36.78,0:00:37.58,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}킬로미터로
+Dialogue: 0,0:00:37.58,0:00:38.53,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}질주하는 이
+Dialogue: 0,0:00:38.53,0:00:39.80,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}포식자들은 눈에
+Dialogue: 0,0:00:39.80,0:00:40.44,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}보이지도
+Dialogue: 0,0:00:40.44,0:00:41.24,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}않습니다.
+Dialogue: 0,0:00:41.24,0:00:42.35,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}그저 지나가는
+Dialogue: 0,0:00:42.35,0:00:43.78,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}길목에 있는 모든
+Dialogue: 0,0:00:43.78,0:00:45.22,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}별과 행성을 소리
+Dialogue: 0,0:00:45.22,0:00:46.33,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}없이 집어삼킬
+Dialogue: 0,0:00:46.33,0:00:46.97,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}뿐이죠.
+Dialogue: 0,0:00:46.97,0:00:48.24,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}혹시 지금 우리
+Dialogue: 0,0:00:48.24,0:00:49.83,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}태양계를 향해 오고
+Dialogue: 0,0:00:49.83,0:00:51.26,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}있지는 않을까요?
+Dialogue: 0,0:00:51.26,0:00:52.85,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}하나 더, 우주에는
+Dialogue: 0,0:00:52.85,0:00:53.81,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'바다'로만
+Dialogue: 0,0:00:53.81,0:00:55.08,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}이루어진 행성도
+Dialogue: 0,0:00:55.08,0:00:55.88,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}있습니다.
+Dialogue: 0,0:00:55.88,0:00:56.38,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'GJ
+Dialogue: 0,0:00:56.38,0:00:57.65,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}1214b'라는
+Dialogue: 0,0:00:57.65,0:00:58.92,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}행성은 대기부터
+Dialogue: 0,0:00:58.92,0:01:00.52,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}심해까지 온통 물과
+Dialogue: 0,0:01:00.52,0:01:01.15,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}수증기로
+Dialogue: 0,0:01:01.15,0:01:02.11,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}가득합니다.
+Dialogue: 0,0:01:02.11,0:01:03.70,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}하지만 우리가 아는
+Dialogue: 0,0:01:03.70,0:01:04.81,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}시원한 바다가
+Dialogue: 0,0:01:04.81,0:01:05.61,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}아닙니다.
+Dialogue: 0,0:01:05.61,0:01:07.20,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}엄청난 압력 때문에
+Dialogue: 0,0:01:07.20,0:01:08.63,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}끓는점에서도 고체
+Dialogue: 0,0:01:08.63,0:01:09.91,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}상태를 유지하는
+Dialogue: 0,0:01:09.91,0:01:11.34,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'뜨거운 얼음'의
+Dialogue: 0,0:01:11.34,0:01:11.97,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}바다죠.
+Dialogue: 0,0:01:11.97,0:01:13.25,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}우리가 상상하는
+Dialogue: 0,0:01:13.25,0:01:14.68,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}모든 것이 실제로
+Dialogue: 0,0:01:14.68,0:01:15.79,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}존재하는 곳,
+Dialogue: 0,0:01:15.79,0:01:16.75,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}그곳이 바로
+Dialogue: 0,0:01:16.75,0:01:17.70,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}우주입니다.
+Dialogue: 0,0:01:17.70,0:01:19.14,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}이 경이로운 우주
+Dialogue: 0,0:01:19.14,0:01:20.41,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}여행을 계속하고
+Dialogue: 0,0:01:20.41,0:01:21.52,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}싶다면 구독과
+Dialogue: 0,0:01:21.52,0:01:22.16,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}좋아요를
+Dialogue: 0,0:01:22.16,0:01:23.12,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}눌러주세요!
+Dialogue: 0,0:01:23.12,0:01:24.71,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}다음 단계로 무엇을
+Dialogue: 0,0:01:24.71,0:01:25.82,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}도와드릴까요?
+Dialogue: 0,0:01:25.82,0:01:26.93,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}이 스크립트의
+Dialogue: 0,0:01:26.93,0:01:28.21,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}긴장감을 높여줄
+Dialogue: 0,0:01:28.21,0:01:29.48,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}화면 전환 연출
+Dialogue: 0,0:01:29.48,0:01:30.75,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}가이드를 작성해
+Dialogue: 0,0:01:30.75,0:01:31.55,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}드릴까요?
+Dialogue: 0,0:01:31.55,0:01:32.98,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}'우주에서 들리는
+Dialogue: 0,0:01:32.98,0:01:34.26,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}기괴한 신호'를
+Dialogue: 0,0:01:34.26,0:01:35.69,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}주제로 다음 편을
+Dialogue: 0,0:01:35.69,0:01:37.07,Default,,0,0,0,,{\fscx50\fscy50\t(0,100,\fscx115\fscy115)\t(100,180,\fscx100\fscy100)}작성해 드릴까요?

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Shorts Generator</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Shorts Generator</h1>
+
+    <!-- 서버 상태 -->
+    <div class="section" id="statusSection">
+      <div class="setting-row">
+        <label>서버 상태</label>
+        <span id="serverStatus" class="status-badge status-checking">확인 중...</span>
+      </div>
+    </div>
+
+    <!-- 생성 섹션 -->
+    <div class="section">
+      <h3>📝 주제 입력</h3>
+      <textarea id="topicInput" placeholder="예: 놀라운 우주 사실, 심리학 팁, 역사 속 비밀 등"></textarea>
+
+      <div class="options">
+        <label>
+          <span>영상 개수</span>
+          <select id="videoCount">
+            <option value="1">1개</option>
+            <option value="3">3개</option>
+            <option value="5">5개</option>
+            <option value="10">10개</option>
+          </select>
+        </label>
+      </div>
+
+      <button id="generateBtn" class="btn-primary">
+        <span class="btn-text">🚀 영상 생성 시작</span>
+      </button>
+    </div>
+
+    <!-- 진행 상태 -->
+    <div class="section" id="progressSection" style="display: none;">
+      <h3>⏳ 진행 상태</h3>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">준비 중...</div>
+      </div>
+      <div class="progress-log" id="progressLog"></div>
+    </div>
+
+    <!-- 결과 섹션 -->
+    <div class="section" id="resultSection" style="display: none;">
+      <h3>✅ 완료</h3>
+      <div class="result-list" id="resultList"></div>
+      <button id="openFolderBtn" class="btn-secondary">📁 폴더 열기</button>
+    </div>
+
+    <!-- 에러 섹션 -->
+    <div class="section error-section" id="errorSection" style="display: none;">
+      <h3>❌ 오류</h3>
+      <div id="errorMessage"></div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

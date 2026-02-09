@@ -1,0 +1,13 @@
+{
+    "pexels_api_key": "Pn1U2hGFsLYhEUZvhDk7WAiX0bGJonDvjQ0IQd7hwbjvhmfm5jwBxN5Q",
+    "output_folder": "../output",
+    "ffmpeg_path": "./ffmpeg/ffmpeg.exe",
+    "voice": {
+        "ko": "ko-KR-SunHiNeural",
+        "en": "en-US-JennyNeural"
+    },
+    "server": {
+        "host": "127.0.0.1",
+        "port": 5000
+    }
+}

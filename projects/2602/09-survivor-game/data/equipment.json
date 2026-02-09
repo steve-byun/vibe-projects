@@ -1,0 +1,193 @@
+{
+  "equipment": {
+    "weapons": [
+      {
+        "id": "rusty_sword",
+        "name": "Rusty Sword",
+        "type": "weapon",
+        "rarity": "common",
+        "description": "A weathered blade. Still sharp enough.",
+        "stat_bonuses": {
+          "damage_percent": 5
+        }
+      },
+      {
+        "id": "iron_blade",
+        "name": "Iron Blade",
+        "type": "weapon",
+        "rarity": "rare",
+        "description": "A well-forged iron blade.",
+        "stat_bonuses": {
+          "damage_percent": 12,
+          "crit_chance": 3
+        }
+      },
+      {
+        "id": "crystal_staff",
+        "name": "Crystal Staff",
+        "type": "weapon",
+        "rarity": "epic",
+        "description": "Channels elemental energy to amplify skill damage.",
+        "stat_bonuses": {
+          "damage_percent": 18,
+          "cooldown_reduction": 8
+        }
+      },
+      {
+        "id": "shadow_dagger",
+        "name": "Shadow Dagger",
+        "type": "weapon",
+        "rarity": "epic",
+        "description": "A dagger infused with shadow energy. Strikes critical more often.",
+        "stat_bonuses": {
+          "damage_percent": 10,
+          "crit_chance": 12,
+          "speed_percent": 5
+        }
+      },
+      {
+        "id": "excalibur",
+        "name": "Excalibur",
+        "type": "weapon",
+        "rarity": "legendary",
+        "description": "The legendary sword of kings. Unmatched power.",
+        "stat_bonuses": {
+          "damage_percent": 30,
+          "crit_chance": 8,
+          "crit_damage": 20
+        }
+      }
+    ],
+    "armor": [
+      {
+        "id": "leather_vest",
+        "name": "Leather Vest",
+        "type": "armor",
+        "rarity": "common",
+        "description": "Basic protection from scratches.",
+        "stat_bonuses": {
+          "hp_percent": 8
+        }
+      },
+      {
+        "id": "chain_mail",
+        "name": "Chain Mail",
+        "type": "armor",
+        "rarity": "rare",
+        "description": "Linked metal rings provide solid defense.",
+        "stat_bonuses": {
+          "hp_percent": 15,
+          "damage_reduction": 5
+        }
+      },
+      {
+        "id": "mage_robe",
+        "name": "Mage Robe",
+        "type": "armor",
+        "rarity": "epic",
+        "description": "Enchanted robes that boost both defense and skill power.",
+        "stat_bonuses": {
+          "hp_percent": 10,
+          "damage_percent": 8,
+          "cooldown_reduction": 10
+        }
+      },
+      {
+        "id": "dragon_scale",
+        "name": "Dragon Scale Armor",
+        "type": "armor",
+        "rarity": "legendary",
+        "description": "Forged from the scales of an ancient dragon.",
+        "stat_bonuses": {
+          "hp_percent": 30,
+          "damage_reduction": 15,
+          "hp_regen": 1
+        }
+      }
+    ],
+    "accessories": [
+      {
+        "id": "speed_ring",
+        "name": "Speed Ring",
+        "type": "accessory",
+        "rarity": "common",
+        "description": "A light ring that quickens your step.",
+        "stat_bonuses": {
+          "speed_percent": 10
+        }
+      },
+      {
+        "id": "hp_amulet",
+        "name": "HP Amulet",
+        "type": "accessory",
+        "rarity": "common",
+        "description": "An amulet that bolsters vitality.",
+        "stat_bonuses": {
+          "hp_percent": 12
+        }
+      },
+      {
+        "id": "crit_ring",
+        "name": "Critical Ring",
+        "type": "accessory",
+        "rarity": "rare",
+        "description": "Sharpens your senses for critical strikes.",
+        "stat_bonuses": {
+          "crit_chance": 10,
+          "crit_damage": 15
+        }
+      },
+      {
+        "id": "exp_charm",
+        "name": "EXP Charm",
+        "type": "accessory",
+        "rarity": "rare",
+        "description": "A magical charm that attracts more experience.",
+        "stat_bonuses": {
+          "exp_bonus": 20,
+          "pickup_range": 30
+        }
+      },
+      {
+        "id": "vampiric_pendant",
+        "name": "Vampiric Pendant",
+        "type": "accessory",
+        "rarity": "epic",
+        "description": "Drains life force from defeated enemies.",
+        "stat_bonuses": {
+          "life_steal": 5,
+          "hp_percent": 8
+        }
+      },
+      {
+        "id": "time_crystal",
+        "name": "Time Crystal",
+        "type": "accessory",
+        "rarity": "epic",
+        "description": "Bends time to reduce skill cooldowns.",
+        "stat_bonuses": {
+          "cooldown_reduction": 15,
+          "speed_percent": 5
+        }
+      },
+      {
+        "id": "chaos_orb",
+        "name": "Chaos Orb",
+        "type": "accessory",
+        "rarity": "legendary",
+        "description": "An orb of pure chaos. Amplifies everything.",
+        "stat_bonuses": {
+          "damage_percent": 15,
+          "crit_chance": 8,
+          "speed_percent": 8,
+          "exp_bonus": 15
+        }
+      }
+    ]
+  },
+  "slots": {
+    "weapon": 1,
+    "armor": 1,
+    "accessory": 2
+  }
+}

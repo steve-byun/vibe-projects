@@ -5,7 +5,10 @@
       "Edit",
       "Write",
       "Read",
-      "WebFetch"
+      "WebFetch",
+      "Glob(//c/Work/**)",
+      "Grep(//c/Work/**)",
+      "Read(//c/Work/**)"
     ]
   }
 }
