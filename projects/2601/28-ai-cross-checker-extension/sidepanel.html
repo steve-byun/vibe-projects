@@ -13,7 +13,7 @@
                 <h1>AI Cross Checker</h1>
                 <button id="fullPageBtn" class="fullpage-btn" title="전체 페이지로 열기">☐</button>
             </div>
-            <p class="subtitle">GPT & Gemini 크로스체크</p>
+            <p class="subtitle">GPT & Gemini & Claude → Gemini 취합</p>
         </header>
 
         <!-- 탭 상태 및 모델 선택 -->
@@ -42,6 +42,14 @@
                     <option value="pro">Pro (정확)</option>
                 </select>
             </div>
+            <div class="status-card" id="claudeStatus">
+                <div class="status-header">
+                    <span class="indicator"></span>
+                    <span class="label">Claude</span>
+                    <span class="status-text">확인중...</span>
+                </div>
+                <div class="claude-role-label">질문 응답</div>
+            </div>
         </div>
 
         <!-- 옵션 -->
@@ -58,34 +66,34 @@
             <button id="sendBtn" class="send-btn">크로스체크 시작</button>
         </div>
 
-        <!-- 진행 상태 (GPT/Gemini 개별 표시) -->
+        <!-- 진행 상태 -->
         <div class="phase-section" id="phaseSection" style="display: none;">
-            <!-- GPT 진행 상태 -->
-            <div class="progress-row">
-                <div class="progress-label-row">
-                    <span class="progress-ai-icon gpt-icon">G</span>
-                    <span class="progress-ai-name">GPT</span>
-                    <span class="progress-status" id="gptProgressStatus">대기</span>
+            <!-- AI 상태 뱃지 -->
+            <div class="ai-badges">
+                <div class="ai-badge" id="gptBadge">
+                    <span class="badge-icon gpt-icon">G</span>
+                    <span class="badge-name">GPT</span>
+                    <span class="badge-status" id="gptBadgeStatus"></span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill gpt-fill" id="gptProgressFill"></div>
+                <div class="ai-badge" id="geminiBadge">
+                    <span class="badge-icon gemini-icon">✦</span>
+                    <span class="badge-name">Gemini</span>
+                    <span class="badge-status" id="geminiBadgeStatus"></span>
                 </div>
-            </div>
-
-            <!-- Gemini 진행 상태 -->
-            <div class="progress-row">
-                <div class="progress-label-row">
-                    <span class="progress-ai-icon gemini-icon">✦</span>
-                    <span class="progress-ai-name">Gemini</span>
-                    <span class="progress-status" id="geminiProgressStatus">대기</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill gemini-fill" id="geminiProgressFill"></div>
+                <div class="ai-badge" id="claudeBadge">
+                    <span class="badge-icon claude-icon">C</span>
+                    <span class="badge-name">Claude</span>
+                    <span class="badge-status" id="claudeBadgeStatus"></span>
                 </div>
             </div>
 
-            <!-- 전체 단계 표시 -->
-            <div class="overall-phase" id="overallPhase">
+            <!-- 단일 프로그레스 바 -->
+            <div class="progress-bar">
+                <div class="progress-fill overall-fill" id="overallProgressFill"></div>
+            </div>
+
+            <!-- 현재 단계 -->
+            <div class="overall-phase">
                 <div class="phase-spinner"></div>
                 <span class="phase-label" id="phaseLabel">준비 중...</span>
             </div>
@@ -103,7 +111,7 @@
                 <div class="result-box-content" id="commonContent"></div>
             </div>
 
-            <!-- GPT/Gemini 개별 의견 -->
+            <!-- GPT/Gemini/Claude 개별 의견 -->
             <div class="result-split">
                 <div class="result-box result-gpt">
                     <div class="result-box-header">
@@ -116,6 +124,12 @@
                         <span>Gemini</span>
                     </div>
                     <div class="result-box-content" id="geminiContent"></div>
+                </div>
+                <div class="result-box result-claude">
+                    <div class="result-box-header">
+                        <span>Claude</span>
+                    </div>
+                    <div class="result-box-content" id="claudeContent"></div>
                 </div>
             </div>
 
@@ -130,10 +144,11 @@
 
         <!-- 안내 메시지 -->
         <div class="help-section">
-            <p>ChatGPT와 Gemini 탭을 열어두세요</p>
+            <p>ChatGPT, Gemini, Claude 탭을 열어두세요</p>
             <div class="help-links">
                 <a href="https://chatgpt.com" target="_blank">ChatGPT 열기</a>
                 <a href="https://gemini.google.com" target="_blank">Gemini 열기</a>
+                <a href="https://claude.ai" target="_blank">Claude 열기</a>
             </div>
         </div>
     </div>
