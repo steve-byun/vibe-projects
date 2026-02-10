@@ -4,6 +4,63 @@
 
 ---
 
+### 260210-3
+- [x] 로봇공학 s08: Computed Torque (CT) 제어 학습
+  - PD+G(g만 보상) vs CT(M,C,g 전부 보상) 비교
+  - 빠른 궤적(0.5초, ~90 deg/s)에서 CT 압승 확인
+  - 모델 오차(20%) 시 성능 저하 실험
+- [x] 로봇공학 s09: 임피던스 제어 학습
+  - 위치 제어 vs 힘 제어 개념 (벽 접촉 시나리오)
+  - 강성(K) 튜닝: K=0(프리드라이브)~K=∞(포지션 모드) 스펙트럼
+  - 작업 공간 제어 (J' 사용), UR 프리드라이브와의 연관
+- [x] s07 LaTeX 텍스트 수정 (다크 테마 호환)
+- [x] ROBOTICS_LEARNING.md 업데이트 (s08, s09 추가, 학습 노트)
+
+### 260210-2
+- [x] 카피바라 Go! v1.1 버그 수정 (3건)
+  - 전투 결과 안 보임 (늑대 프리즈): CSS `.active` vs JS `style.display` 불일치 → classList 통일
+  - 인벤토리 안 열림: 동일 원인 → classList 방식 수정
+  - 로그 자동 스크롤 안 됨: `.slide-up` → `.log-entry` 클래스명 통일 + requestAnimationFrame
+- [x] 에이전트 팀 아키텍처 템플릿 생성 (`tools/AGENT_TEAM_ARCHITECTURE_TEMPLATE.md`)
+  - Part A: 공통 규칙 7개 (CSS↔JS, 속성명 계약, 데이터 안전, side effect, 버그 DB 등)
+  - Part B: 프로젝트별 채우기 템플릿
+
+### 260210-1
+- [x] StarCraft RTS 웹 클론 프로젝트 생성 시작
+  - 5명 에이전트 팀 구성 (foundation-dev, world-dev, entity-dev, combat-ai-dev, ui-dev)
+  - HTML5 Canvas + Vanilla JS, Top-down 2D 뷰
+  - 테란 1종족: 유닛 5종, 건물 9종
+  - 핵심 메커니즘: 자원 채취, 건설, 생산, 전투, A* 패스파인딩, 포그 오브 워, 미니맵, AI 상대
+  - Phase 0 완료: 공유 기반 파일 3개 (constants.js, events.js, entity.js)
+  - Phase 1 실행: 5 에이전트 28개 파일 병렬 작업 중
+  - 파일: 28개 (1 HTML + 1 CSS + 26 JS)
+
+### 260209-9
+- [x] Shorts Factory (5-Agent 쇼츠 자동 생성) 프로젝트 생성
+  - 5명 AI 에이전트 팀: 기획PD, 작가, 리서처, 성우, 편집자
+  - Claude API + Edge-TTS + Pexels API + FFmpeg 파이프라인
+  - 리서처+성우 병렬 실행 (ThreadPoolExecutor)
+  - 웹 UI (다크 테마, SSE 실시간 파이프라인 시각화)
+  - 기존 youtube-shorts-generator의 서비스 모듈 재활용/개선
+  - 파일: 22개 (backend 19 + frontend 3)
+
+### 260209-8
+- [x] 카피바라 Go! 웹 게임 프로젝트 생성
+  - 5명 에이전트 팀 구성 (html-architect, css-stylist, data-creator, mechanics-dev, game-engine)
+  - 카피바라 Go 스타일 텍스트 기반 로그라이크 RPG (웹)
+  - 모바일 우선 다크 테마 UI, 전체 한국어
+  - 60일 챕터 시스템, 자동 전투, 스킬 선택 (32개 스킬)
+  - 16개 인카운터 이벤트, 15개 적 (3챕터), 12개 장비, 6개 펫
+  - 저장/로드 (localStorage), 인벤토리, 레벨업 시스템
+  - 파일: index.html, css/style.css, js/data.js, js/mechanics.js, js/game.js (총 4138줄)
+
+### 260209-7
+- [x] AI 크로스체커 Chrome throttle 이슈 분석 및 문서화
+  - 최소화/가상 데스크톱/가림 → Chrome이 탭 JS 실행 throttle → 동작 불가 확인
+  - 이전 백그라운드 우회 로직(2~4차) 재시도 불가 판단
+  - 해결법 정리: 화면에 보이게 배치 또는 PowerToys Always on Top 사용
+  - 알려진 이슈 문서 업데이트
+
 ### 260209-6
 - [x] AI 크로스체커 구조 단순화 + 사전 검사 + 응답 감지 강화
   - 팝업 윈도우 로직 완전 제거 (setupBackgroundWindow, teardownBackgroundWindow, visibilityOverride, silentAudio 등)

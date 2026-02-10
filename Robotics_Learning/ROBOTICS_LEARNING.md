@@ -37,6 +37,8 @@ Robotics_Learning/
 | `s05_kinematics_jacobian.m` | kinematics | 자코비안, 특이점 | ✅ |
 | `s06_dynamics_basics.m` | dynamics | 토크 계산, M/C/g, 중력보상 | ✅ |
 | `s07_control_basics.m` | control | PD 제어, 중력보상, 게인 튜닝 | ✅ |
+| `s08_control_computed_torque.m` | control | Computed Torque, 궤적 추종, 모델 오차 | ✅ |
+| `s09_control_impedance.m` | control | 임피던스 제어, 벽 접촉, 강성 튜닝 | ✅ |
 | `_animation.m` | 부록 | RVCTools 애니메이션 | ✅ |
 
 ---
@@ -115,6 +117,34 @@ g = robot.gravload(q);               % g 따로 보기
 ---
 
 ## 학습 노트
+
+### 260210 - Computed Torque + 임피던스 제어
+
+#### s08: Computed Torque (CT)
+- CT = Computed Torque = Inverse Dynamics Control = Feedback Linearization (같은 것)
+- PD+G는 g만 보상 → CT는 M, C, g 전부 보상
+- 공식: `tau = M*(qdd_d + Kp*e + Kd*ed) + C*qd + g`
+  - `(qdd_d + Kp*e + Kd*ed)` = 원하는 가속도 (토크가 아님!)
+  - M이 가속도를 토크로 변환 (F=ma의 회전 버전)
+- 느린 궤적: PD+G와 CT 차이 거의 없음
+- 빠른 궤적 (~90 deg/s): CT가 압도적으로 정확
+  - 관절1(어깨, 무거움)에서 차이가 크게 남
+  - 관절2(팔꿈치, 가벼움)는 M,C가 작아서 차이 적음
+- 약점: 모델(M,C,g)이 틀리면 성능 떨어짐 (모델 기반이니까)
+  - 공구 무게 안 바꾸면, CAD와 실무게 차이 등
+  - 보완: Robust Control, Adaptive Control
+
+#### s09: 임피던스 제어
+- 지금까지 전부 "위치 제어" → 임피던스는 "위치+힘" 제어
+- 핵심: 로봇의 강성(K)을 내가 정하는 것
+  - K=0: 프리드라이브 (UR 프리드라이브 모드)
+  - K=작음: 말랑 (계란 잡기, 협동로봇)
+  - K=큼: 딱딱 (드릴 작업)
+  - K=∞: 포지션 모드
+- 공식: `tau = g(q) + J' * (K*(x_d-x) + B*(0-xd))`
+  - 관절 공간(q)이 아닌 작업 공간(x,y)에서 제어
+  - J'(자코비안 전치)가 끝점 힘 → 관절 토크 변환
+- 벽 접촉 시나리오: 딱딱(K=5000)은 벽 세게 밀음, 말랑(K=300)은 살살
 
 ### 260209-2 - 제어 기초 (상세)
 
@@ -320,11 +350,15 @@ q̇ = J⁻¹ * ẋ  (역방향: 실제 제어용) ⭐
 
 ## 다음 학습 계획
 
-### s07_control 심화 (다음)
+### s07_control 심화
 1. ~~PD/PID 제어~~ ✅
 2. ~~중력보상 제어~~ ✅
-3. 역동역학 기반 제어 (Computed Torque)
-4. 임피던스/힘 제어
+3. ~~역동역학 기반 제어 (Computed Torque)~~ ✅
+4. ~~임피던스/힘 제어~~ ✅
+
+### 다음 단계 (검토 필요)
+- 6-Link 로봇으로 확장
+- 또는 실무 심화 (경로 계획, 충돌 회피 등)
 
 ---
 

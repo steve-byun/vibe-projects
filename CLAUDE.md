@@ -28,6 +28,9 @@
 | AI 크로스체커 (확장) | `projects/2601/28-ai-cross-checker-extension` | `AI_CROSS_CHECKER.md` | 사용 중 |
 | AI 크로스체커 (웹) | `projects/2601/28-ai-cross-checker` | - | 배포됨 |
 | 서바이버 게임 | `projects/2602/09-survivor-game` | `SURVIVOR_GAME.md` | 개발 중 |
+| 카피바라 Go! | `projects/2602/09-capybara-go` | `CAPYBARA_GO.md` | 개발 완료 |
+| StarCraft RTS | `projects/2602/10-starcraft-rts` | `STARCRAFT_RTS.md` | 개발 중 |
+| Shorts Factory | `projects/2602/10-youtube-shorts-agents` | `SHORTS_AGENTS.md` | 개발 중 |
 | 로봇공학 학습 | `Robotics_Learning` | `ROBOTICS_LEARNING.md` | 학습 중 |
 
 ### 완료
@@ -76,5 +79,5 @@ C:\share\Dev\
 | **AdSense** | `ca-pub-4976487856728705` (승인 대기 중) |
 
 ## TODO
-- [ ] s07_control 심화: Computed Torque, 임피던스/힘 제어
+- [x] s07_control 심화: Computed Torque, 임피던스/힘 제어
 - [ ] AdSense 승인 확인

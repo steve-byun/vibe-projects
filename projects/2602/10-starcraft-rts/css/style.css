@@ -1,0 +1,606 @@
+/* === StarCraft RTS Clone - Master Stylesheet ===
+ * Dark chrome StarCraft-inspired theme
+ * Layout: fixed canvas + overlay HUD + screen modals
+ */
+
+/* ==========================================
+   RESET & BASE
+   ========================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  font-family: 'Consolas', 'Courier New', 'Lucida Console', monospace;
+  color: #e0e0e0;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+/* ==========================================
+   CANVAS
+   ========================================== */
+
+#game-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+}
+
+/* ==========================================
+   TOP HUD BAR (Resources)
+   ========================================== */
+
+#hud-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 16px;
+  background: linear-gradient(180deg, #1a1a2e 0%, #12122a 100%);
+  border-bottom: 1px solid #2a2a4a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+#res-minerals,
+#res-gas,
+#res-supply {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+}
+
+#res-minerals {
+  color: #00bfff;
+}
+
+#res-gas {
+  color: #00ff00;
+}
+
+#res-supply {
+  color: #e0e0e0;
+  margin-left: auto;
+}
+
+#res-supply.supply-blocked {
+  color: #ff4444;
+  animation: supply-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes supply-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
+/* Resource Icons */
+.res-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+
+.mineral-icon {
+  background: #00bfff;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.gas-icon {
+  background: #00ff00;
+  border-radius: 50%;
+}
+
+/* ==========================================
+   BOTTOM HUD BAR (Minimap + Selection + Commands)
+   ========================================== */
+
+#hud-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 200px 1fr 250px;
+  background: linear-gradient(0deg, #1a1a2e 0%, #141430 100%);
+  border-top: 2px solid #2a2a4a;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================
+   MINIMAP PANEL
+   ========================================== */
+
+#panel-minimap {
+  width: 200px;
+  height: 200px;
+  border-right: 1px solid #2a2a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111111;
+  position: relative;
+}
+
+#minimap-canvas {
+  display: block;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
+
+/* ==========================================
+   SELECTION PANEL (center)
+   ========================================== */
+
+#panel-selection {
+  padding: 8px 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  border-right: 1px solid #2a2a4a;
+}
+
+/* Single unit/building selection */
+.sel-single {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+}
+
+.sel-portrait {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #3a3a5a;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sel-portrait.building-portrait {
+  width: 90px;
+  height: 70px;
+  border-radius: 2px;
+}
+
+/* Inner shape for unit portrait */
+.sel-portrait::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.sel-portrait.building-portrait::after {
+  border-radius: 4px;
+  width: 50px;
+  height: 35px;
+}
+
+.sel-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sel-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px rgba(0, 66, 255, 0.4);
+}
+
+.sel-stats {
+  font-size: 11px;
+  color: #aaaacc;
+  letter-spacing: 0.3px;
+}
+
+/* HP Bar */
+.sel-hp-bar {
+  width: 100%;
+  max-width: 280px;
+  height: 10px;
+  background: #333333;
+  border: 1px solid #4a4a6a;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sel-hp-fill {
+  height: 100%;
+  background: #00cc00;
+  transition: width 0.2s ease;
+}
+
+.sel-hp-fill.hp-mid {
+  background: #cccc00;
+}
+
+.sel-hp-fill.hp-low {
+  background: #cc0000;
+}
+
+/* Construction Progress Bar */
+.sel-progress-bar {
+  width: 100%;
+  max-width: 280px;
+  height: 8px;
+  background: #222222;
+  border: 1px solid #3a3a5a;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.sel-progress-fill {
+  height: 100%;
+  background: #00aaff;
+  transition: width 0.3s ease;
+}
+
+/* Training Queue */
+.sel-train-queue {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.train-item {
+  padding: 3px 8px;
+  font-size: 11px;
+  background: #222240;
+  border: 1px solid #3a3a5a;
+  border-radius: 3px;
+  color: #aaaacc;
+}
+
+.train-item.active {
+  background: #1a2a50;
+  border-color: #00aaff;
+  color: #00ccff;
+  box-shadow: 0 0 4px rgba(0, 170, 255, 0.3);
+}
+
+/* Multi-select display */
+.sel-multi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 4px;
+  align-content: flex-start;
+  width: 100%;
+}
+
+.sel-unit-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 40px;
+  padding: 4px;
+  background: #1a1a30;
+  border: 1px solid #2a2a4a;
+  border-radius: 3px;
+  cursor: default;
+}
+
+.sel-unit-icon:hover {
+  border-color: #4a4a7a;
+  background: #222244;
+}
+
+.unit-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.unit-dot.shape-rect {
+  border-radius: 3px;
+}
+
+.unit-dot.shape-triangle {
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.unit-count {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ccccee;
+}
+
+/* ==========================================
+   COMMAND PANEL (right)
+   ========================================== */
+
+#panel-commands {
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  align-content: start;
+}
+
+.cmd-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 2px;
+  background: linear-gradient(180deg, #2a2a4e 0%, #1a1a38 100%);
+  border: 1px solid #3a3a5a;
+  border-radius: 3px;
+  color: #d0d0ee;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s, box-shadow 0.1s;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cmd-btn:hover {
+  background: linear-gradient(180deg, #3a3a6e 0%, #2a2a50 100%);
+  border-color: #5a5a8a;
+  box-shadow: 0 0 6px rgba(0, 66, 255, 0.3);
+}
+
+.cmd-btn:active {
+  background: linear-gradient(180deg, #1a1a38 0%, #0a0a28 100%);
+  border-color: #0042ff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.cmd-btn-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cmd-btn .cmd-label {
+  font-size: 10px;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.cmd-btn .cmd-hotkey {
+  font-size: 9px;
+  color: #7777aa;
+  letter-spacing: 0.5px;
+}
+
+.cmd-btn .cmd-cost {
+  font-size: 8px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.cmd-btn .cmd-cost .cost-mineral {
+  color: #00bfff;
+}
+
+.cmd-btn .cmd-cost .cost-gas {
+  color: #00ff00;
+}
+
+/* Train button — highlight the production buttons */
+.cmd-btn.cmd-train {
+  border-color: #3a5a3a;
+}
+
+.cmd-btn.cmd-train:hover {
+  border-color: #5a8a5a;
+  box-shadow: 0 0 6px rgba(0, 200, 0, 0.2);
+}
+
+/* Build menu button */
+.cmd-btn.cmd-build {
+  border-color: #5a5a3a;
+}
+
+.cmd-btn.cmd-build:hover {
+  border-color: #8a8a5a;
+  box-shadow: 0 0 6px rgba(200, 200, 0, 0.2);
+}
+
+/* ==========================================
+   SCREEN OVERLAYS (Title, Victory, Defeat)
+   ========================================== */
+
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.screen.active {
+  display: flex;
+}
+
+.screen-content {
+  text-align: center;
+  padding: 60px 80px;
+  background: linear-gradient(180deg, #1a1a3a 0%, #0a0a1e 100%);
+  border: 2px solid #2a2a5a;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0, 66, 255, 0.2), 0 0 80px rgba(0, 0, 0, 0.6);
+  max-width: 500px;
+}
+
+.screen-content h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  text-shadow: 0 0 20px rgba(0, 66, 255, 0.5);
+}
+
+#screen-title .screen-content h1 {
+  color: #00aaff;
+  text-shadow: 0 0 30px rgba(0, 170, 255, 0.5);
+}
+
+#screen-victory .screen-content h1 {
+  color: #ffcc00;
+  text-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+}
+
+#screen-defeat .screen-content h1 {
+  color: #ff4444;
+  text-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
+}
+
+.screen-content p {
+  font-size: 14px;
+  color: #8888aa;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 40px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+  color: #ffffff;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #0055ff 0%, #0033cc 100%);
+  border: 1px solid #0066ff;
+  box-shadow: 0 0 10px rgba(0, 66, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #0066ff 0%, #0044dd 100%);
+  box-shadow: 0 0 20px rgba(0, 66, 255, 0.5);
+  transform: scale(1.03);
+}
+
+.btn-primary:active {
+  background: linear-gradient(180deg, #0033cc 0%, #0022aa 100%);
+  box-shadow: 0 0 5px rgba(0, 66, 255, 0.2);
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   SCROLLBAR STYLING (thin dark scrollbar)
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3a5a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a5a7a;
+}
+
+/* ==========================================
+   TOOLTIP (for build menu cost display)
+   ========================================== */
+
+.ui-tooltip {
+  position: absolute;
+  padding: 6px 10px;
+  background: #0a0a20;
+  border: 1px solid #3a3a5a;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #ccccee;
+  z-index: 50;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+.hidden {
+  display: none !important;
+}
+
+.text-cyan {
+  color: #00bfff;
+}
+
+.text-green {
+  color: #00ff00;
+}
+
+.text-red {
+  color: #ff4444;
+}
+
+.text-yellow {
+  color: #ffcc00;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>카피바라 Go!</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦫</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== 타이틀 화면 ===== -->
+  <section id="screen-title" class="screen active">
+    <header id="title-logo">
+      <div class="title-icon">🦫</div>
+      <h1>카피바라 Go!</h1>
+      <p class="subtitle">텍스트 로그라이크 RPG</p>
+    </header>
+    <nav class="title-buttons">
+      <button id="btn-start" class="btn btn-primary">새 게임</button>
+      <button id="btn-continue" class="btn btn-secondary">이어하기</button>
+    </nav>
+  </section>
+
+  <!-- ===== 메인 게임 화면 ===== -->
+  <section id="screen-game" class="screen">
+    <header id="game-header">
+      <span id="display-chapter">챕터 1</span>
+      <span id="display-day">1 / 60 일차</span>
+    </header>
+
+    <div id="player-stats">
+      <div class="stats-top-row">
+        <div id="player-avatar">🦫</div>
+        <div class="stats-bars">
+          <div class="stat-row">
+            <span class="stat-label">HP</span>
+            <div id="stat-hp-bar" class="hp-bar">
+              <div id="stat-hp-fill" class="hp-fill"></div>
+              <span id="stat-hp-text" class="hp-text">100 / 100</span>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">EXP</span>
+            <div id="stat-exp-bar" class="exp-bar">
+              <div id="stat-exp-fill" class="exp-fill"></div>
+              <span id="stat-exp-text" class="exp-text">0 / 100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stats-numbers">
+        <div id="stat-level" class="stat-item"><span class="stat-icon">레벨</span><span class="stat-value">1</span></div>
+        <div id="stat-atk" class="stat-item"><span class="stat-icon">⚔️ 공격</span><span class="stat-value">15</span></div>
+        <div id="stat-def" class="stat-item"><span class="stat-icon">🛡️ 방어</span><span class="stat-value">5</span></div>
+        <div id="stat-gold" class="stat-item"><span class="stat-icon">💰 골드</span><span class="stat-value">0</span></div>
+      </div>
+    </div>
+
+    <main id="game-log"></main>
+
+    <footer id="game-actions">
+      <button id="btn-next-day" class="btn btn-primary">다음 날 →</button>
+      <button id="btn-inventory" class="btn btn-secondary">인벤토리</button>
+      <button id="btn-skills" class="btn btn-secondary">스킬 목록</button>
+    </footer>
+  </section>
+
+  <!-- ===== 전투 화면 ===== -->
+  <section id="screen-battle" class="screen">
+    <div class="battle-arena">
+      <div id="battle-enemy">
+        <span id="enemy-name">슬라임</span>
+        <div id="enemy-icon">🟢</div>
+        <div id="enemy-hp-bar" class="hp-bar">
+          <div id="enemy-hp-fill" class="hp-fill"></div>
+          <span id="enemy-hp-text" class="hp-text">50 / 50</span>
+        </div>
+      </div>
+
+      <div id="battle-vs">⚔️ VS</div>
+
+      <div id="battle-player">
+        <span class="player-name">카피바라</span>
+        <div class="player-icon">🦫</div>
+        <div id="battle-player-hp-bar" class="hp-bar">
+          <div id="battle-player-hp-fill" class="hp-fill"></div>
+          <span id="battle-player-hp-text" class="hp-text">100 / 100</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="battle-log"></div>
+
+    <div id="battle-result">
+      <p id="battle-result-text"></p>
+      <div id="battle-rewards"></div>
+      <button id="btn-battle-continue" class="btn btn-primary">계속</button>
+    </div>
+  </section>
+
+  <!-- ===== 이벤트 화면 ===== -->
+  <section id="screen-event" class="screen">
+    <div id="event-icon"></div>
+    <h2 id="event-title"></h2>
+    <p id="event-description"></p>
+    <div id="event-choices"></div>
+  </section>
+
+  <!-- ===== 스킬 선택 화면 ===== -->
+  <section id="screen-skill-select" class="screen">
+    <h2 id="skill-select-title">스킬을 선택하세요!</h2>
+    <div id="skill-cards"></div>
+  </section>
+
+  <!-- ===== 챕터 클리어 화면 ===== -->
+  <section id="screen-chapter-clear" class="screen">
+    <h2 id="clear-title">챕터 클리어!</h2>
+    <div id="clear-rewards"></div>
+    <button id="btn-next-chapter" class="btn btn-primary">다음 챕터 →</button>
+  </section>
+
+  <!-- ===== 게임 오버 화면 ===== -->
+  <section id="screen-gameover" class="screen">
+    <h2 id="gameover-title">게임 오버</h2>
+    <div id="gameover-stats"></div>
+    <button id="btn-restart" class="btn btn-danger">다시 시작</button>
+  </section>
+
+  <!-- ===== 모달: 인벤토리 ===== -->
+  <div id="modal-overlay">
+    <div id="modal-inventory">
+      <h2>인벤토리</h2>
+      <div id="inventory-equipment">
+        <h3>장비</h3>
+      </div>
+      <div id="inventory-skills">
+        <h3>보유 스킬</h3>
+      </div>
+      <div id="inventory-pets">
+        <h3>펫</h3>
+      </div>
+      <button id="btn-close-inventory" class="btn btn-secondary">닫기</button>
+    </div>
+  </div>
+
+  <!-- ===== 스크립트 ===== -->
+  <script src="js/data.js"></script>
+  <script src="js/mechanics.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

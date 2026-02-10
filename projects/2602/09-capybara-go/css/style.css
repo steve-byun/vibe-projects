@@ -1,0 +1,1174 @@
+/* ============================================
+   카피바라 Go! - CSS 스타일시트
+   다크 테마 / 모바일 우선 반응형
+   ============================================ */
+
+/* ---------- CSS 변수 ---------- */
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-secondary: #0f3460;
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0b8;
+  --accent: #e94560;
+  --hp-high: #4ecca3;
+  --hp-mid: #ffd700;
+  --hp-low: #e94560;
+  --exp-color: #00b4d8;
+  --gold-color: #ffd700;
+  --rarity-common: #9e9e9e;
+  --rarity-legendary: #a855f7;
+  --rarity-mythic: #f59e0b;
+  --btn-primary: #4ecca3;
+  --btn-secondary: #0f3460;
+  --btn-danger: #e94560;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --transition: 0.25s ease;
+}
+
+/* ---------- 리셋 & 기본 ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Noto Sans KR', 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* ---------- 앱 컨테이너 ---------- */
+#app {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================
+   키프레임 애니메이션
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+  20%, 40%, 60%, 80% { transform: translateX(6px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@keyframes damageFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  60% { opacity: 1; transform: translateY(-36px) scale(1.15); }
+  100% { opacity: 0; transform: translateY(-56px) scale(0.9); }
+}
+
+@keyframes healFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  60% { opacity: 1; transform: translateY(-36px) scale(1.15); }
+  100% { opacity: 0; transform: translateY(-56px) scale(0.9); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 6px var(--glow-color); }
+  50% { box-shadow: 0 0 20px var(--glow-color), 0 0 36px var(--glow-color); }
+}
+
+@keyframes battleIntro {
+  0% { opacity: 0; transform: translateX(80px) scale(0.7); }
+  60% { opacity: 1; transform: translateX(-8px) scale(1.03); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes playerIntro {
+  0% { opacity: 0; transform: translateX(-80px) scale(0.7); }
+  60% { opacity: 1; transform: translateX(8px) scale(1.03); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes cardAppear {
+  0% { opacity: 0; transform: translateY(40px) rotateX(15deg); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}
+
+@keyframes victoryPulse {
+  0% { transform: scale(1); text-shadow: 0 0 8px var(--gold-color); }
+  50% { transform: scale(1.1); text-shadow: 0 0 24px var(--gold-color), 0 0 40px var(--gold-color); }
+  100% { transform: scale(1); text-shadow: 0 0 8px var(--gold-color); }
+}
+
+@keyframes defeatShake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-4px) rotate(-1deg); }
+  75% { transform: translateX(4px) rotate(1deg); }
+}
+
+@keyframes hpPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ---------- 유틸리티 애니메이션 클래스 ---------- */
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.45s ease forwards;
+}
+
+/* ============================================
+   화면 (Screens)
+   ============================================ */
+
+.screen {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen.active {
+  display: flex;
+  animation: fadeIn 0.35s ease;
+}
+
+/* ============================================
+   타이틀 화면 (#screen-title)
+   ============================================ */
+
+#screen-title {
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+#title-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+#title-logo .title-icon {
+  font-size: 5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+#title-logo .title-text {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px rgba(233, 69, 96, 0.5);
+}
+
+#title-logo .title-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+#screen-title .title-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+}
+
+/* ============================================
+   버튼
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  transition: transform var(--transition), background var(--transition),
+    box-shadow var(--transition);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.94);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--btn-primary);
+  color: #0d0d1a;
+}
+
+.btn-primary:active {
+  background: #3eb890;
+}
+
+.btn-secondary {
+  background: var(--btn-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-secondary:active {
+  background: #0b2a50;
+}
+
+.btn-danger {
+  background: var(--btn-danger);
+  color: #fff;
+}
+
+.btn-danger:active {
+  background: #c73550;
+}
+
+/* ============================================
+   메인 게임 화면 (#screen-game)
+   ============================================ */
+
+#screen-game {
+  gap: 12px;
+  padding-bottom: 80px;
+}
+
+/* -- 게임 헤더 -- */
+#game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+#game-header span {
+  color: var(--text-secondary);
+}
+
+#game-header .header-value {
+  color: var(--accent);
+}
+
+/* -- 플레이어 스탯 -- */
+#player-stats {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats-top-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#player-avatar {
+  width: 52px;
+  height: 52px;
+  font-size: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stats-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.stat-row .stat-label {
+  width: 32px;
+  text-align: right;
+  color: var(--text-secondary);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stats-numbers {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  gap: 8px;
+}
+
+.stats-numbers .stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stats-numbers .stat-item .stat-icon {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.stats-numbers .stat-item .stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+#stat-level .stat-value { color: var(--exp-color); }
+#stat-atk .stat-value { color: var(--accent); }
+#stat-def .stat-value { color: var(--btn-primary); }
+#stat-gold .stat-value { color: var(--gold-color); }
+
+/* -- HP 바 -- */
+.hp-bar {
+  flex: 1;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hp-fill {
+  height: 100%;
+  border-radius: 9px;
+  background: var(--hp-high);
+  transition: width 0.6s ease, background 0.6s ease;
+}
+
+.hp-fill.medium {
+  background: var(--hp-mid);
+}
+
+.hp-fill.low {
+  background: var(--hp-low);
+  animation: hpPulse 1.2s ease-in-out infinite;
+}
+
+.hp-text,
+.exp-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+/* -- EXP 바 -- */
+.exp-bar {
+  flex: 1;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+}
+
+.exp-fill {
+  height: 100%;
+  border-radius: 7px;
+  background: var(--exp-color);
+  transition: width 0.6s ease;
+}
+
+/* ============================================
+   게임 로그
+   ============================================ */
+
+#game-log,
+#battle-log {
+  flex: 1;
+  min-height: 180px;
+  max-height: 340px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  scroll-behavior: smooth;
+}
+
+.log-entry {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  animation: slideUp 0.3s ease forwards;
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+.log-entry.log-battle { color: var(--accent); }
+.log-entry.log-event { color: var(--exp-color); }
+.log-entry.log-reward { color: var(--gold-color); }
+.log-entry.log-heal { color: var(--hp-high); }
+.log-entry.log-levelup {
+  color: var(--exp-color);
+  font-weight: 700;
+}
+.log-entry.log-important {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================
+   게임 액션 (하단 고정)
+   ============================================ */
+
+#game-actions {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(transparent, var(--bg-primary) 30%);
+  display: flex;
+  gap: 8px;
+}
+
+#game-actions .btn {
+  flex: 1;
+}
+
+#btn-next-day {
+  flex: 2 !important;
+}
+
+/* ============================================
+   전투 화면 (#screen-battle)
+   ============================================ */
+
+#screen-battle {
+  gap: 14px;
+}
+
+.battle-arena {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  padding: 20px 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  position: relative;
+}
+
+/* 적 영역 */
+#battle-enemy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  animation: battleIntro 0.6s ease forwards;
+}
+
+#enemy-icon {
+  font-size: 3.4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+#enemy-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+#enemy-hp-bar {
+  width: 100%;
+  max-width: 140px;
+}
+
+/* VS 표시 */
+#battle-vs {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(233, 69, 96, 0.5);
+  animation: pulse 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* 플레이어 영역 (전투) */
+#battle-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  animation: playerIntro 0.6s ease forwards;
+}
+
+#battle-player .player-icon {
+  font-size: 3.4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+#battle-player-hp-bar {
+  width: 100%;
+  max-width: 140px;
+}
+
+/* 전투 결과 */
+#battle-result {
+  display: none;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  animation: slideUp 0.45s ease;
+}
+
+#battle-result.active {
+  display: block;
+}
+
+#battle-result-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+#battle-result-text.victory {
+  color: var(--gold-color);
+  animation: victoryPulse 1.5s ease-in-out infinite;
+}
+
+#battle-result-text.defeat {
+  color: var(--accent);
+  animation: defeatShake 0.6s ease-in-out infinite;
+}
+
+#battle-rewards {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.reward-item {
+  font-size: 0.9rem;
+  color: var(--gold-color);
+}
+
+/* 데미지 / 회복 텍스트 */
+.damage-text {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  animation: damageFloat 0.9s ease forwards;
+  z-index: 10;
+}
+
+.heal-text {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--hp-high);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  animation: healFloat 0.9s ease forwards;
+  z-index: 10;
+}
+
+/* ============================================
+   이벤트 화면 (#screen-event)
+   ============================================ */
+
+#screen-event {
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+#event-icon {
+  font-size: 4rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+#event-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+#event-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  max-width: 340px;
+  line-height: 1.6;
+}
+
+#event-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+}
+
+#event-choices .btn {
+  text-align: left;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 14px 18px;
+}
+
+.choice-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.choice-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   스킬 선택 화면 (#screen-skill-select)
+   ============================================ */
+
+#screen-skill-select {
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+#skill-select-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+#skill-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+/* 스킬 카드 */
+.skill-card {
+  background: var(--bg-card);
+  border: 2px solid var(--rarity-common);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+  animation: cardAppear 0.5s ease forwards;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skill-card:nth-child(1) { animation-delay: 0.1s; }
+.skill-card:nth-child(2) { animation-delay: 0.25s; }
+.skill-card:nth-child(3) { animation-delay: 0.4s; }
+
+.skill-card:active {
+  transform: scale(0.96);
+}
+
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.skill-card-info {
+  flex: 1;
+}
+
+.skill-card-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.skill-card-rarity {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.skill-card-type {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.skill-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 등급별 스타일 */
+.rarity-common {
+  border-color: var(--rarity-common);
+}
+
+.rarity-common .skill-card-rarity {
+  color: var(--rarity-common);
+}
+
+.rarity-legendary {
+  border-color: var(--rarity-legendary);
+  --glow-color: var(--rarity-legendary);
+  animation: cardAppear 0.5s ease forwards, glow 2.5s ease-in-out infinite;
+}
+
+.rarity-legendary .skill-card-rarity {
+  color: var(--rarity-legendary);
+}
+
+.rarity-mythic {
+  border-color: var(--rarity-mythic);
+  --glow-color: var(--rarity-mythic);
+  animation: cardAppear 0.5s ease forwards, glow 2s ease-in-out infinite;
+}
+
+.rarity-mythic .skill-card-rarity {
+  color: var(--rarity-mythic);
+}
+
+/* ============================================
+   챕터 클리어 (#screen-chapter-clear)
+   ============================================ */
+
+#screen-chapter-clear {
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+#clear-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--gold-color);
+  animation: victoryPulse 1.5s ease-in-out infinite;
+}
+
+#clear-rewards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+#clear-rewards .reward-item {
+  font-size: 1rem;
+}
+
+/* ============================================
+   게임 오버 (#screen-gameover)
+   ============================================ */
+
+#screen-gameover {
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+#gameover-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(233, 69, 96, 0.4);
+}
+
+#gameover-stats {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gameover-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.gameover-stat .label {
+  color: var(--text-secondary);
+}
+
+.gameover-stat .value {
+  font-weight: 700;
+}
+
+/* ============================================
+   모달 / 인벤토리
+   ============================================ */
+
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 90;
+  animation: fadeIn 0.25s ease;
+}
+
+#modal-overlay.active {
+  display: block;
+}
+
+#modal-inventory {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  background: var(--bg-card);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 20px 16px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 100;
+  overflow-y: auto;
+  animation: slideUp 0.35s ease;
+}
+
+#modal-inventory.active {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inventory-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#inventory-equipment,
+#inventory-skills,
+#inventory-pets {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inventory-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+
+.inventory-item .item-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.inventory-item .item-info {
+  flex: 1;
+}
+
+.inventory-item .item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.inventory-item .item-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.inventory-empty {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 12px;
+}
+
+#btn-close-inventory {
+  align-self: center;
+  min-width: 160px;
+}
+
+/* ============================================
+   장비 슬롯 / 스킬 아이템 / 펫 아이템
+   ============================================ */
+
+.equipment-slot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+
+.equipment-slot .eq-icon {
+  font-size: 1.5rem;
+}
+
+.equipment-slot .eq-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.equipment-slot .eq-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.equipment-slot .eq-empty {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.skill-item,
+.pet-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.player-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--hp-high);
+}
+
+/* 타이틀 h1 스타일 */
+#title-logo h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px rgba(233, 69, 96, 0.5);
+}
+
+#title-logo .subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   커스텀 스크롤바
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* ============================================
+   반응형: 데스크톱
+   ============================================ */
+
+@media (min-width: 481px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #0d0d1a;
+  }
+
+  #app {
+    max-width: 420px;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-primary);
+    position: relative;
+  }
+
+  #game-actions {
+    max-width: 420px;
+  }
+
+  #modal-inventory {
+    max-width: 420px;
+  }
+
+  /* 데스크톱: 스킬 카드 가로 배치 */
+  #skill-cards {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .skill-card {
+    flex: 1;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .btn:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+}
+
+/* ============================================
+   안전 영역 (노치 대응)
+   ============================================ */
+
+@supports (padding: env(safe-area-inset-top)) {
+  .screen {
+    padding-top: calc(16px + env(safe-area-inset-top));
+  }
+}
+
+/* ============================================
+   접근성: 모션 축소
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

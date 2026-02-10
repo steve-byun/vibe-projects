@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>StarCraft RTS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <div id="hud-top">
+    <div id="res-minerals"><span class="res-icon mineral-icon"></span> <span id="mineral-count">50</span></div>
+    <div id="res-gas"><span class="res-icon gas-icon"></span> <span id="gas-count">0</span></div>
+    <div id="res-supply"><span id="supply-count">5/10</span></div>
+  </div>
+
+  <div id="hud-bottom">
+    <div id="panel-minimap"><canvas id="minimap-canvas"></canvas></div>
+    <div id="panel-selection"></div>
+    <div id="panel-commands"></div>
+  </div>
+
+  <div id="screen-title" class="screen active">
+    <div class="screen-content">
+      <h1>StarCraft RTS</h1>
+      <p>Terran vs Terran</p>
+      <button id="btn-start" class="btn btn-primary">START GAME</button>
+    </div>
+  </div>
+
+  <div id="screen-victory" class="screen">
+    <div class="screen-content">
+      <h1>VICTORY</h1>
+      <p id="victory-stats"></p>
+      <button id="btn-restart-victory" class="btn btn-primary">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <div id="screen-defeat" class="screen">
+    <div class="screen-content">
+      <h1>DEFEAT</h1>
+      <p id="defeat-stats"></p>
+      <button id="btn-restart-defeat" class="btn btn-primary">TRY AGAIN</button>
+    </div>
+  </div>
+
+  <!-- Scripts: load order matters -->
+  <script src="js/data/constants.js"></script>
+  <script src="js/data/units.js"></script>
+  <script src="js/data/buildings.js"></script>
+  <script src="js/data/tech.js"></script>
+  <script src="js/core/events.js"></script>
+  <script src="js/core/input.js"></script>
+  <script src="js/core/camera.js"></script>
+  <script src="js/core/renderer.js"></script>
+  <script src="js/core/engine.js"></script>
+  <script src="js/world/map.js"></script>
+  <script src="js/world/fog.js"></script>
+  <script src="js/world/minimap.js"></script>
+  <script src="js/entities/entity.js"></script>
+  <script src="js/entities/resource.js"></script>
+  <script src="js/entities/unit.js"></script>
+  <script src="js/entities/building.js"></script>
+  <script src="js/entities/projectile.js"></script>
+  <script src="js/systems/pathfinding.js"></script>
+  <script src="js/systems/selection.js"></script>
+  <script src="js/systems/commands.js"></script>
+  <script src="js/systems/production.js"></script>
+  <script src="js/systems/combat.js"></script>
+  <script src="js/systems/harvesting.js"></script>
+  <script src="js/systems/ai.js"></script>
+  <script src="js/ui/hud.js"></script>
+  <script src="js/ui/selectionPanel.js"></script>
+  <script src="js/ui/commandPanel.js"></script>
+  <script src="js/ui/minimapPanel.js"></script>
+  <script src="js/ui/buildMenu.js"></script>
+  <script src="js/ui/screens.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+    "ai_provider": "gemini",
+    "gemini_api_key": "YOUR_GEMINI_API_KEY_HERE",
+    "gemini_model": "gemini-2.0-flash",
+    "anthropic_api_key": "",
+    "claude_model": "claude-sonnet-4-20250514",
+    "pexels_api_key": "YOUR_PEXELS_API_KEY_HERE",
+    "output_folder": "./output",
+    "ffmpeg_path": "./ffmpeg/ffmpeg.exe",
+    "voice": {
+        "ko": "ko-KR-SunHiNeural",
+        "en": "en-US-JennyNeural"
+    },
+    "server": {
+        "host": "127.0.0.1",
+        "port": 5000
+    },
+    "video": {
+        "width": 1080,
+        "height": 1920,
+        "clip_duration": 2.5,
+        "max_videos": 30
+    }
+}
