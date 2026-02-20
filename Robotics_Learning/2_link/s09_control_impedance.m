@@ -310,8 +310,8 @@ legend(arrayfun(@(k) ['K=' num2str(k)], K_values, 'UniformOutput', false), ...
 
 % K vs 정상상태 힘
 subplot(1, 2, 2);
-bar(categorical(arrayfun(@(k) ['K=' num2str(k)], K_values, 'UniformOutput', false)), ...
-    f_steady, 'FaceColor', [0.4 0.8 1]);
+cats = arrayfun(@(k) ['K=' num2str(k)], K_values, 'UniformOutput', false);
+bar(categorical(cats, cats), f_steady, 'FaceColor', [0.4 0.8 1]);
 ylabel('정상상태 벽 힘 [N]');
 title('K가 크면 힘도 크다!', 'FontSize', 12);
 grid on;

@@ -1,22 +1,8 @@
-# 프로젝트 지침
+# Dev 프로젝트 지침
 
-## 세션 명령어
-
-### `시작` / `작업준비`
-1. 현재 상태 요약 출력
-2. 작업할 프로젝트의 상세 MD 읽기 (필요시)
-
-### `저장` / `끝` / `이상` / `탭 종료`
-1. 작업한 프로젝트의 상세 MD 업데이트
-2. `.claude/CHANGELOG.md`에 작업 내용 추가
-3. MEMORY.md 상태 갱신
-
+## Dev 전용 명령어
 ### `pull` → git pull origin main
 ### `push` → git add -A && git commit && git push
-
-## 기본 규칙
-- 한국어로 대화
-- git push는 항상 먼저 물어보기
 
 ---
 
@@ -31,6 +17,11 @@
 | 카피바라 Go! | `projects/2602/09-capybara-go` | `CAPYBARA_GO.md` | 개발 완료 |
 | StarCraft RTS | `projects/2602/10-starcraft-rts` | `STARCRAFT_RTS.md` | 개발 중 |
 | Shorts Factory | `projects/2602/10-youtube-shorts-agents` | `SHORTS_AGENTS.md` | 개발 중 |
+| Revenue Research | `projects/2602/11-revenue-research` | `REVENUE_RESEARCH.md` | 리서치 완료 |
+| ListingPro AI (확장) | `projects/2602/11-ecommerce-seller-ai` | `ECOMMERCE_SELLER_AI.md` | MVP 완성 (Etsy/Amazon/쿠팡) |
+| Claude Usage Widget | `projects/2602/20-claude-usage-widget` | - | 사용 중 |
+| LAN Notifier | `projects/2602/20-lan-notifier` | - | 개발 중 |
+| iCloud Photo Cleaner | `projects/2602/20-icloud-photo-cleaner` | `ICLOUD_PHOTO_CLEANER.md` | MVP 완성 |
 | 로봇공학 학습 | `Robotics_Learning` | `ROBOTICS_LEARNING.md` | 학습 중 |
 
 ### 완료
@@ -51,14 +42,13 @@
 
 ## 상세 파일 규칙
 - 각 프로젝트 폴더 안에 `프로젝트명.md` (예: `SURVIVOR_GAME.md`)
-- MEMORY.md = AI가 항상 알고 있는 핵심 요약 (자동 로드)
 - `.claude/CHANGELOG.md` = 완료된 작업 히스토리
 
 ## 프로젝트 구조
 
 ```
 C:\share\Dev\
-├── CLAUDE.md                  # 이 파일 (프로젝트 지침 + 인덱스)
+├── CLAUDE.md                  # 이 파일 (Dev 전용 지침)
 ├── .claude/
 │   └── CHANGELOG.md           # 완료된 작업 히스토리
 ├── Robotics_Learning/         # 로봇공학 학습

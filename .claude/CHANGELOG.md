@@ -4,6 +4,111 @@
 
 ---
 
+### 260220-7
+- [x] iCloud Photo Cleaner 로컬 Python 도구 2종 생성 (`projects/2602/20-icloud-photo-cleaner/`)
+  - **photo_cleaner.py**: 로컬 유사 사진 정리 도구
+    - dHash + Hamming distance + Union-Find 그룹핑
+    - 품질 평가: 선명도(50%) + 노출(30%) + 대비(20%) + 해상도 보너스
+    - E:\test\2023 실제 테스트: threshold 18 → 7그룹 15중복 → --move 완료
+  - **food_filter.py**: CLIP 모델 음식 사진 필터
+    - OpenAI CLIP (clip-vit-base-patch32) zero-shot 분류, 100% 로컬 실행
+    - 2단계 판별: food_prob >= 0.4 AND person_prob < 0.3
+    - 라벨 13개: FOOD_ONLY(3) + PERSON(5) + OTHER(5) — 사람 포함 오탐 해결
+  - **Live Photo 지원** (양쪽 스크립트): JPG 이동 시 동일 stem의 .MOV 동반 처리
+    - 이름 충돌 시 suffix_tag 방식으로 JPG/MOV stem 동기화 유지
+
+### 260220-6
+- [x] Claude Usage Widget VSCode 확장 개선 (`projects/2602/20-claude-usage-widget/vscode-extension/`)
+  - Chrome 연결 끊김 감지: 2분 이상 업데이트 없으면 "연결 끊김" 워닝 (노란 배경 + 경과 시간 표시)
+  - 툴팁/상세 형식 통일: `5시간 세션 : 50% 사용 (리셋 : 2h 41m 후)` 한 줄 형식
+  - 색상 기준 변경: 0~74% 초록, 75~89% 노란, 90%+ 빨간
+
+### 260220-5
+- [x] iCloud Photo Cleaner 신규 프로젝트 생성 (`projects/2602/20-icloud-photo-cleaner/`)
+  - Chrome 확장 MV3: iCloud Photos 웹에서 유사 사진 자동 그룹핑 + 베스트 추천
+  - dHash 알고리즘 (64비트 perceptual hash) + Hamming distance로 유사도 판별
+  - 품질 평가: Laplacian 선명도 + 노출 + 대비 + face-api.js 얼굴 인식
+  - Offscreen Document로 Canvas 이미지 처리, Union-Find 그룹핑
+  - 반자동 삭제: 그룹 표시 → 베스트 추천 → 사용자 확인 후 정리
+  - 다크 테마 팝업 UI, 설정 패널 (유사도 임계값, 얼굴 인식 토글)
+
+### 260220-4
+- [x] 원격 PC 셋업 도구 생성 (`tools/remote-pc-setup/`)
+  - README.md: 전체 가이드 (아키텍처, 방식 비교, 퀵스타트, 트러블슈팅)
+  - WinRM 방식: setup_controller_winrm.bat + setup_develop_winrm.bat
+  - SSH 방식: setup_controller_ssh.bat + setup_develop_ssh.bat
+  - PC 명칭 정리: PC A → pc_develop, PC B → pc_controller
+  - 옛 파일(setup_pc_a/b_*.bat) 정리 삭제
+
+### 260220-3
+- [x] LAN Notifier 프로젝트 생성 — PC간 알림 전달 시스템
+  - PC B (desktop-39phk2u)의 Teams/Outlook 알림을 PC A (메인 작업 PC)로 전달
+  - **monitor.py**: Windows 알림 리스너 (winsdk) + Outlook COM 폴백
+  - **receiver.py**: HTTP 수신 + win11toast 표시 + pystray 트레이 아이콘
+  - **config.py**: IP/포트/토큰/감시앱 설정
+  - **test_connection.py**: IP 확인 + 연결 테스트 유틸리티
+  - install.bat, start_receiver.bat, start_monitor.bat
+  - 파일: 7개 (config + monitor + receiver + test + bat 3개)
+
+### 260220-2
+- [x] Claude Usage Widget Chrome 확장 프로젝트 생성
+  - claude.ai 내부 API (`/api/organizations/{orgId}/usage`) 활용
+  - 세션 쿠키 기반 인증 (cookies 권한)
+  - **팝업 UI**: 다크테마, 5시간 세션 + 7일 주간 사용량 바, 리셋 카운트다운 타이머
+  - **배지**: 5시간 세션 사용률 % 표시 (초록/노랑/빨강 색상)
+  - **알림**: 50%/75%/90% 도달 시 Windows 네이티브 토스트 알림 (중복 방지, 세션 리셋 시 초기화)
+  - **자동 갱신**: chrome.alarms로 1분마다 백그라운드 업데이트
+  - 게이지 미터 아이콘 (Python으로 16/48/128px PNG 생성)
+  - 파일: 7개 (manifest + popup 3 + background 1 + lib 1 + icons 3)
+
+### 260220-1
+- [x] 3개 작업영역 설정 통합 정리
+  - **글로벌 CLAUDE.md**: Dev의 구체적 세션 명령어 병합 + 작업영역 테이블 추가
+  - **Dev CLAUDE.md**: 중복 내용 제거 (기본 규칙, 세션 명령어) → Dev 전용만 유지
+  - **Data_Review**: CLAUDE.md + .claude/CHANGELOG.md 신규 생성 (HCR 분석 도구 지침)
+  - **src**: changelog.md 신규 생성 (~/.claude/projects/ 아래, 회사 git 충돌 방지)
+  - **MEMORY.md**: 설정 구조 섹션 추가, 중복 정리
+
+### 260211-4
+- [x] 로봇공학 s09 임피던스 제어 복습 (Figure 1~2 상세 설명)
+  - s09 Figure 2 막대 그래프 정렬 버그 수정 (categorical 알파벳순 → 오름차순)
+- [x] 로봇공학 s10 궤적 생성 스크립트 작성 + 학습 완료
+  - Figure 1: MoveJ vs MoveL (관절 공간 vs 작업 공간, 핵심)
+  - Figure 2: 속도 프로파일 비교 (1차/3차/5차/사다리꼴)
+  - Figure 3: MoveL vs MoveC (직선 vs 원호)
+  - Figure 1에 사다리꼴 점선 비교 추가 (사용자 요청)
+  - ROBOTICS_LEARNING.md 학습 노트 갱신
+
+### 260211-3
+- [x] ListingPro AI — 쿠팡 지원 추가 + 팝업 기반 최적화 플로우 완성
+  - **쿠팡 추가**: content/coupang.js (DOM 파서), 한국어 프롬프트 (prompts.js), 데모 결과 (service-worker.js)
+  - **Popup 기반 결과 표시**: 페이지 오버레이 → 팝업 내 표시로 전환 (DOM 충돌 해결)
+  - **Optimize 버튼**: 팝업에서 직접 `chrome.scripting.executeScript`로 데이터 추출 → Background → 결과
+  - **결과 UI**: SEO 점수, 최적화 제목/설명 (Copy 버튼), 태그 칩, Key Points, 개선점, 경쟁 인사이트
+  - **SPA 네비게이션**: Amazon/Etsy/쿠팡 모두 pushState 감지 + MutationObserver
+  - **manifest.json**: 쿠팡 host_permissions 추가, `scripting` 권한, Amazon 10개국 도메인
+  - 쿠팡 데모 모드 동작 확인 완료
+
+### 260211-2
+- [x] ListingPro AI Chrome 확장 프로젝트 생성 (E-commerce Seller AI)
+  - Revenue Research TOP 1 아이템 기반 실제 개발 착수
+  - 2명 에이전트 팀 (frontend-dev, backend-dev) 병렬 작업
+  - **프로젝트 구조**: Manifest v3, Content Scripts, Service Worker, Popup
+  - **Frontend**: Etsy/Amazon DOM 파서, 플로팅 버튼, 결과 오버레이 (SEO 점수 게이지, 태그 칩, 복사 버튼)
+  - **Backend**: Claude Haiku API 연동, Etsy/Amazon 최적화 프롬프트 4종, 일일 사용량 추적
+  - **공통**: 메시지 타입/데이터 계약 (constants.js), CSS lp- prefix 충돌 방지
+  - 파일: 11개 (manifest + popup 3 + content 3 + background 1 + lib 4 + styles 1)
+  - 다음: 아이콘 생성 → Chrome 로드 → 실제 페이지 테스트
+
+### 260211-1
+- [x] Revenue Research 프로젝트 시작 (수익 기회 리서치)
+  - C-Suite AI 에이전트 3명 생성: CMO, COO/CTO, CRO (`.claude/agents/`)
+  - Phase 1: 실리콘밸리 관점 글로벌 TOP 10 수익 모델 도출
+    - 3자 독립 분석 → 합의: #1 Vertical AI SaaS (만장일치)
+  - Phase 2: Chrome Extension Vertical AI 세부 분석
+    - 최종 TOP 3: E-commerce Seller AI, B2B SDR LinkedIn, Freelancer Proposal AI
+  - 산출물 8개 파일 (`projects/2602/11-revenue-research/`)
+
 ### 260210-3
 - [x] 로봇공학 s08: Computed Torque (CT) 제어 학습
   - PD+G(g만 보상) vs CT(M,C,g 전부 보상) 비교

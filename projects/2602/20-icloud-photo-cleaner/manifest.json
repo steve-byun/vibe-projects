@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "iCloud Photo Cleaner",
+  "version": "0.1.0",
+  "description": "iCloud에서 유사 사진을 찾아 가장 잘 나온 사진만 남기세요",
+  "permissions": ["activeTab", "storage", "scripting", "offscreen"],
+  "host_permissions": ["https://www.icloud.com/*"],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.icloud.com/photos/*"],
+      "js": ["lib/constants.js", "content/icloud.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

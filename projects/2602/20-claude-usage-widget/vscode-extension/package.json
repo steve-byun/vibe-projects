@@ -1,0 +1,37 @@
+{
+  "name": "claude-usage-bar",
+  "displayName": "Claude Usage Bar",
+  "description": "VSCode 상태바에 Claude 사용량을 실시간 표시",
+  "version": "1.0.0",
+  "publisher": "steve-byun",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeUsage.refresh",
+        "title": "Claude Usage: Refresh"
+      },
+      {
+        "command": "claudeUsage.showDetails",
+        "title": "Claude Usage: Show Details"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "manifest_version": 3,
+  "name": "ListingPro AI - E-commerce Listing Optimizer",
+  "version": "0.1.0",
+  "description": "AI-powered listing optimization for Etsy, Amazon & Coupang sellers. Generate SEO-optimized titles, descriptions, and tags in 1 click.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.etsy.com/*",
+    "https://www.amazon.com/*",
+    "https://www.amazon.co.uk/*",
+    "https://www.amazon.de/*",
+    "https://www.amazon.co.jp/*",
+    "https://www.amazon.ca/*",
+    "https://www.amazon.com.au/*",
+    "https://www.amazon.in/*",
+    "https://www.amazon.fr/*",
+    "https://www.amazon.it/*",
+    "https://www.amazon.es/*",
+    "https://www.coupang.com/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.etsy.com/*"],
+      "js": ["lib/constants.js", "content/shared.js", "content/etsy.js"],
+      "css": ["styles/content.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.amazon.com/*",
+        "https://www.amazon.co.uk/*",
+        "https://www.amazon.de/*",
+        "https://www.amazon.co.jp/*",
+        "https://www.amazon.ca/*",
+        "https://www.amazon.com.au/*",
+        "https://www.amazon.in/*",
+        "https://www.amazon.fr/*",
+        "https://www.amazon.it/*",
+        "https://www.amazon.es/*"
+      ],
+      "js": ["lib/constants.js", "content/shared.js", "content/amazon.js"],
+      "css": ["styles/content.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.coupang.com/*"],
+      "js": ["lib/constants.js", "content/shared.js", "content/coupang.js"],
+      "css": ["styles/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

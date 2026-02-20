@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="pc-header">
+    <div class="pc-header-left">
+      <img src="../icons/icon48.png" class="pc-logo" alt="">
+      <span class="pc-title">Photo Cleaner</span>
+    </div>
+    <button id="settingsBtn" class="pc-icon-btn" title="설정">⚙</button>
+  </div>
+
+  <!-- Not on iCloud -->
+  <div id="viewNotIcloud" class="pc-view">
+    <div class="pc-empty">
+      <div class="pc-empty-icon">📷</div>
+      <p>iCloud Photos 페이지에서 사용하세요</p>
+      <a href="https://www.icloud.com/photos/" target="_blank" class="pc-link">icloud.com/photos 열기 →</a>
+    </div>
+  </div>
+
+  <!-- Idle (ready to scan) -->
+  <div id="viewIdle" class="pc-view hidden">
+    <div class="pc-status-card">
+      <div class="pc-status-icon">✅</div>
+      <div class="pc-status-text">
+        <strong>iCloud Photos 감지됨</strong>
+        <p>유사 사진을 스캔하고 가장 잘 나온 사진만 남겨보세요</p>
+      </div>
+    </div>
+    <button id="scanBtn" class="pc-btn-primary">🔍 스캔 시작</button>
+  </div>
+
+  <!-- Scanning -->
+  <div id="viewScanning" class="pc-view hidden">
+    <div class="pc-progress-section">
+      <div class="pc-progress-label">
+        <span id="scanStatusText">사진 추출 중...</span>
+        <span id="scanPercent">0%</span>
+      </div>
+      <div class="pc-progress-bar">
+        <div id="scanProgressFill" class="pc-progress-fill"></div>
+      </div>
+      <p id="scanDetail" class="pc-detail">준비 중...</p>
+    </div>
+    <button id="stopScanBtn" class="pc-btn-secondary">중지</button>
+  </div>
+
+  <!-- Results -->
+  <div id="viewResults" class="pc-view hidden">
+    <div class="pc-results-header">
+      <div class="pc-results-summary">
+        <span id="groupCount" class="pc-big-num">0</span>
+        <span class="pc-label">유사 그룹</span>
+      </div>
+      <div class="pc-results-summary">
+        <span id="deletableCount" class="pc-big-num">0</span>
+        <span class="pc-label">정리 가능</span>
+      </div>
+      <div class="pc-results-summary">
+        <span id="totalScanned" class="pc-big-num">0</span>
+        <span class="pc-label">스캔됨</span>
+      </div>
+    </div>
+
+    <div id="groupsList" class="pc-groups-list">
+      <!-- Groups rendered by app.js -->
+    </div>
+
+    <div class="pc-actions">
+      <button id="cleanBtn" class="pc-btn-primary">🗑️ 선택한 사진 정리</button>
+      <button id="rescanBtn" class="pc-btn-secondary">다시 스캔</button>
+    </div>
+  </div>
+
+  <!-- Deleting -->
+  <div id="viewDeleting" class="pc-view hidden">
+    <div class="pc-progress-section">
+      <div class="pc-progress-label">
+        <span>정리 중...</span>
+        <span id="deletePercent">0%</span>
+      </div>
+      <div class="pc-progress-bar">
+        <div id="deleteProgressFill" class="pc-progress-fill"></div>
+      </div>
+      <p id="deleteDetail" class="pc-detail">사진 선택 중...</p>
+    </div>
+  </div>
+
+  <!-- Done -->
+  <div id="viewDone" class="pc-view hidden">
+    <div class="pc-done">
+      <div class="pc-done-icon">🎉</div>
+      <p><strong id="doneCount">0</strong>장의 사진이 정리되었습니다!</p>
+      <button id="doneBtn" class="pc-btn-secondary">확인</button>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div id="viewSettings" class="pc-view hidden">
+    <h3 class="pc-settings-title">설정</h3>
+
+    <div class="pc-setting-item">
+      <label>유사도 민감도</label>
+      <div class="pc-slider-row">
+        <input type="range" id="thresholdSlider" min="5" max="20" value="10" class="pc-slider">
+        <span id="thresholdValue">10</span>
+      </div>
+      <p class="pc-hint">낮을수록 더 엄격 (기본: 10)</p>
+    </div>
+
+    <div class="pc-setting-item">
+      <label>최대 스캔 수</label>
+      <div class="pc-slider-row">
+        <input type="range" id="maxPhotosSlider" min="50" max="1000" step="50" value="500" class="pc-slider">
+        <span id="maxPhotosValue">500</span>
+      </div>
+    </div>
+
+    <div class="pc-setting-item">
+      <label class="pc-toggle-label">
+        <input type="checkbox" id="faceToggle" checked>
+        <span>얼굴 인식 품질 평가</span>
+      </label>
+      <p class="pc-hint">인물 사진의 품질을 더 정확히 판별합니다</p>
+    </div>
+
+    <button id="settingsBackBtn" class="pc-btn-secondary">← 돌아가기</button>
+  </div>
+
+  <!-- Error -->
+  <div id="viewError" class="pc-view hidden">
+    <div class="pc-error">
+      <div class="pc-error-icon">⚠️</div>
+      <p id="errorMessage">오류가 발생했습니다</p>
+      <button id="errorRetryBtn" class="pc-btn-secondary">다시 시도</button>
+    </div>
+  </div>
+
+  <script src="../lib/constants.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

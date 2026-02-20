@@ -1,0 +1,561 @@
+/**
+ * ListingPro AI - Content Script Styles
+ *
+ * 호스트 페이지와 충돌 방지를 위해 모든 클래스에 lp- 접두사 사용
+ */
+
+/* ============================================================
+   CSS Variables
+   ============================================================ */
+:root {
+  --lp-primary: #7c3aed;
+  --lp-primary-dark: #6d28d9;
+  --lp-primary-light: #a78bfa;
+  --lp-gradient: linear-gradient(135deg, #7c3aed, #3b82f6);
+  --lp-gradient-hover: linear-gradient(135deg, #6d28d9, #2563eb);
+  --lp-white: #ffffff;
+  --lp-gray-50: #f9fafb;
+  --lp-gray-100: #f3f4f6;
+  --lp-gray-200: #e5e7eb;
+  --lp-gray-300: #d1d5db;
+  --lp-gray-500: #6b7280;
+  --lp-gray-700: #374151;
+  --lp-gray-900: #111827;
+  --lp-green: #10b981;
+  --lp-yellow: #f59e0b;
+  --lp-red: #ef4444;
+  --lp-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  --lp-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --lp-radius: 12px;
+  --lp-radius-sm: 8px;
+  --lp-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --lp-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   Floating Button
+   ============================================================ */
+.lp-floating-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 2147483640;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--lp-gradient);
+  color: var(--lp-white);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--lp-font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+  transition: all var(--lp-transition);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.lp-floating-btn:hover {
+  background: var(--lp-gradient-hover);
+  box-shadow: 0 6px 28px rgba(124, 58, 237, 0.55);
+  transform: translateY(-2px);
+}
+
+.lp-floating-btn:active {
+  transform: translateY(0);
+}
+
+.lp-floating-btn-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.lp-floating-btn-text {
+  white-space: nowrap;
+}
+
+/* Pulse 애니메이션 (hover 시) */
+.lp-floating-btn:hover::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50px;
+  background: var(--lp-gradient);
+  opacity: 0;
+  z-index: -1;
+  animation: lp-pulse 1.5s infinite;
+}
+
+@keyframes lp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   Backdrop
+   ============================================================ */
+.lp-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483641;
+  background: rgba(0, 0, 0, 0);
+  transition: background var(--lp-transition);
+  pointer-events: none;
+}
+
+.lp-backdrop.lp-visible {
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+}
+
+/* ============================================================
+   Result Panel (slide-in from right)
+   ============================================================ */
+.lp-result-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2147483642;
+  width: 420px;
+  max-width: 100vw;
+  background: var(--lp-white);
+  box-shadow: var(--lp-shadow);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--lp-transition);
+  font-family: var(--lp-font);
+  color: var(--lp-gray-900);
+}
+
+.lp-result-panel.lp-visible {
+  transform: translateX(0);
+}
+
+/* Panel Header */
+.lp-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--lp-gradient);
+  color: var(--lp-white);
+  flex-shrink: 0;
+}
+
+.lp-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.lp-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  color: var(--lp-white);
+  font-size: 20px;
+  cursor: pointer;
+  transition: background var(--lp-transition);
+  line-height: 1;
+}
+
+.lp-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Panel Body */
+.lp-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* ============================================================
+   Section
+   ============================================================ */
+.lp-section {
+  margin-bottom: 20px;
+}
+
+.lp-section:last-child {
+  margin-bottom: 0;
+}
+
+.lp-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--lp-gray-500);
+  margin: 0 0 8px 0;
+}
+
+.lp-section-content {
+  background: var(--lp-gray-50);
+  border-radius: var(--lp-radius-sm);
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--lp-gray-700);
+  position: relative;
+}
+
+.lp-section-content p {
+  margin: 0;
+}
+
+/* ============================================================
+   SEO Score Gauge
+   ============================================================ */
+.lp-section-score {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.lp-score-gauge {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-score-gauge svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lp-score-bg {
+  fill: none;
+  stroke: var(--lp-gray-200);
+  stroke-width: 6;
+}
+
+.lp-score-fill {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lp-score-high .lp-score-fill {
+  stroke: var(--lp-green);
+}
+
+.lp-score-mid .lp-score-fill {
+  stroke: var(--lp-yellow);
+}
+
+.lp-score-low .lp-score-fill {
+  stroke: var(--lp-red);
+}
+
+.lp-score-value {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  z-index: 1;
+}
+
+.lp-score-high .lp-score-value {
+  color: var(--lp-green);
+}
+
+.lp-score-mid .lp-score-value {
+  color: var(--lp-yellow);
+}
+
+.lp-score-low .lp-score-value {
+  color: var(--lp-red);
+}
+
+.lp-score-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--lp-gray-500);
+  z-index: 1;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Copy Button
+   ============================================================ */
+.lp-copyable {
+  padding-right: 40px;
+}
+
+.lp-copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--lp-white);
+  border: 1px solid var(--lp-gray-200);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--lp-gray-500);
+  transition: all var(--lp-transition);
+}
+
+.lp-copy-btn:hover {
+  color: var(--lp-primary);
+  border-color: var(--lp-primary-light);
+  background: #f5f3ff;
+}
+
+.lp-copy-btn.lp-copied {
+  color: var(--lp-green);
+  border-color: var(--lp-green);
+}
+
+/* ============================================================
+   Tags & Keywords Chips
+   ============================================================ */
+.lp-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lp-tag-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #ede9fe;
+  color: var(--lp-primary-dark);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.lp-keyword-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   Improvements List
+   ============================================================ */
+.lp-improvements-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-improvements-list li {
+  position: relative;
+  padding: 8px 0 8px 24px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--lp-gray-700);
+  border-bottom: 1px solid var(--lp-gray-100);
+}
+
+.lp-improvements-list li:last-child {
+  border-bottom: none;
+}
+
+.lp-improvements-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 14px;
+  height: 14px;
+  background: var(--lp-gradient);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   Bullet Points List
+   ============================================================ */
+.lp-bullet-list {
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style: disc;
+}
+
+.lp-bullet-list li {
+  padding: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--lp-gray-700);
+}
+
+/* ============================================================
+   Insight Text
+   ============================================================ */
+.lp-insight-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--lp-gray-700);
+  background: var(--lp-gray-50);
+  padding: 12px 14px;
+  border-radius: var(--lp-radius-sm);
+  border-left: 3px solid var(--lp-primary);
+  margin: 0;
+}
+
+/* ============================================================
+   Empty State
+   ============================================================ */
+.lp-empty {
+  font-size: 13px;
+  color: var(--lp-gray-500);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ============================================================
+   Loading Overlay
+   ============================================================ */
+.lp-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483643;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--lp-transition);
+  pointer-events: none;
+}
+
+.lp-loading-overlay.lp-visible {
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+}
+
+.lp-loading-content {
+  text-align: center;
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all var(--lp-transition);
+}
+
+.lp-loading-overlay.lp-visible .lp-loading-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.lp-spinner {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--lp-white);
+  border-radius: 50%;
+  animation: lp-spin 0.8s linear infinite;
+}
+
+@keyframes lp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lp-loading-text {
+  color: var(--lp-white);
+  font-family: var(--lp-font);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.lp-loading-sub {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--lp-font);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* ============================================================
+   Toast Notification
+   ============================================================ */
+.lp-toast {
+  position: fixed;
+  bottom: 90px;
+  right: 28px;
+  z-index: 2147483644;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: var(--lp-radius-sm);
+  font-family: var(--lp-font);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--lp-shadow);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all var(--lp-transition);
+  pointer-events: none;
+}
+
+.lp-toast.lp-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lp-toast-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 480px) {
+  .lp-result-panel {
+    width: 100vw;
+  }
+
+  .lp-floating-btn {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}

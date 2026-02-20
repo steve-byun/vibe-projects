@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=400">
+  <title>ListingPro AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="lp-popup">
+    <!-- Header -->
+    <header class="lp-header">
+      <div class="lp-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span class="lp-logo-text">ListingPro AI</span>
+      </div>
+      <button id="settingsBtn" class="lp-icon-btn" aria-label="Settings" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lp-main">
+      <!-- Status Card -->
+      <div class="lp-status-card" id="statusCard">
+        <div class="lp-status-icon" id="statusIcon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+        </div>
+        <p class="lp-status-text" id="statusText">Navigate to a product page to get started</p>
+      </div>
+
+      <!-- Optimize Button -->
+      <button id="optimizeBtn" class="lp-btn lp-btn-optimize" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span id="optimizeBtnText">Optimize with AI</span>
+      </button>
+
+      <!-- Result Area (hidden by default) -->
+      <div id="resultArea" style="display:none;">
+        <!-- SEO Score -->
+        <div class="lp-result-score" id="resultScore">
+          <div class="lp-score-number" id="scoreNumber">0</div>
+          <div class="lp-score-label">SEO Score</div>
+        </div>
+
+        <!-- Optimized Title -->
+        <div class="lp-result-section">
+          <div class="lp-result-header">
+            <h3>Optimized Title</h3>
+            <button class="lp-copy-btn" data-copy="title" title="Copy">Copy</button>
+          </div>
+          <div class="lp-result-content" id="resultTitle"></div>
+        </div>
+
+        <!-- Optimized Description -->
+        <div class="lp-result-section">
+          <div class="lp-result-header">
+            <h3>Description</h3>
+            <button class="lp-copy-btn" data-copy="description" title="Copy">Copy</button>
+          </div>
+          <div class="lp-result-content lp-result-desc" id="resultDescription"></div>
+        </div>
+
+        <!-- Tags -->
+        <div class="lp-result-section" id="resultTagsSection" style="display:none;">
+          <h3>Tags / Keywords</h3>
+          <div class="lp-result-tags" id="resultTags"></div>
+        </div>
+
+        <!-- Bullet Points -->
+        <div class="lp-result-section" id="resultBulletsSection" style="display:none;">
+          <h3>Key Points</h3>
+          <ul class="lp-result-bullets" id="resultBullets"></ul>
+        </div>
+
+        <!-- Improvements -->
+        <div class="lp-result-section" id="resultImprovementsSection" style="display:none;">
+          <h3>Improvements</h3>
+          <ul class="lp-result-improvements" id="resultImprovements"></ul>
+        </div>
+
+        <!-- Competitor Insights -->
+        <div class="lp-result-section" id="resultInsightsSection" style="display:none;">
+          <h3>Competitor Insights</h3>
+          <div class="lp-result-insight" id="resultInsights"></div>
+        </div>
+      </div>
+
+      <!-- Usage Counter -->
+      <div class="lp-usage">
+        <div class="lp-usage-bar-bg">
+          <div class="lp-usage-bar-fill" id="usageBar"></div>
+        </div>
+        <p class="lp-usage-text">
+          <span id="usageCount">0</span>/<span id="usageLimit">3</span> free analyses today
+        </p>
+      </div>
+
+      <!-- API Key Section -->
+      <section class="lp-api-section" id="apiSection">
+        <h3 class="lp-section-label">Claude API Key</h3>
+        <div class="lp-api-input-group">
+          <input type="password" id="apiKeyInput" class="lp-input" placeholder="sk-ant-..." spellcheck="false" autocomplete="off" />
+          <button id="toggleKeyBtn" class="lp-icon-btn lp-toggle-eye" aria-label="Show key" title="Toggle visibility">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <button id="saveKeyBtn" class="lp-btn lp-btn-primary">Save API Key</button>
+        <p class="lp-api-hint" id="apiStatus">Your key is stored locally and never shared.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="lp-footer">
+      <span>ListingPro AI v0.1.0</span>
+    </footer>
+  </div>
+
+  <script src="../lib/constants.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

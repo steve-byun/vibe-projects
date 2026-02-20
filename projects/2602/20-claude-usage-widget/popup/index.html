@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=360">
+  <link rel="stylesheet" href="style.css">
+  <title>Claude Usage</title>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">
+        <img src="../icons/icon48.png" class="logo" alt="">
+        <h1>플랜 사용량 한도</h1>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="error" class="error hidden">
+      <div class="error-icon">!</div>
+      <p>claude.ai에 로그인되어 있지 않습니다.</p>
+      <a href="https://claude.ai" target="_blank" class="login-link">로그인하기 →</a>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>사용량 조회 중...</p>
+    </div>
+
+    <!-- Usage content -->
+    <div id="content" class="content hidden">
+      <!-- 현재 세션 (5시간) -->
+      <div class="usage-section">
+        <div class="section-label">
+          <h2>현재 세션</h2>
+        </div>
+        <div class="section-meta" id="fiveHourReset"></div>
+        <div class="bar-row">
+          <div class="progress-track">
+            <div class="progress-fill" id="fiveHourBar"></div>
+          </div>
+          <span class="usage-pct" id="fiveHourPct">0% 사용됨</span>
+        </div>
+      </div>
+
+      <!-- 주간 한도 (7일) -->
+      <div class="usage-section">
+        <div class="section-label">
+          <h2>주간 한도</h2>
+        </div>
+        <div class="section-sublabel">모든 모델</div>
+        <div class="section-meta" id="sevenDayReset"></div>
+        <div class="bar-row">
+          <div class="progress-track">
+            <div class="progress-fill" id="sevenDayBar"></div>
+          </div>
+          <span class="usage-pct" id="sevenDayPct">0% 사용됨</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <span id="lastUpdate" class="last-update">마지막 업데이트: --</span>
+      <button id="refreshBtn" class="refresh-btn" title="새로고침">⟳</button>
+    </div>
+  </div>
+
+  <script src="../lib/constants.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

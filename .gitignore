@@ -1,2 +1,8 @@
 # Local Netlify folder
 .netlify
+
+# Dependencies
+node_modules/
+
+# Windows에서 /dev/null 리다이렉션 시 생기는 파일
+nul
